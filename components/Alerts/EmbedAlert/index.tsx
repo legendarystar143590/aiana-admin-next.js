@@ -99,66 +99,72 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
 
     const handleUrlAdd = async () => {
       // console.log(botId)
+      toast.dismiss();
       const userId = localStorage.getItem("userID");
       if (isValidUrl(urlInputValue)) {
-        const existingUrl = urls.find(url => url.domain === urlInputValue);
-        if (existingUrl) {
-          toast.error(`${toa('URL_already_exist')}`, { position: toast.POSITION.TOP_RIGHT });
-        } else {
-          const newWebsite: WebsiteObject = {
-            created_at: new Date().toISOString(),
-            id:0,
-            index: uuidv4(),
-            domain: urlInputValue,
-            userId:parseInt(userId, 10),
-            botId
-          };
-        setIsLoading(true)
-        await axios
-        .post(
-          AUTH_API.ADD_WEBSITE,
-          { index:newWebsite.index, userId, botId, domain:urlInputValue },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`, // Example for adding Authorization header
-              "Content-Type": "application/json", // Explicitly defining the Content-Type
-              "ngrok-skip-browser-warning": "1",
+        if (urls.length > 0) {
+          toast.error(`${toa('Bot_already_has_weebsite')}`, { position: toast.POSITION.TOP_RIGHT });
+        }
+        else {
+          const existingUrl = urls.find(url => url.domain === urlInputValue);
+          if (existingUrl) {
+            toast.error(`${toa('URL_already_exist')}`, { position: toast.POSITION.TOP_RIGHT });
+          } else {
+            const newWebsite: WebsiteObject = {
+              created_at: new Date().toISOString(),
+              id:0,
+              index: uuidv4(),
+              domain: urlInputValue,
+              userId:parseInt(userId, 10),
+              botId
+            };
+          setIsLoading(true)
+          await axios
+          .post(
+            AUTH_API.ADD_WEBSITE,
+            { index:newWebsite.index, userId, botId, domain:urlInputValue },
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`, // Example for adding Authorization header
+                "Content-Type": "application/json", // Explicitly defining the Content-Type
+                "ngrok-skip-browser-warning": "1",
+              },
             },
-          },
-        )
-        .then((response) => {
-          setIsLoading(false)
-          if (response.status === 201) {
-            toast.success(`${toa('Successfully_added')}`, { position: toast.POSITION.TOP_RIGHT })
-            setUrls(prevUrls => [...prevUrls, newWebsite]);
-            setUrlInputValue("");
-          } else {
-            toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
-          }
-        })
-        .catch((error) => {
-          setIsLoading(false)
-          if (error.response) {
-            console.log("Error status code:", error.response.status)
-            console.log("Error response data:", error.response.data)
-            if (error.response.status === 401) {
-              router.push("/signin")
+          )
+          .then((response) => {
+            setIsLoading(false)
+            if (response.status === 201) {
+              toast.success(`${toa('Successfully_added')}`, { position: toast.POSITION.TOP_RIGHT })
+              setUrls(prevUrls => [...prevUrls, newWebsite]);
+              setUrlInputValue("");
+            } else {
+              toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
             }
-            if(error.response.status === 403){
-              toast.error(toa('Need_Upgrade_For_Website'), {position:toast.POSITION.TOP_RIGHT})
-            }
-            // Handle the error response as needed
-          } else if (error.request) {
-            // The request was made but no response was received
-            console.log("Error request:", error.request)
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log("Error message:", error.message)
-            toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
+          })
+          .catch((error) => {
+            setIsLoading(false)
+            if (error.response) {
+              console.log("Error status code:", error.response.status)
+              console.log("Error response data:", error.response.data)
+              if (error.response.status === 401) {
+                router.push("/signin")
+              }
+              if(error.response.status === 403){
+                toast.error(toa('Need_Upgrade_For_Website'), {position:toast.POSITION.TOP_RIGHT})
+              }
+              // Handle the error response as needed
+            } else if (error.request) {
+              // The request was made but no response was received
+              console.log("Error request:", error.request)
+            } else {
+              // Something happened in setting up the request that triggered an Error
+              console.log("Error message:", error.message)
+              toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
 
+            }
+          })
+            
           }
-        })
-          
         }
       } else {
         toast.error(tk("Invalid_Domain_Please_enter_a_valid_Domain"), { position: toast.POSITION.TOP_RIGHT });
