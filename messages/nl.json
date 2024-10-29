@@ -201,6 +201,7 @@
         "Name_must_start_and_end_with_a_letter_and_contain_only_letters_and_spaces": "De naam moet beginnen en eindigen met een letter en mag alleen letters en spaties bevatten!",
         "Session_Expired": "Sessie verlopen!",
         "URL_already_exist":"URL bestaat al!", 
+        "Bot_already_has_weebsite":"Bot heeft al een website!",
         "Domain_already_exist":"Domein bestaat al!", 
         "Successfully_Created": "Succesvol gecreeërd!",
         "Need_Ugrade":"Je moet upgraden om meer documenten te uploaden!",

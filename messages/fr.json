@@ -200,6 +200,7 @@
         "Name_must_start_and_end_with_a_letter_and_contain_only_letters_and_spaces": "Le nom doit commencer et se terminer par une lettre et contenir uniquement des lettres et des espaces!",
         "Session_Expired": "La session a expiré !",
         "URL_already_exist":"L'URL existe déjà !", 
+        "Bot_already_has_weebsite":"Le bot a déjà un site Web!",
         "Domain_already_exist":"L'Domaine existe déjà !", 
         "Successfully_Created": "Création réussie !",
         "Need_Ugrade":"Vous devez mettre à niveau pour télécharger plus de documents !",
