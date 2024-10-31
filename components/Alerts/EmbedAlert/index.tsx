@@ -149,6 +149,9 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
               if (error.response.status === 401) {
                 router.push("/signin")
               }
+              if (error.response.status === 402) {
+                toast.error(`${error.response.data.message}`, { position: toast.POSITION.TOP_RIGHT })
+              }
               if(error.response.status === 403){
                 toast.error(toa('Need_Upgrade_For_Website'), {position:toast.POSITION.TOP_RIGHT})
               }
