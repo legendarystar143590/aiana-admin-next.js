@@ -7,8 +7,8 @@ import { toast} from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
 import Spinner from "@/components/Spinner"
 
-import { validateForm } from "./validation"
 import PasswordInputField from "@/components/PasswordInputField"
+import { validateForm } from "./validation"
 
 function EmailPasswordForm() {
   const INITIAL_REGISTER_OBJ = {
@@ -119,7 +119,7 @@ function EmailPasswordForm() {
               <img src="/images/logo_final_black.png" alt="Logo" className="h-12 sm:mb-5 mb-5" />
               <div className="sm:flex hidden">
                 <div className="flex-col">
-                  <h1 className="text-[1.3rem] font-bold">We're glad to see you here!</h1>
+                  <h1 className="text-[1.3rem] font-bold">We are glad to see you here!</h1>
                   <p className="mt-2">Create your account and start exploring...</p>
                 </div>
               </div>
@@ -217,7 +217,7 @@ function EmailPasswordForm() {
                   </button>
                   <div className="text-center mt-2">
                     <p>
-                      Already have an account? 
+                      Already have an account?
                       <Link href="/signin">
                         <span className="font-bold cursor-pointer">Sign in now</span>
                       </Link>

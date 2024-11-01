@@ -71,7 +71,7 @@ const ResetPasswordPage = () => {
         </div>
 
         <div className="flex flex-col gap-3">
-          <label htmlFor="email" className="font-mono font-bold text-lg">
+          <label htmlFor="password" className="font-mono font-bold text-lg">
             New Password
           </label>
           <PasswordInputField
@@ -83,7 +83,7 @@ const ResetPasswordPage = () => {
         </div>
 
         <div className="flex flex-col gap-3">
-          <label htmlFor="email" className="font-mono font-bold text-lg">
+          <label htmlFor="confirmPassword" className="font-mono font-bold text-lg">
             Confirm Password
           </label>
           <PasswordInputField

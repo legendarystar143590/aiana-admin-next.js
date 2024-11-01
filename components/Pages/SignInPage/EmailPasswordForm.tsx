@@ -95,7 +95,7 @@ const EmailPasswordForm = () => {
             </div>
 
             <div className="flex flex-col">
-              <label className="font-bold mb-1">
+              <label htmlFor="password" className="font-bold mb-1">
                 Password
               </label>
               <PasswordInputField 
