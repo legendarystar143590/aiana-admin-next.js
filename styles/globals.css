@@ -124,6 +124,8 @@ textarea {
 .rounded-table tr td:first-child { border-left-style: solid; }
 
 [type = 'text']:focus, [type = 'email']:focus, [type = 'password']:focus {
-  border-color: #2e2e2e;
-  box-shadow: 0 0 0 0.1rem rgba(58, 58, 58, 0.25);
+  border-color: #2e2e2e !important;
+  box-shadow: 0 0 0 0.1rem rgba(58, 58, 58, 0.25) !important;
+  border-radius: 5px !important;
+  outline: none !important;
 }
