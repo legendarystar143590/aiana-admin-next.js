@@ -38,7 +38,12 @@ const MenuList = ({ open }) => {
           } flex items-center justify-start`}
         >
           <div className={profileActive ? iconActiveClasses : iconClasses}>
-            <Image alt="icon_account" src="/images/navbar/icon_account.svg" width={18} height={20} className="opacity-90" />
+            {
+              open ?
+              <Image alt="icon_account" src="/images/navbar/icon_account_selected.svg" width={18} height={20} className="opacity-90" />
+              :
+              <Image alt="icon_account" src="/images/navbar/icon_account_unselected.svg" width={18} height={20} className="opacity-90" />
+            }
           </div>
           <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>
             {t('My_Account')}
