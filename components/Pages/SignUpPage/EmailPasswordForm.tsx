@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import Link from "next/link"
-import Image from "next/image"
 import router from "next/router"
 import axios from "axios"
 import { toast} from "react-toastify"

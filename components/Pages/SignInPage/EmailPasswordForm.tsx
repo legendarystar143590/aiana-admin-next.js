@@ -2,7 +2,6 @@ import React from "react"
 import { toast } from "react-toastify"
 import Link from "next/link"
 import router from "next/router"
-import Image from "next/image"
 
 import { loginUser } from "@/components/utils/common"
 import Spinner from "@/components/Spinner"
