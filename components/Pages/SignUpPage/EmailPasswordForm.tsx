@@ -1,12 +1,12 @@
 import React, { useState } from "react"
 import Link from "next/link"
-import Image from "next/image"
 import router from "next/router"
 import axios from "axios"
 import { toast} from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
 import Spinner from "@/components/Spinner"
 
+import PasswordInputField from "@/components/PasswordInputField"
 import { validateForm } from "./validation"
 
 function EmailPasswordForm() {
@@ -118,7 +118,7 @@ function EmailPasswordForm() {
               <img src="/images/logo_final_black.png" alt="Logo" className="h-12 sm:mb-5 mb-5" />
               <div className="sm:flex hidden">
                 <div className="flex-col">
-                  <h1 className="text-[1.3rem] font-bold">We’re glad to see you here!</h1>
+                  <h1 className="text-[1.3rem] font-bold">We are glad to see you here!</h1>
                   <p className="mt-2">Create your account and start exploring...</p>
                 </div>
               </div>
@@ -128,11 +128,11 @@ function EmailPasswordForm() {
                 <div className="flex flex-row gap-5">
                   <div className="sm:w-1/2 w-full">
                     <p className="font-bold">First Name</p>
-                    <div className="px-[1px]">
+                    <div className="px-[1px] pt-1">
                       <input
                         id="first_name"
                         type="text"
-                        className="rounded-lg border-gray-400 w-full"
+                        className="rounded-lg border-gray-400 w-full h-12"
                         value={formState.first_name}
                         placeholder="Enter your first name"
                         onChange={(e) => {
@@ -143,11 +143,11 @@ function EmailPasswordForm() {
                   </div>
                   <div className="sm:w-1/2 w-full">
                     <p className="font-bold">Last Name</p>
-                    <div className="px-[1px]">
+                    <div className="px-[1px] pt-1">
                       <input
                         id="last_name"
                         type="text"
-                        className="rounded-lg border-gray-400 w-full"
+                        className="rounded-lg border-gray-400 w-full h-12"
                         value={formState.last_name}
                         placeholder="Enter your last name"
                         onChange={(e) => {
@@ -159,11 +159,11 @@ function EmailPasswordForm() {
                 </div>
                 <div>
                   <p className="font-bold">Email</p>
-                  <div className="px-[1px]">
+                  <div className="px-[1px] pt-1">
                     <input
                       id="email"
                       type="email"
-                      className="rounded-lg border-gray-400 w-full"
+                      className="rounded-lg border-gray-400 w-full h-12"
                       value={formState.email}
                       placeholder="Enter your email address"
                       onChange={(e) => {
@@ -174,31 +174,23 @@ function EmailPasswordForm() {
                 </div>
                 <div>
                   <p className="font-bold">Create Password</p>
-                  <div className="px-[1px]">
-                    <input
-                      id="password"
-                      type="password"
-                      className="rounded-lg border-gray-400 w-full"
-                      value={formState.password}
+                  <div className="px-[1px] pt-1">
+                    <PasswordInputField
+                      id="password" 
+                      value = {formState.password}
+                      handleChange={handleInputChange}
                       placeholder="Enter your password"
-                      onChange={(e) => {
-                        handleInputChange("password", e.target.value)
-                      }}
                     />
                   </div>
                 </div>
                 <div>
                   <p className="font-bold">Confirm Password</p>
-                  <div className="px-[1px]">
-                    <input
+                  <div className="px-[1px] pt-1">
+                    <PasswordInputField
                       id="confirm_password"
-                      type="password"
-                      className="rounded-lg border-gray-400 w-full"
-                      value={formState.confirm_password}
+                      value = {formState.confirm_password}
+                      handleChange={handleInputChange}
                       placeholder="Re-enter your password"
-                      onChange={(e) => {
-                        handleInputChange("confirm_password", e.target.value)
-                      }}
                     />
                   </div>
                 </div>
@@ -224,7 +216,7 @@ function EmailPasswordForm() {
                   </button>
                   <div className="text-center mt-2">
                     <p>
-                      Already have an account?&nbsp;
+                      Already have an account?
                       <Link href="/signin">
                         <span className="font-bold cursor-pointer">Sign in now</span>
                       </Link>
@@ -235,12 +227,8 @@ function EmailPasswordForm() {
             </div>
           </div>
         </div>
-        <div className="absolute right-5 bottom-5 sm:right-0 sm:bottom-0 cursor-pointer">
-          <Image src="/images/chatbot.png" alt="chatbot" width={50} height={50} />
-        </div>
       </div>
     </div>
   )
 }
-
 export default EmailPasswordForm

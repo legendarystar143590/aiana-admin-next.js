@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: ['@ant-design/icons'],
   images: {
     domains: ["cdn.sanity.io", "pbs.twimg.com", "login.aiana.io", "aiana.ams3.digitaloceanspaces.com"],
   },

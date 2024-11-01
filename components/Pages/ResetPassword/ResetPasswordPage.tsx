@@ -1,24 +1,17 @@
-import React from "react"
-import {
-  Container,
-  Box,
-  Card,
-  CardContent,
-  TextField,
-  Button,
-  Typography,
-} from "@mui/material"
+import React, {useState} from "react"
 import axios from "axios"
 import { toast } from "react-toastify"
 import router from "next/router"
 import { AUTH_API } from "@/components/utils/serverURL"
 import { useToken } from "@/providers/TokenContext"
+import PasswordInputField from "@/components/PasswordInputField"
 
 const ResetPasswordPage = () => {
 
-  const {token} = useToken();
-  const [confirmPassword, setConfirmPassword] = React.useState("")
-  const [password, setPassword] = React.useState("")
+  const {token} = useToken();  
+
+  const [confirmPassword, setConfirmPassword] = useState("")
+  const [password, setPassword] = useState("")
   const handleSaveButtonClick = () => {
     if( password ==="" || confirmPassword ===""){
       toast.warn("Please enter a new password and confirm password!", { position: toast.POSITION.TOP_RIGHT });
@@ -53,84 +46,64 @@ const ResetPasswordPage = () => {
     return true;
   };
   /* eslint-disable */
-  const handlePasswordChange = ({ target: { value } }) => {
-    setPassword(value);
-  }
-
-  const handleConfirmPasswordChange = ({ target: { value } }) => {
-    setConfirmPassword(value);
+  const handleChange = (id, value) => {
+    if (id === "password") {
+      setPassword(value);
+    } else if (id === "confirmPassword") {
+      setConfirmPassword(value);
+    }
   }
   /* eslint-enable */
 
   return (
-    <Container className="w-[450px] bg-gray-100 flex flex-col justify-center items-center">
-      <div>
-        <Card className="w-full md:w-[450px]">
-          <CardContent>
-            <div className="text-center mt-5">
-              <img src="/images/logo_big.png" alt="Logo" className="mx-auto h-20" />
-              <Typography variant="h6" className="font-mono text-[#00d7ca]">
-                Welcome!
-              </Typography>
-            </div>
-            <Box component="form" action="/admin" noValidate sx={{ mt: 3, m: "15px" }}>
-              <Typography variant="body1" className="font-mono !m-0">
-                New Password
-              </Typography>
+    <div className="w-full flex flex-col h-full mx-auto justify-center items-center md:p-5 p-2">
+      <div className="md:w-full lg:w-3/5 w-3/4 gap-10 flex flex-col justify-center px-3 text-gray-600">
+        
+        <div className="text-center mt-5">
+          <div>
+            <img src="/images/logo_final_black.png" alt="Logo" className="h-12" />
+          </div>              
+        </div>
 
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                value={password}
-                onChange={handlePasswordChange}
-                id="newPass"
-                type="password"
-                name="newPass"
-                autoComplete="newPass"
-                placeholder="Enter a new password"
-                autoFocus
-                className="bg-white mt-2"
-              />
-              <Typography variant="body1" className="font-mono mt-2">
-                Confirm Password
-              </Typography>
-              <TextField
-                margin="normal"
-                value={confirmPassword}
-                onChange={handleConfirmPasswordChange}
-                required
-                fullWidth
-                name="confirmPass"
-                type="password"
-                id="confirmPass"
-                placeholder="Repeat the password"
-                autoComplete="current-password"
-                className="bg-white !mt-2"
-              />
-              <div className="mt-4 text-right">
-                <Button
-                  type="button"
-                  onClick={handleSaveButtonClick}
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                  className="mt-3 bg-[#00d7ca] w-[95px]"
-                  style={{ textTransform: "none" }}
-                >
-                  Save
-                </Button>
-              </div>
-            </Box>
-          </CardContent>
-        </Card>
+        <div className="text-[14px] flex flex-col">
+          <h1 className="text-2xl font-bold">Reset password</h1>
+          <p>Create your new password to access your account!</p>
+        </div>
+
+        <div className="flex flex-col gap-3">
+          <label htmlFor="password" className="font-mono font-bold text-lg">
+            New Password
+          </label>
+          <PasswordInputField
+            id="password"
+            value={password}
+            handleChange={handleChange}
+            placeholder="Minimum 8 characters password"
+          />
+        </div>
+
+        <div className="flex flex-col gap-3">
+          <label htmlFor="confirmPassword" className="font-mono font-bold text-lg">
+            Confirm Password
+          </label>
+          <PasswordInputField
+            id="confirmPassword"
+            value={confirmPassword}
+            handleChange={handleChange}
+            placeholder="Re-enter your password"
+          />
+        </div>        
+        <div className="text-right">
+          <button
+            type="button"
+            onClick={handleSaveButtonClick}
+            className="mt-1 mb-5 rounded-lg w-full h-[48px] bg-black text-white font-bold text-[16px] transition duration-200 ease-in-out hover:shadow-lg hover:scale-[1.01] active:scale-[.99]"
+          >
+            Reset
+          </button>
+        </div>
       </div>
-      <div className="text-center text-muted mt-4 absolute bottom-[100px]">
-        <Typography variant="body2" color="textSecondary" className="text-gray-300">
-          © {new Date().getFullYear()} aiana
-        </Typography>
-      </div>
-    </Container>
+    </div>
   )
 }
 

@@ -90,7 +90,7 @@ const ResetPasswordForm = () => {
               type="email"
               autoComplete="email"
               placeholder="Enter email"
-              className="rounded-lg border-gray-400 w-full mt-1"
+              className="rounded-lg border-gray-400 w-full mt-1 h-12"
             />
           </div>
 

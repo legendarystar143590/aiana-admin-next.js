@@ -2,10 +2,10 @@ import React from "react"
 import { toast } from "react-toastify"
 import Link from "next/link"
 import router from "next/router"
-import Image from "next/image"
 
 import { loginUser } from "@/components/utils/common"
 import Spinner from "@/components/Spinner"
+import PasswordInputField from "@/components/PasswordInputField"
 
 const EmailPasswordForm = () => {
   const [email, setEmail] = React.useState("")
@@ -61,7 +61,8 @@ const EmailPasswordForm = () => {
     setEmail(value)
   }
 
-  const handlePasswordChange = ({ target: { value } }) => {
+  const handlePasswordChange = (id, value) => {
+    console.log("id: ", id)
     setPassword(value)
   }
   /* eslint-enable */
@@ -87,22 +88,19 @@ const EmailPasswordForm = () => {
                 name="username"
                 value={email}
                 onChange={handleEmailChange}
-                className="rounded-lg border-gray-400 w-full mt-1"
+                className="rounded-lg border-gray-400 w-full mt-1 h-12"
                 placeholder="Enter your username/email"
               />
             </div>
 
-            <div>
-              <label htmlFor="password" className="font-bold">
+            <div className="flex flex-col">
+              <label htmlFor="password" className="font-bold mb-1">
                 Password
               </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={password}
-                onChange={handlePasswordChange}
-                className="rounded-lg border-gray-400 w-full mt-1"
+              <PasswordInputField 
+                id = "password"
+                value = {password}
+                handleChange={handlePasswordChange}
                 placeholder="Enter your password"
               />
             </div>
@@ -132,9 +130,6 @@ const EmailPasswordForm = () => {
               </Link>
             </p>
           </div>
-        </div>
-        <div className="absolute right-5 bottom-5 sm:right-0 sm:bottom-0 cursor-pointer">
-          <Image src="/images/chatbot.png" alt="chatbot" width={50} height={50} />
         </div>
       </div>
     </div>
