@@ -132,9 +132,6 @@ const EmailPasswordForm = () => {
             </p>
           </div>
         </div>
-        <div className="absolute right-5 bottom-5 sm:right-0 sm:bottom-0 cursor-pointer">
-          <Image src="/images/chatbot.png" alt="chatbot" width={50} height={50} />
-        </div>
       </div>
     </div>
   )
