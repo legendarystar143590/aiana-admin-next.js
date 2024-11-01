@@ -112,10 +112,10 @@ function EmailPasswordForm() {
   return (
     <div className="w-full h-full relative">
       <div className="flex flex-col h-full justify-center">
-        <div className="w-full">
-          <div className="px-5 lg:3/5 md:w-5/6 w-full flex flex-col justify-between h-full mx-auto overflow-y-auto">
+        <div className="w-3/4 mx-auto">
+          <div className="px-5 lg:3/5 md:w-5/6 w-full flex flex-col justify-between h-full mx-auto overflow-y-auto gap-y-3">
             <div>
-              <img src="/images/logo_big.png" alt="Logo" className="h-12 sm:mb-5 mb-5" />
+              <img src="/images/logo_final_black.png" alt="Logo" className="h-12 sm:mb-5 mb-5" />
               <div className="sm:flex hidden">
                 <div className="flex-col">
                   <h1 className="text-[1.3rem] font-bold">We’re glad to see you here!</h1>
@@ -124,35 +124,37 @@ function EmailPasswordForm() {
               </div>
             </div>
             <div className="sm:mt-5">
-              <div className="w-full flex flex-col gap-[2vh]">
-                <div>
-                  <p className="font-bold">First Name</p>
-                  <div className="px-[1px]">
-                    <input
-                      id="first_name"
-                      type="text"
-                      className="rounded-lg border-gray-400 w-full"
-                      value={formState.first_name}
-                      placeholder="Enter your first name"
-                      onChange={(e) => {
-                        handleInputChange("first_name", e.target.value)
-                      }}
-                    />
+              <div className="w-full flex flex-col gap-[3vh]">
+                <div className="flex flex-row gap-5">
+                  <div className="sm:w-1/2 w-full">
+                    <p className="font-bold">First Name</p>
+                    <div className="px-[1px]">
+                      <input
+                        id="first_name"
+                        type="text"
+                        className="rounded-lg border-gray-400 w-full"
+                        value={formState.first_name}
+                        placeholder="Enter your first name"
+                        onChange={(e) => {
+                          handleInputChange("first_name", e.target.value)
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <p className="font-bold">Last Name</p>
-                  <div className="px-[1px]">
-                    <input
-                      id="last_name"
-                      type="text"
-                      className="rounded-lg border-gray-400 w-full"
-                      value={formState.last_name}
-                      placeholder="Enter your last name"
-                      onChange={(e) => {
-                        handleInputChange("last_name", e.target.value)
-                      }}
-                    />
+                  <div className="sm:w-1/2 w-full">
+                    <p className="font-bold">Last Name</p>
+                    <div className="px-[1px]">
+                      <input
+                        id="last_name"
+                        type="text"
+                        className="rounded-lg border-gray-400 w-full"
+                        value={formState.last_name}
+                        placeholder="Enter your last name"
+                        onChange={(e) => {
+                          handleInputChange("last_name", e.target.value)
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
                 <div>
@@ -200,11 +202,22 @@ function EmailPasswordForm() {
                     />
                   </div>
                 </div>
+                <div className="text-left sm:p-2 mt-5 w-full">
+                  By continuing, you agree to our{" "}
+                  <Link href="https://www.aiana.io/terms-condition/">
+                    <span className="font-bold underline cursor-pointer">Terms of Service</span>
+                  </Link>{" "}
+                  and{" "}
+                  <Link href="https://www.aiana.io/privacy-policy/">
+                    <span className="font-bold underline cursor-pointer">Privacy Policy</span>
+                  </Link>
+                  .
+                </div>
                 <div>
                   <button
                     id="signup"
                     type="button"
-                    className="mt-1 rounded-lg w-full h-[48px] bg-[linear-gradient(180deg,#6BA4F1_0%,#A438FA_100%)] text-white font-bold text-[16px] transition duration-200 ease-in-out hover:shadow-lg hover:scale-[1.01] active:scale-[.99]"
+                    className="mt-1 rounded-lg w-full h-[48px] bg-black text-white font-bold text-[16px] transition duration-200 ease-in-out hover:shadow-lg hover:scale-[1.01] active:scale-[.99]"
                     onClick={(isSaved || isSaving) ? ()=> {} : handleAuth}
                   >
                     {isSaving ? <Spinner color=""/> : "Sign Up"}
@@ -221,17 +234,6 @@ function EmailPasswordForm() {
               </div>
             </div>
           </div>
-        </div>
-        <div className="text-center sm:p-2 px-5 mt-5 lg:3/5 md:w-5/6 w-full mx-auto">
-          By continuing, you agree to our{" "}
-          <Link href="/tos">
-            <span className="font-bold underline cursor-pointer">Terms of Service</span>
-          </Link>{" "}
-          and{" "}
-          <Link href="/privacy">
-            <span className="font-bold underline cursor-pointer">Privacy Policy</span>
-          </Link>
-          .
         </div>
         <div className="absolute right-5 bottom-5 sm:right-0 sm:bottom-0 cursor-pointer">
           <Image src="/images/chatbot.png" alt="chatbot" width={50} height={50} />
