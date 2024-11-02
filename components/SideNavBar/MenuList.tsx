@@ -33,7 +33,7 @@ const MenuList = ({ open }) => {
       </div>
       <button
         type="button"
-        className={`flex justify-center items-center w-full ${knowledgeActive ? 'border rounded-lg shadow' : navContainerClasses}`}
+        className={`flex justify-center items-center w-full ${knowledgeActive ? 'border rounded-lg shadow' : ''}`}
         onClick={() => push("/knowledge")}
       >
         <div
@@ -51,7 +51,7 @@ const MenuList = ({ open }) => {
       </button>
       <button
         type="button"
-        className={`flex justify-center items-center w-full ${createActive ? 'border rounded-lg shadow' : navContainerClasses}`}
+        className={`flex justify-center items-center w-full ${createActive ? 'border rounded-lg shadow' : ''}`}
         onClick={() => push("/chatbot")}
       >
         <div
@@ -73,7 +73,7 @@ const MenuList = ({ open }) => {
       </div>
       <button
         type="button"
-        className={`flex justify-center items-center w-full ${profileActive ? 'border rounded-lg shadow' : navContainerClasses}`}
+        className={`flex justify-center items-center w-full ${profileActive ? 'border rounded-lg shadow' : ''}`}
         onClick={() => push("/admin")}
       >
         <div
@@ -92,7 +92,7 @@ const MenuList = ({ open }) => {
       {role === "admin" && (
         <button
           type="button"
-          className={`flex justify-center items-center w-full ${usersActive ? 'border rounded-lg shadow' : navContainerClasses}`}
+          className={`flex justify-center items-center w-full ${usersActive ? 'border rounded-lg shadow' : ''}`}
           onClick={() => push("/users")}
         >
           <div
@@ -109,7 +109,7 @@ const MenuList = ({ open }) => {
       )}
       <button
         type="button"
-        className={`flex justify-center items-center w-full ${dashboardActive ? 'border rounded-lg shadow' : navContainerClasses}`}
+        className={`flex justify-center items-center w-full ${dashboardActive ? 'border rounded-lg shadow' : ''}`}
         onClick={() => push("/dashboard")}
       >
         <div
@@ -125,7 +125,7 @@ const MenuList = ({ open }) => {
       </button>
       <button
         type="button"
-        className={`flex justify-center items-center w-full ${ticketsActive ? 'border rounded-lg shadow' : navContainerClasses}`}
+        className={`flex justify-center items-center w-full ${ticketsActive ? 'border rounded-lg shadow' : ''}`}
         onClick={() => push("/tickets")}
       >
         <div
@@ -141,7 +141,7 @@ const MenuList = ({ open }) => {
       </button>
       <button
         type="button"
-        className={`flex justify-center items-center w-full ${billingActive ? 'border rounded-lg shadow' : navContainerClasses}`}
+        className={`flex justify-center items-center w-full ${billingActive ? 'border rounded-lg shadow' : ''}`}
         onClick={() => {if(localStorage.getItem("status") === "active") push("/billing-plan"); else push("/pricing");}}
       >
         <div
