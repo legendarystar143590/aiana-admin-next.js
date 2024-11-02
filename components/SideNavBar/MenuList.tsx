@@ -1,7 +1,6 @@
 import { useRouter } from "next/router"
 import { useTranslations } from "use-intl"
 import Image from "next/image"
-import { GiUpgrade } from "react-icons/gi";
 import { useSideMenu } from "@/providers/SideMenuProvider"
 
 const MenuList = ({ open }) => {
@@ -27,6 +26,51 @@ const MenuList = ({ open }) => {
 
   return (
     <div className={`relative z-[4] w-full ${open ? "mt-3" : "mt-10"}`}>
+      <div className={`flex justify-center items-center w-full pt-8 pb-4 pl-8 ${open ? navClasses : "hidden"}`}>
+        <p className="flex justify-start text-left items-center w-full">
+          SETUP
+        </p>
+      </div>
+      <button
+        type="button"
+        className="flex justify-center items-center w-full"
+        onClick={() => push("/knowledge")}
+      >
+        <div
+          className={`${
+            knowledgeActive ? navContainerClasses : navContainerClasses
+          } flex items-center justify-start`}
+        >
+          <div className={knowledgeActive ? iconActiveClasses : iconClasses}>
+            <Image alt="icon_knowledge" src={`${ knowledgeActive ? "/images/navbar/icon_knowledge_selected.png" : "/images/navbar/icon_knowledge_unselected.png"}`} width={18} height={20} className="opacity-90" />
+          </div>
+          <p className={`${open ? navClasses : "hidden"} ${knowledgeActive ? "font-bold" : "font-normal"} ml-2 text-black opacity-90 text-[16px] text-left`}>
+            {t('Knowledge_Base')}
+          </p>
+        </div>
+      </button>
+      <button
+        type="button"
+        className="flex justify-center items-center w-full"
+        onClick={() => push("/chatbot")}
+      >
+        <div
+          className={`${
+            createActive ? navContainerClasses : navContainerClasses
+          } flex items-center justify-start`}
+          style={{ paddingRight: !open && "14px", paddingLeft: !open && "14px" }}
+        >
+          <div className={createActive ? iconActiveClasses : iconClasses}>
+            <Image alt="icon_chatbot" src={`${ createActive ? "/images/navbar/icon_chatbot_selected.png" : "/images/navbar/icon_chatbot_unselected.png"}`} width={18} height={20} className="opacity-90" />
+          </div>
+          <p className={`${open ? navClasses : "hidden"} ${createActive ? "font-bold" : "font-normal"} ml-2 text-black opacity-90 text-[16px]`}>{t('Chatbot')}</p>
+        </div>
+      </button>
+      <div className={`flex justify-center items-center w-full pt-8 pb-4 pl-8 ${open ? navClasses : "hidden"}`}>
+        <p className="flex justify-start text-left items-center w-full">
+          FOLLOW-UP
+        </p>
+      </div>
       <button
         type="button"
         className="flex justify-center items-center w-full"
@@ -34,18 +78,13 @@ const MenuList = ({ open }) => {
       >
         <div
           className={`${
-            profileActive ? navActiveContainerClasses : navContainerClasses
+            profileActive ? navContainerClasses : navContainerClasses
           } flex items-center justify-start`}
         >
           <div className={profileActive ? iconActiveClasses : iconClasses}>
-            {
-              open ?
-              <Image alt="icon_account" src="/images/navbar/icon_account_selected.svg" width={18} height={20} className="opacity-90" />
-              :
-              <Image alt="icon_account" src="/images/navbar/icon_account_unselected.svg" width={18} height={20} className="opacity-90" />
-            }
+            <Image alt="icon_account" src={`${ profileActive ? "/images/navbar/icon_account_selected.png" : "/images/navbar/icon_account_unselected.png"}`} width={18} height={20} className="opacity-90" />
           </div>
-          <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>
+          <p className={`${open ? navClasses : "hidden"} ${profileActive ? "font-bold" : "font-normal"} ml-2 text-black opacity-90 text-[16px]`}>
             {t('My_Account')}
           </p>
         </div>
@@ -71,52 +110,17 @@ const MenuList = ({ open }) => {
       <button
         type="button"
         className="flex justify-center items-center w-full"
-        onClick={() => push("/chatbot")}
-      >
-        <div
-          className={`${
-            createActive ? navActiveContainerClasses : navContainerClasses
-          } flex items-center justify-start`}
-          style={{ paddingRight: !open && "14px", paddingLeft: !open && "14px" }}
-        >
-          <div className={createActive ? iconActiveClasses : iconClasses}>
-            <Image alt="icon_chatbot" src="/images/navbar/icon_chatbot.svg" width={24} height={20} className="opacity-90" />
-          </div>
-          <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>{t('Chatbot')}</p>
-        </div>
-      </button>
-      <button
-        type="button"
-        className="flex justify-center items-center w-full"
-        onClick={() => push("/knowledge")}
-      >
-        <div
-          className={`${
-            knowledgeActive ? navActiveContainerClasses : navContainerClasses
-          } flex items-center justify-start`}
-        >
-          <div className={knowledgeActive ? iconActiveClasses : iconClasses}>
-            <Image alt="icon_knowledge" src="/images/navbar/icon_knowledge.svg" width={18} height={20} className="opacity-90" />
-          </div>
-          <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px] text-left`}>
-            {t('Knowledge_Base')}
-          </p>
-        </div>
-      </button>
-      <button
-        type="button"
-        className="flex justify-center items-center w-full"
         onClick={() => push("/dashboard")}
       >
         <div
           className={`${
-            dashboardActive ? navActiveContainerClasses : navContainerClasses
+            dashboardActive ? navContainerClasses : navContainerClasses
           } flex items-center justify-start`}
         >
           <div className={dashboardActive ? iconActiveClasses : iconClasses}>
-            <Image alt="icon_chatlogs" src="/images/navbar/icon_chatlogs.svg" width={18} height={20} className="opacity-90" />
+            <Image alt="icon_dashboard" src={`${ dashboardActive ? "/images/navbar/icon_chatlogs_selected.png" : "/images/navbar/icon_chatlogs_unselected.png"}`} width={18} height={20} className="opacity-90" />
           </div>
-          <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>{t('Chatlogs')}</p>
+          <p className={`${open ? navClasses : "hidden"} ${dashboardActive ? "font-bold" : "font-normal"} ml-2 text-black opacity-90 text-[16px]`}>{t('Chatlogs')}</p>
         </div>
       </button>
       <button
@@ -126,13 +130,13 @@ const MenuList = ({ open }) => {
       >
         <div
           className={`${
-            ticketsActive ? navActiveContainerClasses : navContainerClasses
+            ticketsActive ? navContainerClasses : navContainerClasses
           } flex items-center justify-start`}
         >
           <div className={ticketsActive ? iconActiveClasses : iconClasses}>
-            <Image alt="icon_tickets.svg" src="/images/navbar/icon_tickets.svg" width={18} height={20} className="opacity-90" />
+            <Image alt="icon_tickets" src={`${ ticketsActive ? "/images/navbar/icon_tickets_selected.png" : "/images/navbar/icon_tickets_unselected.png"}`} width={18} height={20} className="opacity-90" />
           </div>
-          <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>{t('Tickets')}</p>
+          <p className={`${open ? navClasses : "hidden"} ${ticketsActive ? "font-bold" : "font-normal"} ml-2 text-black opacity-90 text-[16px]`}>{t('Tickets')}</p>
         </div>
       </button>
       <button
@@ -142,13 +146,13 @@ const MenuList = ({ open }) => {
       >
         <div
           className={`text-white ${
-            billingActive ? navActiveContainerClasses : navContainerClasses
+            billingActive ? navContainerClasses : navContainerClasses
           } flex items-center justify-start`}
         >
           <div className={billingActive ? iconActiveClasses : iconClasses}>
-            <GiUpgrade />
+            <Image alt="icon_invoice" src={`${ billingActive ? "/images/navbar/icon_invoice_selected.png" : "/images/navbar/icon_invoice_unselected.png"}`} width={18} height={20} className="opacity-90" />
           </div>
-          <p className={`${open ? navClasses : "hidden"} ml-2 text-white opacity-90 text-[16px]`}>{t('BillingPlan')}</p>
+          <p className={`${open ? navClasses : "hidden"} ${billingActive ? "font-bold" : "font-normal"} ml-2 text-black opacity-90 text-[16px]`}>{t('Invoice')}</p>
         </div>
       </button>
     </div>
