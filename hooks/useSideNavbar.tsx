@@ -15,7 +15,7 @@ const useSideNavbar = () => {
       rounded-full relative z-[2]`
   const iconClasses = `w-[32px] aspect-[1/1] flex justify-center items-center
       rounded-full bg-gray_overlay_6`
-  const navContainerClasses = `relative border-l-4 border-transparent z-[2] flex gap-x-[8px] w-full items-center sm:py-[8px] py-[4px] px-[18px] cursor-pointer`
+  const navContainerClasses = `relative z-[2] flex gap-x-[8px] w-full items-center sm:py-[8px] py-[4px] px-[18px] cursor-pointer`
   const navActiveContainerClasses = `relative z-[5] border-l-4 flex gap-x-[8px] w-full items-center sm:py-[8px] py-[4px] px-[18px] bg-gradient_s_2 cursor-pointer border-[#A23AF9]`
 
   const { pathname } = useRouter()
