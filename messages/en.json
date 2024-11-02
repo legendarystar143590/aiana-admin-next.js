@@ -23,7 +23,7 @@
         "username":"user",
         "Profile":"Profile",
         "Back":"Back",
-        "BillingPlan":"Billing Plans"
+        "Invoice":"Invoice"
     },
     "admin": {
         "users": "users",

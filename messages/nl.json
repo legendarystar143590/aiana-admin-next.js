@@ -23,7 +23,7 @@
         "Add_domains_where_you_want_to_use_chatbot": "Voeg domeinen toe waar u de chatbot wilt gebruiken.",
         "Profile":"Profiel",
         "Back":"Terug",
-        "BillingPlan":"Factuurplannen"
+        "Invoice":"Factuur"
     },
     "admin": {
         "Select_a_language":"Selecteer een taal",

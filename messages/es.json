@@ -23,7 +23,7 @@
         "Add_domains_where_you_want_to_use_chatbot": "Añade dominios donde quieras usar el chatbot.",
         "Profile":"Perfil",
         "Back":"Atrás",
-        "BillingPlan":"Planes de Facturación"
+        "Invoice":"Factura"
     },
     "admin": {
         "Select_a_language":"Seleccione un idioma",
