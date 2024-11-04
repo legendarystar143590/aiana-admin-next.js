@@ -44,7 +44,7 @@ const CustomDropdown = ({ selectedOption, countries, onSelect }) => {
         type="button"
         onClick={() => document.getElementById("country-dropdown-menu").classList.toggle("hidden")}
         aria-label="Toggle menu"
-        className="border-[1px] border-[#767676] rounded-md py-2 px-4 inline-flex items-center justify-between w-full"
+        className="border-[1px] border-[#767676] rounded-xl py-1.5 px-4 inline-flex items-center justify-between w-full"
       >
         {selectedCountry.name !== "" ? (
           <div className="flex items-center">
