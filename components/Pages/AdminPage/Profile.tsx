@@ -236,11 +236,14 @@ const Profile = () => {
 
   return (
     <div className="d-flex flex-column bg-transparent">
-      <div className="row justify-center w-[90%] mx-auto p-5">
-        <h3 className="font-bold text-2xl">{t('myAccount')}</h3>
-        <div className="flex max-md:flex-col mx-auto">
-          <div className="md:w-1/2 w-full">
-            <h4 className="font-[600] text-[#767676] mt-5 mb-3">{t('CompanyInformation')}</h4>
+      <div className="row justify-center mx-auto">
+        <h3 className="font-bold text-2xl mb-5">{t('myAccount')}</h3>
+        <div className="flex max-md:flex-col mx-auto max-md:gap-3 gap-8">
+          <div className="md:w-1/2 w-full border rounded-lg p-5">
+            <div className="flex item-center gap-2 border-b py-6">
+              <Image src="/images/profile/icon_company.png" alt="" width={22} height={18} />
+              <h4 className="font-[600] text-[#767676]">{t('CompanyInformation')}</h4>
+            </div>
             <div className="flex flex-col gap-3">
               <div>
                 <div>
@@ -250,7 +253,7 @@ const Profile = () => {
                   <input
                     type="text"
                     id="com_name"
-                    className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4"
+                    className="rounded-xl border-[#767676] py-[5px] max-sm:w-full w-full"
                     value={formState.com_name}
                     onChange={(e) => handleInputChange("com_name", e.target.value)}
                   />
@@ -263,7 +266,7 @@ const Profile = () => {
                 <div>
                   <input
                     id="com_website"
-                    className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4"
+                    className="rounded-xl border-[#767676] py-[5px] max-sm:w-full w-full"
                     value={formState.com_website}
                     onChange={(e) => handleInputChange("com_website", e.target.value)}
                     type="text"
@@ -277,7 +280,7 @@ const Profile = () => {
                 <div>
                   <input
                     type="text"
-                    className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4"
+                    className="rounded-xl border-[#767676] py-[5px] max-sm:w-full w-full"
                     id="com_vat"
                     value={formState.com_vat}
                     onChange={(e) => handleInputChange("com_vat", e.target.value)}
@@ -295,70 +298,76 @@ const Profile = () => {
                 <div>
                   <input
                     id="com_street"
-                    className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4"
+                    className="rounded-xl border-[#767676] py-[5px] max-sm:w-full w-full"
                     value={formState.com_street}
                     onChange={(e) => handleInputChange("com_street", e.target.value)}
                     type="text"
                   />
                 </div>
               </div>
-              <div>
-                <div>
-                  <p className="text-[#767676]">{t('StreetNumber')}</p>
+              <div className="flex flex-col md:flex-row gap-3">
+                <div className="flex flex-col gap-3 w-full md:w-1/2">
+                  <div>
+                    <p className="text-[#767676]">{t('StreetNumber')}</p>
+                  </div>
+                  <div>
+                    <input
+                      className="rounded-xl border-[#767676] py-[5px] max-sm:w-full w-full"
+                      id="com_street_number"
+                      value={formState.com_street_number}
+                      onChange={(e) => handleInputChange("com_street_number", e.target.value)}
+                      type="text"
+                    />
+                  </div>
                 </div>
-                <div>
-                  <input
-                    className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4"
-                    id="com_street_number"
-                    value={formState.com_street_number}
-                    onChange={(e) => handleInputChange("com_street_number", e.target.value)}
-                    type="text"
-                  />
-                </div>
-              </div>
-              <div>
-                <div>
-                  <p className="text-[#767676]">{t('City')}</p>
-                </div>
-                <div>
-                  <input
-                    id="com_city"
-                    className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4"
-                    value={formState.com_city}
-                    onChange={(e) => handleInputChange("com_city", e.target.value)}
-                    type="text"
-                  />
-                </div>
-              </div>
-              <div>
-                <div>
-                  <p className="text-[#767676]">{t('PostalCode')}</p>
-                </div>
-                <div>
-                  <input
-                    id="com_postal"
-                    className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4"
-                    value={formState.com_postal}
-                    onChange={(e) => handleInputChange("com_postal", e.target.value)}
-                    type="text"
-                  />
+                <div className="flex flex-col gap-3 w-full md:w-1/2">
+                  <div>
+                    <p className="text-[#767676]">{t('City')}</p>
+                  </div>
+                  <div>
+                    <input
+                      id="com_city"
+                      className="rounded-xl border-[#767676] py-[5px] max-sm:w-full w-full"
+                      value={formState.com_city}
+                      onChange={(e) => handleInputChange("com_city", e.target.value)}
+                      type="text"
+                    />
+                  </div>
                 </div>
               </div>
-              <div>
-                <div>
-                  <p className="text-[#767676]">{t('Country')}</p>
+              <div className="flex flex-col md:flex-row gap-3">
+                <div className="flex flex-col gap-3 w-full md:w-1/2">
+                  <div>
+                    <p className="text-[#767676]">{t('PostalCode')}</p>
+                  </div>
+                  <div>
+                    <input
+                      id="com_postal"
+                      className="rounded-xl border-[#767676] py-[5px] max-sm:w-full w-full"
+                      value={formState.com_postal}
+                      onChange={(e) => handleInputChange("com_postal", e.target.value)}
+                      type="text"
+                    />
+                  </div>
                 </div>
-                <div className="max-sm:w-full w-3/4">
-                  <CustomDropdown selectedOption={formState.com_country} onSelect={handleInputChange} countries={Countries} />
+                <div className="flex flex-col gap-3 w-full md:w-1/2">
+                  <div>
+                    <p className="text-[#767676]">{t('Country')}</p>
+                  </div>
+                  <div className="w-full">
+                    <CustomDropdown selectedOption={formState.com_country} onSelect={handleInputChange} countries={Countries} />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="md:w-1/2 w-full">
+          <div className="md:w-1/2 w-full border rounded-lg pl-5">
             <div className="max-md:mt-5 flex max-sm:w-full max-md:w-3/4 max-md:justify-center">
-              <Image src="/images/users/avatar-default.svg" alt="avatar" width={100} height={100} />
+              <div className="flex item-center gap-2 border-b py-6">
+                <Image src="/images/profile/icon_user.png" alt="" width={22} height={18} />
+                <h4 className="font-[600] text-[#767676]">{t('UserInformation')}</h4>
+              </div>
             </div>
-            <h4 className="font-[600] text-[#767676] mt-5 mb-3">{t('UserInformation')}</h4>
             <div className="flex flex-col gap-3">
               <div className="flex max-lg:flex-col lg:justify-between">
                 <div className="max-sm:w-full w-3/4 md:w-full lg:w-[45%]">
@@ -432,7 +441,7 @@ const Profile = () => {
                 <div>
                   <input
                     id="email"
-                    className="rounded-md border-[#767676] py-[5px] max-sm:w-full w-3/4 lg:w-full"
+                    className="rounded-xl border-[#767676] py-[5px] max-sm:w-full w-full lg:w-full"
                     value={formState.email}
                     onChange={(e) => handleInputChange("email", e.target.value)}
                     type="text"
