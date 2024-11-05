@@ -39,6 +39,8 @@
         "CompanyURL": "URL de la empresa",
         "VATNumber": "Número de IVA",
         "CompanyAddress": "DIRECCIÓN_DE_LA_COMPANÍA",
+        "CompanyDetails": "DATOS DE LA EMPRESA",
+        "UserProfile": "PERFIL DEL USUARIO",
         "Address_Street": "Dirección/Calle",
         "StreetNumber": "Número de calle",
         "City": "Ciudad",
@@ -112,7 +114,7 @@
         "Document": "Documento",
         "Website": "Sitio web",
         "Note_Build_your_Chatbot_Knowledge_Base_by_uploading_documents_These_documents_train_your_chatbot_to_answer_questions_accurately": "Nota: Construya la base de conocimientos de su Charlarbot subiendo documentos. Estos documentos entrenan a su Charlarbot para responder preguntas con precisión.",
-        "Questions_Answers": "Preguntas y respuestas",
+        "Text": "Texto",
         "Edit_Knowledge_Base": "Editar base de conocimientos",
         "Confirm_Delete": "Confirmar eliminación",
         "Note_Add_custom_texts_questions_to_build_your_chatbot_knowledge_base_These_texts_help_train_your_chatbot_to_answer_questions_accurately": "Nota: Agrega textos o preguntas personalizados para crear la base de conocimientos de tu chatbot. Estos textos ayudan a entrenar a tu chatbot para que responda preguntas con precisión.",
@@ -140,6 +142,7 @@
         "Answer": "Respuesta",
         "Add": "Agregar",
         "Save": "Guardar",
+        "SaveChanges": "Guardar cambios",
         "Cancel": "Cancelar",
         "Click_to_upload": "Haga clic para cargar",
         "Questions_List": "Lista de preguntas",
@@ -147,7 +150,8 @@
         "Invalid_URL_Please_enter_a_valid_URL":"URL no válida. Ingrese una URL válida.",
         "Invalid_Domain_Please_enter_a_valid_Domain":"Dominio no válida. Ingrese una Dominio válida.",
         "No_question_added_yet": "Aún no se ha agregado ninguna pregunta",
-        "Enter_name_of_new_knowledge_base": "Ingrese el nombre de la nueva base de conocimientos"
+        "Enter_knowledge_base_name": "Introduzca el nombre de la base de conocimientos",
+        "No_file_upload_yet":"No se ha subido ningún archivo todavía"
     },
     "ticket": {
         "Loading": "Cargando",

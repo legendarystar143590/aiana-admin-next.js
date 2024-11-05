@@ -34,6 +34,8 @@
         "CompanyURL": "Company URL",
         "VATNumber": "VAT Number",
         "CompanyAddress": "COMPANY ADDRESS",
+        "CompanyDetails": "COMPANY DETAILS",
+        "UserProfile": "USER PROFILE",
         "Address_Street": "Address/Street",
         "StreetNumber": "Street Number",
         "City": "City",
@@ -113,7 +115,7 @@
         "Website": "Websites",
         "Note_Build_your_Chatbot_Knowledge_Base_by_uploading_documents_These_documents_train_your_chatbot_to_answer_questions_accurately": "Note: Build your Chatbot’s Knowledge Base by uploading documents. These documents train your chatbot to answer questions accurately.",
         "Note_Add_URLs_to_build_your_chatbot_knowledge_base_These_URLs_help_train_your_chatbot_to_answer_questions_accurately": "Note: Add URLs to build your chatbot’s knowledge base. These URLs help train your chatbot to answer questions accurately.",
-        "Questions_Answers": "Questions & Answers",
+        "Text": "Text",
         "Edit_Knowledge_Base": "Edit Knowledge Base",
         "Confirm_Delete": "Confirm Delete",
         "Note_Build_your_Chatbot_Knowledge_Base_by_uploading_documents_These_documents_train_your_chat": "Note: Build your Chatbot’s Knowledge Base by uploading documents. These documents train your chat",
@@ -130,6 +132,7 @@
         "Are_you_sure_you_want_to_delete_this_item_This_action_cannot_be_undone": "Are you sure you want to delete this item? This action cannot be undone.",
         "Cancel": "Cancel",
         "Save": "Save",
+        "SaveChanges": "Save Changes",
         "Note_Build_your_Chatbot_Knowledge_Base_by_uploading_urls_These_urls_train_your_chatbot_to_answer_questions_accurately": "Note: Build your Chatbot’s Knowledge Base by adding urls. These urls train your chatbot to answer questions accurately.",
         "Please_do_not_add_URLs_to_websites_that_contain_confidential_information_or_where_the_publisher_has_imposed_restrictions_on_sharing": "Please do not add URLs to websites that contain confidential information or where the publisher has imposed",
         "Enter_URL": "Enter URL:",
@@ -148,7 +151,8 @@
         "No_question_added_yet": "No question added yet",
         "Invalid_URL_Please_enter_a_valid_URL":"Invalid URL. Please enter a valid URL.",
         "Invalid_Domain_Please_enter_a_valid_Domain":"Invalid Domain. Please enter a valid Domain.",
-        "Enter_name_of_new_knowledge_base": "Enter name of new knowledge base"
+        "Enter_knowledge_base_name": "Enter knowledge base name",
+        "No_file_uploaded_yet":"No file uploaded yet"
     },
     "ticket": {
         "Loading": "Loading",

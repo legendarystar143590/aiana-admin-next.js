@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import axios from "axios"
-import { FaInfoCircle } from "react-icons/fa"
+import { FaInfoCircle, FaTrash } from "react-icons/fa"
 import { toast } from "react-toastify"
 import { useTranslations } from "next-intl"
 
@@ -123,9 +123,9 @@ const Website = ({ urls, setUrls, websiteRef, setIsSaved }) => {
 
   return (
     <div className="w-full overflow-y-auto">
-      <div className="text-center bg-[#F5E8FF] py-2 sm:mx-7 mx-3">
-        <span className="text-[#343434] text-sm text-center">
-          <FaInfoCircle className="text-[#A536FA] size-5 inline-block mr-3" />
+      <div className="text-left bg-blue-100 py-2 sm:mx-7 mx-3">
+        <span className="text-[#343434] text-sm text-left px-3">
+          <FaInfoCircle className="text-blue-500 size-5 inline-block mr-3" />
           {t('Note_Build_your_Chatbot_Knowledge_Base_by_uploading_urls_These_urls_train_your_chatbot_to_answer_questions_accurately')}
         </span>
       </div>
@@ -136,15 +136,20 @@ const Website = ({ urls, setUrls, websiteRef, setIsSaved }) => {
           type="text"
           value={urlInputValue}
           onChange={(e) => setUrlInputValue(e.target.value)}
+          placeholder="e.g. https://www.your-url.com"
           className="grow mr-5 border border-[#D9D9D9] rounded-md"
           id="urlInput"
         />
-        <button className="bg-[#A438FA] px-2 py-2 text-white rounded-md w-[150px]" type="button" onClick={handleUrlAdd}>
+        <button className={`${urlInputValue? "bg-black text-white":"bg-gray-200 text-gray-500"} px-2 py-2 rounded-md w-[150px]`} type="button" onClick={handleUrlAdd}>
           {t('Add_this_URL')}
         </button>
       </div>
       <div>
-        <div className="overflow-auto">
+        <div className="w-full justify-between flex my-5 sm:px-7 px-3">
+          <h4 className="text-lg font-bold">{t('Uploaded_files')}</h4>
+          <p className="text-[#767676] text-sm">{urls.length} {t('files_uploaded')}</p>
+        </div>
+        <div className="h-[280px] overflow-y-auto">
           <table className="min-w-max w-full whitespace-nowrap">
             <thead>
               <tr className="text-xs font-semibold uppercase tracking-wide text-left text-[#767676] border-b-2">
@@ -166,7 +171,7 @@ const Website = ({ urls, setUrls, websiteRef, setIsSaved }) => {
                       onClick={() => handleDeleteButton(url.id, i)}
                       className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md flex justify-center items-center"
                     >
-                      <Image src="/images/icon_trash.svg" alt="trash_icon" width={18} height={18} />
+                      <FaTrash className="w-5 h-5"/>
                     </button>
                   </td>
                 </tr>
@@ -176,8 +181,17 @@ const Website = ({ urls, setUrls, websiteRef, setIsSaved }) => {
           </table>
           {
             urls.length === 0 && (
-              <div className="w-full text-center py-5">
-                <p className="text-[#767676]">{t('No_URL_added_yet')}</p>
+              <div className="w-full h-[150px] flex items-center justify-center">
+                <div className="text-center">
+                  <Image 
+                    src="/images/knowledgebase/icon_no_document.png" 
+                    alt="No documents" 
+                    width={100} 
+                    height={100} 
+                    className="mx-auto"
+                  />
+                  <p className="text-[#767676]">{t('No_URL_added_yet')}</p>
+                </div>
               </div>
             )
           }

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import { toast } from "react-toastify";
-import { FaInfoCircle } from "react-icons/fa";
+import { FaInfoCircle, FaTrash } from "react-icons/fa";
 
 import { AUTH_API } from "@/components/utils/serverURL";
 import AlertDialog from "@/components/AlertDialog";
@@ -142,9 +142,9 @@ const Document = ({ documents, documentRef, setDocuments, setFiles, setIsSaved }
 
   return (
     <div className="w-full overflow-y-auto">
-      <div className="text-center bg-[#F5E8FF] py-2 sm:mx-7 mx-3">
-        <span className="text-[#343434] text-sm text-center">
-          <FaInfoCircle className="text-[#A536FA] size-5 inline-block mr-3" />
+      <div className="text-left bg-blue-100 py-2 sm:mx-7 mx-3">
+        <span className="text-[#343434] text-sm text-left px-3">
+          <FaInfoCircle className="text-blue-500 size-5 inline-block mr-3" />
           {t('Note_Build_your_Chatbot_Knowledge_Base_by_uploading_documents_These_documents_train_your_chatbot_to_answer_questions_accurately')}
         </span>
       </div>
@@ -152,10 +152,10 @@ const Document = ({ documents, documentRef, setDocuments, setFiles, setIsSaved }
       <div className="flex justify-center items-center my-5 sm:mx-7 mx-3">
         <label
           htmlFor="file_upload"
-          className="bg-transparent text-gray-600 rounded-md w-full flex flex-col h-[150px] cursor-pointer items-center justify-center border-dashed border-2 border-gray-200"
+          className="bg-transparent text-gray-600 rounded-md w-full flex flex-col h-auto cursor-pointer items-center justify-center border-dashed border-2 border-gray-200 mb-5"
         >
-          <Image src="/images/icon_file_upload.svg" alt="icon_file_upload" width={50} height={50} />
-          <p className="font-bold text-black text-[16px] text-center">
+          <Image src="/images/knowledgebase/icon_file_upload.png" alt="icon_file_upload" width={200} height={200} />
+          <p className="font-bold text-black text-[16px] text-center mt-5">
             {t('Click_to_upload')}
           </p>
           <p className="text-[#767676] max-sm:hidden text-sm text-center">
@@ -178,22 +178,31 @@ const Document = ({ documents, documentRef, setDocuments, setFiles, setIsSaved }
           <h4 className="text-lg font-bold">{t('Uploaded_files')}</h4>
           <p className="text-[#767676] text-sm">{documents.length} {t('files_uploaded')}</p>
         </div>
-        <div className="overflow-auto">
+        <div className="h-[220px] overflow-y-auto">
           <table className="min-w-max w-full whitespace-nowrap">
             <thead>
-              <tr className="text-xs font-semibold uppercase tracking-wide text-left text-[#767676] border-b-2">
-                <th className="sm:px-7 px-3 py-2">{t('FILENAME')}</th>
-                <th className="sm:px-7 px-3 py-2">{t('TYPE')}</th>
-                <th className="sm:px-7 px-3 py-2">{t('SIZE')}</th>
-                <th className="sm:px-7 px-3 py-2">{t('UPLOADED_ON')}</th>
-                <th className="sm:px-7 px-3 py-2">{t('ACTION')}</th>
+              <tr className="text-xs font-semibold uppercase tracking-wide text-left text-[#767676] border-b-2 w-full">
+                <th className="sm:px-7 px-3 py-2 max-w-[200px]">{t('FILENAME')}</th>
+                <th className="sm:px-7 px-3 py-2 max-w-[50px]">{t('TYPE')}</th>
+                <th className="sm:px-7 px-3 py-2 max-w-[40px]">{t('SIZE')}</th>
+                <th className="sm:px-7 px-3 py-2 max-w-[80px]">{t('UPLOADED_ON')}</th>
+                <th className="sm:px-7 px-3 py-2 max-w-[30px]">{t('ACTION')}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
-              {documents.map((doc, i) => (
-                <tr key={doc.id}>
-                  <td className="sm:px-7 px-3 py-2">{doc.filename}</td>
-                  <td className="sm:px-7 px-3 py-2">
+            <tbody className="divide-y divide-gray-200 overflow-y-auto w-full">
+              {documents.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="text-center">
+                    <div className="flex flex-col items-center justify-center w-full">
+                      <Image src="/images/knowledgebase/icon_no_document.png" alt="No documents" width={100} height={100} />
+                      <p>No file updated yet.</p>
+                    </div>
+                  </td>
+                </tr>
+                ):(documents.map((doc, i) => (
+                <tr key={doc.id} className="w-full">
+                  <td className="sm:px-7 px-3 py-2 truncate max-w-[150px]">{doc.filename}</td>
+                  <td className="sm:px-7 px-3 py-2 max-w-[60px]">
                     {(() => {
                       switch (doc.type) {
                         case "text/plain":
@@ -207,19 +216,20 @@ const Document = ({ documents, documentRef, setDocuments, setFiles, setIsSaved }
                       }
                     })()}
                   </td>
-                  <td className="sm:px-7 px-3 py-2">{doc.file_size? doc.file_size : doc.size}</td>
-                  <td className="sm:px-7 px-3 py-2">{formatDateStringOnly(doc.created_at)}</td>
-                  <td className="sm:px-7 px-3 py-2">
+                  <td className="sm:px-7 px-3 py-2 max-w-[60px]">{doc.file_size? doc.file_size : doc.size}</td>
+                  <td className="sm:px-7 px-3 py-2 max-w-[80px]">{formatDateStringOnly(doc.created_at)}</td>
+                  <td className="sm:px-7 px-3 py-2 max-w-[30px]">
                     <button
                       type="button"
                       onClick={() => handleDelete(doc.id, i)}
                       className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md flex justify-center items-center"
                     >
-                      <Image src="/images/icon_trash.svg" alt="icon_trash" width={18} height={18} />
+                      <FaTrash className="w-5 h-5" />
                     </button>
                   </td>
                 </tr>
-              ))}
+              ))
+              )}
             </tbody>
           </table>
         </div>
