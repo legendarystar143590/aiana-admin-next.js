@@ -223,6 +223,7 @@ const Document = ({ documents, documentRef, setDocuments, setFiles, setIsSaved }
                       type="button"
                       onClick={() => handleDelete(doc.id, i)}
                       className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md flex justify-center items-center"
+                      aria-label="Delete item"
                     >
                       <FaTrash className="w-5 h-5" />
                     </button>

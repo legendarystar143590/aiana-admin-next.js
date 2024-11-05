@@ -313,7 +313,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
       <div className="w-full flex sm:flex-row flex-col-reverse items-center justify-end gap-5 sm:px-7 px-3 pt-5">
         <button
           type="button"
-          className="bg-white border text-gray-800 max-sm:bg-[length:100%_35px] bg-[length:160px_35px] rounded-md bg-center bg-no-repeat max-sm:w-full px-8 h-[35px] text-[#A536FA] font-bold"
+          className="bg-white border text-gray-800 max-sm:bg-[length:100%_35px] bg-[length:160px_35px] rounded-md bg-center bg-no-repeat max-sm:w-full px-8 h-[35px] font-bold"
           onClick={() => router.push(`/knowledge`)}
         >
           {t('Cancel')}

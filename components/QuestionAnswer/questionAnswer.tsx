@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { FaAngleUp, FaAngleDown, FaTrash } from "react-icons/fa";
 
-const questionAnswerComponent = ({handleDeleteQA, questionAnswer, index}) => {
+const QuestionAnswerComponent = ({handleDeleteQA, questionAnswer, index}) => {
   const [isVisible, setIsVisible] = useState(false);
     return (
     <div key={questionAnswer.id} className="py-3">
@@ -35,4 +35,4 @@ const questionAnswerComponent = ({handleDeleteQA, questionAnswer, index}) => {
   )
 }
 
-export default questionAnswerComponent;
+export default QuestionAnswerComponent;
