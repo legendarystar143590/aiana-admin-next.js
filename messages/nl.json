@@ -39,6 +39,8 @@
         "CompanyURL": "Bedrijfs-URL",
         "VATNumber": "BTW-nummer",
         "CompanyAddress": "ADRES VAN HET BEDRIJF",
+        "CompanyDetails": "BEDRIJFSGEGEVENS",
+        "UserProfile": "GEBRUIKERSPROFIEL",
         "Address_Street": "Adres/Straat",
         "StreetNumber": "Straatnummer",
         "City": "Stad",
@@ -114,7 +116,7 @@
         "Note_Build_your_Chatbot_Knowledge_Base_by_uploading_documents_These_documents_train_your_chatbot_to_answer_questions_accurately": "Opmerking: Bouw de kennisbank van uw chatbot op door documenten te uploaden. Deze documenten trainen uw chatbot om vragen nauwkeurig te beantwoorden.",
         "Note_Add_URLs_to_build_your_chatbot_knowledge_base_These_URLs_help_train_your_chatbot_to_answer_questions_accurately": "Voeg URL's toe om de kennisbasis van uw chatbot op te bouwen. Deze URL's helpen uw chatbot vragen nauwkeurig te beantwoorden.",
         "Note_Add_custom_texts_questions_to_build_your_chatbot_knowledge_base_These_texts_help_train_your_chatbot_to_answer_questions_accurately": "Let op: Voeg aangepaste teksten/vragen toe om de kennisbank van uw chatbot op te bouwen. Deze teksten helpen uw chatbot te trainen om vragen nauwkeurig te beantwoorden.",
-        "Questions_Answers": "Vragen en antwoorden",
+        "Text": "Tekst",
         "Edit_Knowledge_Base": "Kennisbank bewerken",
         "Confirm_Delete": "Verwijdering bevestigen",
         "Note_Build_your_Chatbot_Knowledge_Base_by_uploading_documents_These_documents_train_your_chat": "Opmerking: Bouw de kennisbank van uw chatbot op door documenten te uploaden. Deze documenten trainen uw chat",
@@ -130,6 +132,7 @@
         "Are_you_sure_you_want_to_delete_this_item_This_action_cannot_be_undone": "Weet u zeker dat u dit item wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.",
         "Cancel": "Annuleren",
         "Save": "Opslaan",
+        "SaveChanges": "Wijzigingen opslaan",
         "Note_Build_your_Chatbot_Knowledge_Base_by_uploading_urls_These_urls_train_your_chatbot_to_answer_questions_accurately": "Opmerking: Bouw de kennisbank van uw chatbot op door urls te uploaden. Deze urls trainen uw chatbot om vragen nauwkeurig te beantwoorden.",
         "Please_do_not_add_URLs_to_websites_that_contain_confidential_information_or_where_the_publisher_has_imposed_restrictions_on_sharing": "Voeg geen URLs toe aan websites die vertrouwelijke informatie bevatten of waar de uitgever beperkingen heeft opgelegd voor delen.",
         "Enter_URL": "Voer URL in:",
@@ -148,7 +151,8 @@
         "Questions_List": "Vragenlijst",
         "question_added": "vraag toegevoegd",
         "No_question_added_yet": "Nog geen vraag toegevoegd",
-        "Enter_name_of_new_knowledge_base": "Voer de naam van de nieuwe kennisbank in"
+        "Enter_knowledge_base_name": "Voer de naam van de kennisbank in",
+        "No_file_uploaded_yet":"Nog geen bestand geüpload"
     },
     "ticket": {
         "Loading": "Laden",

@@ -2,7 +2,7 @@ import * as React from "react";
 import axios from "axios";
 import router from "next/router";
 import Image from "next/image";
-import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
 
@@ -153,8 +153,8 @@ const KnowledgeBase = () => {
           <h3 className="font-bold text-2xl">{t('Knowledge_Base')}</h3>
         </div>
         <div className="max-sm:w-full w-[350px] h-fit mx-auto mt-10 flex flex-col items-center justify-between">
-          <Image src="/images/icon_noKnowledge.svg" alt="no_bot" width={100} height={100} />
-          <p className="text-xl font-bold text-center mt-10">{t('No_knowledge_base_created_yet')}</p>
+          <Image src="/images/knowledgebase/icon_no_knowledge_base.png" alt="no_bot" width={200} height={200} />
+          <p className="text-xl font-bold text-center">{t('No_knowledge_base_created_yet')}</p>
           <p className="text-[#767676] text-center my-5">
             {t('Create_knowledge_base_and_connect_it_to_chatbot')}
           </p>
@@ -162,10 +162,9 @@ const KnowledgeBase = () => {
             <button
               type="button"
               onClick={handleAddRow}
-              className="bg-[#A536FA] max-sm:w-full w-[210px] sm:h-[40px] h-auto p-3 flex items-center justify-center gap-1 text-white font-bold rounded-md"
+              className="bg-black max-sm:w-full w-[210px] sm:h-[40px] h-auto p-3 flex items-center justify-center gap-1 text-white font-bold rounded-md"
             >
-              <Image src="/images/icon_createKnowledge.svg" alt="create" width={15} height={15} />
-              <p>{t('Create_Knowledge_Base')}</p>
+              + {t('Create_Knowledge_Base')}
             </button>
           </div>
         </div>
@@ -182,43 +181,44 @@ const KnowledgeBase = () => {
   }
 
   return (
-    <div className="w-[90%] mx-auto p-5">
+    <div className="w-full mx-auto p-5">
       <div className="w-full max-sm:flex-col flex items-center justify-between pt-[24px] mb-[10px]">
         <h3 className="font-bold text-2xl max-sm:mb-5">{t('Knowledge_Base')}</h3>
         <button
           type="button"
           onClick={handleAddRow}
-          className="bg-[#A536FA] max-sm:w-full w-[210px] sm:h-[40px] h-auto p-3 flex items-center justify-center gap-1 text-white font-bold rounded-md"
+          className="bg-black max-sm:w-full w-[210px] sm:h-[40px] h-auto p-3 flex items-center justify-center gap-1 text-white font-bold rounded-md"
         >
-          <Image src="/images/icon_createKnowledge.svg" alt="create" width={15} height={15} />
+          +
           <p>{t('Create_Knowledge_Base')}</p>
         </button>
       </div>
-      <div className="relative w-full h-fit flex flex-wrap mt-10 items-center justify-start">
+      <div className="relative w-full h-fit flex flex-col mt-10 items-center justify-start">
         {bases && bases.map((base) => (
-          <div key={base.id} className="w-[300px] h-fit border-2 border-solid border-[#A438FA] shadow-sm rounded-lg m-3">
-            <div className="w-full h-fit flex flex-row items-center justify-center">
-              <div className="w-full h-fit px-5 pt-5">
-                <p className="font-bold text-xl">{base.name}</p>
+          <div key={base.id} className="flex flex-row justify-between w-full h-fit border border-gray-300 shadow-lg rounded-xl m-3 p-2">
+            <div className="flex flex-row w-[87%] px-3 justify-between rounded-2xl border py-2">
+              <div className="h-[50px] flex flex-row items-center justify-center">
+                <div className="w-full h-fit">
+                  <p className="font-bold text-xl">{base.name}</p>
+                </div>
+              </div>
+              <div className="flex h-[50px] justify-center items-center gap-2">
+                
+                <p className="text-xl text-gray-500">{t('Connected_with')}</p>
+                
+                <ScrollableItems items={base.bot_avatar.map((item, itemIndex) => { const newItem = { item, index: itemIndex }; return newItem; })} tooltips={base.bot_names} />
+
               </div>
             </div>
-            <div className="flex w-full h-[50px] px-5 items-center gap-2">
-              
-              <p className="text-sm text-[#070E0B]">{t('Connected_with')}</p>
-              
-              <ScrollableItems items={base.bot_avatar.map((item, itemIndex) => { const newItem = { item, index: itemIndex }; return newItem; })} tooltips={base.bot_names} />
-
-            </div>
-            <hr className="my-5" />
-            <div className="flex flex-row justify-end gap-3 mx-5 mb-5">
+            <div className="flex flex-row justify-center items-center gap-3">
               <div className="group relative flex justify-center">
                 <button
                   type="button"
                   aria-label="edit-knowledge-base"
-                  className="size-8 text-[12px] rounded-full border-2 border-[#2CA84D] text-[#2CA84D] flex justify-center items-center"
+                  className="size-8 text-[12px] text-black flex justify-center items-center"
                   onClick={() => handleEditClick(base.id)}
                 >
-                  <FaEdit className="w-4 h-4" />
+                  <FaEdit className="w-6 h-6" />
                 </button>
                 <span className="absolute top-9 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{t('Edit')}</span>
               </div>
@@ -227,10 +227,10 @@ const KnowledgeBase = () => {
                 <button
                   type="button"
                   aria-label="delete-knowledge-base"
-                  className="size-8 text-[12px] rounded-full border-2 border-[#D7263C] text-[#D7263C] flex justify-center items-center"
+                  className="size-8 text-[12px] text-black flex justify-center items-center"
                   onClick={() => handleDeleteButton(base.id)}
                 >
-                  <FaRegTrashAlt className="w-4 h-4" />
+                  <FaTrash className="w-6 h-6" />
                 </button>
                 <span className="absolute top-9 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{t('Delete')}</span>
               </div>

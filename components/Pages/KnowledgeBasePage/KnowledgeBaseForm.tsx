@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react"
 import { useRouter } from "next/router"
 import axios from "axios"
-import { FaArrowLeft } from "react-icons/fa"
 import { useTranslations } from "next-intl"
 import { toast } from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
@@ -138,7 +137,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
   const isValidName = (name: string): boolean => {
     console.log("name checker")
     // Check if name is not empty, starts with a letter, ends with a letter, and contains only letters and spaces
-    return /^[A-Za-z][A-Za-z\s]*[A-Za-z]$/.test(name);
+    return /^[A-Za-z][A-Za-z0-9\s]*[A-Za-z]$/.test(name);
   };
 
   const handleSubmit = async () => {
@@ -282,61 +281,51 @@ const KnowledgeBaseForm = ({ baseId }) => {
 
   return (
     <div
-      className="relative flex h-full flex-col flex-grow sm:w-[90%] w-full mx-auto sm:p-5"
+      className="relative flex h-full flex-col flex-grow w-full mx-auto"
     >
-      <div className="bg-none w-full rounded-lg flex items-center gap-3 mb-5">
-        <button type="button" aria-label="back" className="bg-[#F4F4F4] text-[#767676] font-[300] p-3 rounded-md" onClick={() => router.push("/knowledge")}>
-          <FaArrowLeft />
-        </button>
-
-        <h3 className="text-lg font-bold">{newBaseId !== "-1" ? t('Edit_Knowledge_Base') : t('Create_Knowledge_Base')}</h3>
+      <div className="flex flex-col w-full items-center">
+        <input
+          className="w-full rounded-lg py-4 px-7 text-xl font-bold border-none focus:ring-0"
+          type="text"
+          value={nameInputValue}
+          placeholder={t('Enter_knowledge_base_name')}
+          onChange={(e) => setNameInputValue(e.target.value)}
+        />
       </div>
-      <div className="bg-none w-full rounded-lg flex flex-col mt-1 border border-[#CFCFCF]">
-        <div className="flex flex-col w-full items-center">
-          <input
-            className="w-full rounded-lg py-4 px-7 text-xl font-bold border-none focus:ring-0"
-            type="text"
-            value={nameInputValue}
-            placeholder={t('Enter_name_of_new_knowledge_base')}
-            onChange={(e) => setNameInputValue(e.target.value)}
-          />
-          <hr className="w-full" />
-        </div>
+      <div className="bg-none w-full h-[900px] rounded-lg flex flex-col mt-1 border border-[#CFCFCF]">
         <div className="w-full flex flex-col justify-between my-5 overflow-x-auto">
 
           <ul
-            className="flex justify-start gap-7 ml-7"
+            className="flex justify-start gap-7 ml-7 text-gray-500"
           >
-            <button type="button" className={`${value === 0 && "border-b-2 text-[#A536FA]"} border-[#A536FA] py-3 cursor-pointer`} onClick={() => setValue(0)}>{t('Document')}</button>
-            <button type="button" className={`${value === 1 && "border-b-2 text-[#A536FA]"} border-[#A536FA] py-3 cursor-pointer`} onClick={() => setValue(1)}>{t('Website')}</button>
-            <button type="button" className={`${value === 2 && "border-b-2 text-[#A536FA]"} border-[#A536FA] py-3 cursor-pointer`} onClick={() => setValue(2)}>{t('Questions_Answers')}</button>
+            <button type="button" className={`${value === 0 && "border text-black"} border-gray rounded-lg py-1 px-2 cursor-pointer`} onClick={() => setValue(0)}>{t('Document')}</button>
+            <button type="button" className={`${value === 1 && "border text-black"} border-gray rounded-lg py-1 px-2 cursor-pointer`} onClick={() => setValue(1)}>{t('Website')}</button>
+            <button type="button" className={`${value === 2 && "border text-black"} border-gray rounded-lg py-1 px-2 cursor-pointer`} onClick={() => setValue(2)}>{t('Text')}</button>
           </ul>
-          <hr className="w-full" />
 
         </div>
-        <div className="w-full sm:mb-7 mb-3">
+        <div className="w-full">
           {value === 0 && <Document documents={documents} documentRef={documentRef} setDocuments={setDocuments} setFiles={setFiles} setIsSaved={setIsSaved} />}
           {value === 1 && <Website urls={urls} setUrls={setUrls} websiteRef={urlsRef} setIsSaved={setIsSaved}/>}
           {value === 2 && <Text questionAnswers={questionAnswers} setQuestionAnswers={setQuestionAnswers} setIsSaved={setIsSaved}/>}
         </div>
-        <div className="w-full flex sm:flex-row flex-col-reverse items-center justify-end gap-5 sm:px-7 px-3 sm:pb-7 pb-3">
-          <button
-            type="button"
-            className="bg-[url('/images/button-bg-white.png')] max-sm:bg-[length:100%_40px] bg-[length:160px_40px] rounded-md bg-center bg-no-repeat max-sm:w-full w-[160px] h-[40px] text-[#A536FA] font-bold"
-            onClick={() => router.push(`/knowledge`)}
-          >
-            {t('Cancel')}
-          </button>
-          <button
-            type="button"
-            className="bg-[#A536FA] max-sm:w-full w-[160px] h-[40px] text-white font-bold rounded-md"
+      </div>
+      <div className="w-full flex sm:flex-row flex-col-reverse items-center justify-end gap-5 sm:px-7 px-3 pt-5">
+        <button
+          type="button"
+          className="bg-white border text-gray-800 max-sm:bg-[length:100%_35px] bg-[length:160px_35px] rounded-md bg-center bg-no-repeat max-sm:w-full px-8 h-[35px] font-bold"
+          onClick={() => router.push(`/knowledge`)}
+        >
+          {t('Cancel')}
+        </button>
+        <button
+          type="button"
+          className="bg-black max-sm:w-full w-[160px] h-[35px] text-white font-bold rounded-md"
 
-            onClick={isSaving || isSaved ? () => {console.log("isSaving", isSaving, "isSaved", isSaved)} : handleSubmit}
-          >
-            {isSaving? <Spinner color=""/>:t('Save')}
-          </button>
-        </div>
-
+          onClick={isSaving || isSaved ? () => {console.log("isSaving", isSaving, "isSaved", isSaved)} : handleSubmit}
+        >
+          {isSaving? <Spinner color=""/>:t('SaveChanges')}
+        </button>
       </div>
     </div>
   )
