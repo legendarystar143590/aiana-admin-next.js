@@ -25,8 +25,22 @@ export function formatDateStringOnly(isoDateString: string): string {
     const day = String(date.getDate()).padStart(2, '0');
     const monthIndex = date.getMonth(); // getMonth() returns month index starting from 0 for January
     const year = date.getFullYear();
-
+    console.log(day, monthNames[monthIndex])
     return `${day} ${monthNames[monthIndex]} ${year}`;
+}
+
+export function formatTimeStringOnly(isoDateString: string): string {
+    if (!isoDateString) {
+        return "";
+    }
+    const date = new Date(isoDateString);
+
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+
+    // Construct the new date format
+    return `${hours}:${minutes}`;
+   
 }
 
 export async function loginUser(email: string, password: string,) {

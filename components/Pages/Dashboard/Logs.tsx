@@ -3,15 +3,13 @@ import axios from "axios"
 import { useTranslations } from "next-intl"
 import { toast } from "react-toastify"
 import router from "next/router"
-import Image from 'next/image'
-import { FaArrowLeft } from "react-icons/fa"
+import { FaDownload, FaRegTrashAlt } from "react-icons/fa"
 import { AUTH_API } from "@/components/utils/serverURL"
-import formatDateString from "@/components/utils/common"
+import {formatDateStringOnly} from "@/components/utils/common"
 import Avatar from "@/components/Avatar"
 
-const Logs = ({ session }) => {
+const Logs = ({ session, chatLog, setChatLog }) => {
   const t = useTranslations('chatbot');
-  const ts = useTranslations('dashboard');
   const toa = useTranslations('toast');
   const INITIAL_BOT_OBJ = {
     bot_name: "",
@@ -20,9 +18,11 @@ const Logs = ({ session }) => {
     start_time: "",
   }
   const [isLoading, setIsLoading] = useState(false);
-  const [, setBot] = useState(INITIAL_BOT_OBJ)
+  const [bot, setBot] = useState(INITIAL_BOT_OBJ)
   const [conversation, setConversation] = useState([])
-  const [botAvatar, setBotAvatar] = useState('/images/logo_sm.png');
+  const [botAvatar, setBotAvatar] = useState('/images/icon_bot_avatar.png');
+  const [userName, setUserName] = useState("")
+  const [userEmail, setUserEmail] = useState("")
 
   useEffect(() => {
     if (session !== undefined) {
@@ -46,7 +46,7 @@ const Logs = ({ session }) => {
             const updatedBot = {
               ...INITIAL_BOT_OBJ,
               bot_name: response.data.log.bot_name || INITIAL_BOT_OBJ.bot_name,
-              start_time: formatDateString(response.data.log.created_at || INITIAL_BOT_OBJ.start_time),
+              start_time: formatDateStringOnly(response.data.log.created_at || INITIAL_BOT_OBJ.start_time),
               avatar: response.data.log.avatar || INITIAL_BOT_OBJ.avatar,
               greetings: response.data.log.greetings || INITIAL_BOT_OBJ.greetings,
 
@@ -59,6 +59,12 @@ const Logs = ({ session }) => {
           }
           if (response.data && response.data.bot_avatar) {
             setBotAvatar(response.data.bot_avatar)
+          }
+          if (response.data && response.data.user_name) {
+            setUserName(response.data.user_name)
+          }
+          if (response.data && response.data.user_email) {
+            setUserEmail(response.data.user_email)
           }
           setIsLoading(false)
         })
@@ -89,56 +95,115 @@ const Logs = ({ session }) => {
     }
   }, [session])
 
+  const handleDelete = (sessionId) => {
+    axios
+    .post(`${AUTH_API.DELETE_CHATLOG}`, { sessionId }, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
+        'Content-Type': 'application/json',  // Explicitly defining the Content-Type
+      }
+    })
+    .then((response) => {
+      if (response.status === 201) {
+        const updatedChatLog = chatLog.filter((log) => log.session_id !== sessionId);
+        setChatLog(updatedChatLog);
+        toast.success(`${toa('Chatlog_deleted_successfully')}`, { position: toast.POSITION.TOP_RIGHT })
+      }
+    })
+    .catch(() => {
+      toast.error(`${toa('Failed_to_delete_chatlog_Please_try_again_later')}`, { position: toast.POSITION.TOP_RIGHT });
+    });
+  }
+
+  const handleExport = () => {
+    // Convert data to CSV  
+    const csvHeaders = `${Object.keys(conversation[0]).join(",")}\n`;  
+    const csvRows = conversation  
+      .map((row) => Object.values(row).join(","))  
+      .join("\n");  
+    
+    const csvString = csvHeaders + csvRows;  
+  
+    // Create a Blob from the CSV string  
+    const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });  
+  
+    // Create a link element and trigger the download  
+    const link = document.createElement("a");  
+    link.href = URL.createObjectURL(blob);  
+    link.setAttribute("download", "exported_data.csv");  
+    
+    // Append the link to the body, click it, and remove it  
+    document.body.appendChild(link);  
+    link.click();  
+    document.body.removeChild(link);
+  }
+
   if (isLoading) {
     return (
-      <div>{t('Loading')}</div>
+      <div className="h-[700px] w-full mx-auto bg-gray-200 rounded-lg mt-[62px]"/>
     )
   }
 
   return (
-    <div className="h-full sm:w-[90%] w-full mx-auto sm:p-5">
-      <div className="w-full h-[50px] relative flex items-center justify-start text-black_8 pt-[20px] mb-[10px] text-[20px]">
-        <div className="bg-none w-full rounded-lg flex items-center gap-3">
-          <button type="button" aria-label="back-logs" className="bg-[#F4F4F4] text-[#767676] font-[300] p-3 rounded-md" onClick={() => router.push(`/dashboard`)}>
-            <FaArrowLeft />
+    <div className="h-full w-full mx-auto">
+      <div className="h-[50px] flex flex-row w-full items-center justify-between mb-4">
+        <div className="flex flex-col">
+          <h3 className="font-bold text-2xl">{userName}</h3>
+          {userEmail && <p className="text-gray-500">{userEmail} | start : {bot.start_time}</p>}
+          
+        </div>
+        <div className="flex flex-row gap-4">
+          <button
+            type="button"
+            onClick={()=>handleDelete(session)}
+            className="px-4 py-1 flex flex-row justify-center items-center gap-2 border rounded-md border-gray-300"
+          >
+            <FaRegTrashAlt />
+            {t('Delete')}
           </button>
-          <h3 className="text-lg font-bold">{ts('Back_to_Chatlogs')}</h3>
+          <button
+            type="button"
+            onClick={()=>handleExport()}
+            className="px-4 py-1 flex flex-row justify-center items-center gap-2 bg-black text-white rounded-md"
+          >
+            <FaDownload/>
+            {t('Export')}
+          </button>
         </div>
       </div>
-      <div className="max-w-[1000px] overflow-y-auto border border-[#CFCFCF] rounded-md">
-        <div className="sm:w-[400px] w-full mx-auto rounded-md mt-5 p-3">
-          <div>
+      <div className="max-w-[1000px] overflow-y-auto bg-gray-200 rounded-lg h-[700px]">
+        <div className="w-full mx-auto rounded-md mt-5 p-3">
+          {/* <div className="flex items-right justify-end gap-2 w-full">
             <Avatar src={botAvatar} name="avatar" className="rounded-full size-12" />
           </div>
-          <hr />
+          <hr /> */}
           <div className="flex flex-col text-gray-500 overflow-y-auto">
-            {conversation.map((conv) => (
+            {conversation.map((conv) => 
               <div key={conv.id} className="flex flex-col m-2">
-                <div className="flex flex-row justify-end items-center w-full pl-10 pb-2">
+                <div className="flex flex-row justify-start items-center w-full pb-2 gap-4">
+                  <Avatar
+                    src="/images/icon_user_avatar.png"
+                    name="avatar"
+                    className="rounded-full size-12"
+                  />
                   <div className="text-[14px] text-white bg-[#A438FA] p-2 rounded-md">
                     {conv.user_message}
                   </div>
                 </div>
-                <div className="flex flex-row justify-between w-full">
-                  <div className="flex items-start gap-2 w-[70%]">
+                <div className="flex flex-row justify-end w-full">
+                  <div className="flex items-right justify-end gap-2 w-[70%]">
+                    <div className="text-[14px] text-[#070E0B] bg-gray-100 rounded-md p-2">
+                      {conv.response}
+                    </div>
                     <Avatar
                       src={botAvatar}
                       name="avatar"
                       className="rounded-full size-12"
                     />
-                    <div className="text-[14px] text-[#070E0B] bg-[#EBEBEB] rounded-md p-2">
-                      {conv.response}
-                    </div>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-          <div className="w-full relative mt-3">
-            <input type="text" className="w-full rounded-md border-[#CFCFCF]" disabled />
-            <button type="button" className="absolute right-3 top-1/2 -translate-y-1/2 py-auto flex items-center justify-center">
-              <Image src="/images/icon_send.svg" alt="send" width={20} height={20} />
-            </button>
+            )}
           </div>
         </div>
       </div>
