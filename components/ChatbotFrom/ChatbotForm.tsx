@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid"
 import { useRouter } from "next/router"
 import { toast } from "react-toastify"
 import Image from "next/image"
-import { FaCaretDown, FaChevronDown } from "react-icons/fa"
+import { FaChevronDown } from "react-icons/fa"
 import { useTranslations } from "next-intl"
 import { SketchPicker } from 'react-color';
 import { AUTH_API } from "@/components/utils/serverURL"
@@ -572,7 +572,7 @@ const ChatbotForm = ({ bot }) => {
           </div>
           <div className="p-4 flex flex-col w-1/2 border border-[#CFCFCF] rounded-lg h-full overflow-y-auto">
             <div
-              className={`w-full h-full transition-all rounded-md duration-300 ease-in-out border-solid border-2 flex flex-col overflow-auto bg-white`}
+              className="w-full h-full transition-all rounded-md duration-300 ease-in-out border-solid border-2 flex flex-col overflow-auto bg-white"
             >
               <div className="flex">
                 <div
@@ -580,8 +580,8 @@ const ChatbotForm = ({ bot }) => {
                   style={{ backgroundColor: themeColor }}
                 >
                   <div className="flex items-center">
-                    <Avatar src={avatarPreview?avatarPreview:"/images/logo_sm.png"} name="bot avatar" className="mr-2 size-12 rounded-full" />
-                    <h3 className="ml-2 text-[16px] font-bold text-white">{nameInputValue}</h3>
+                    <Avatar src={avatarPreview || "/images/logo_sm.png"} name="bot avatar" className="mr-2 size-12 rounded-full" />
+                    <h3 className="ml-2 text-[16px] font-bold text-white">{nameInputValue || "My Bot"}</h3>
                   </div>
                 </div>
               </div>
