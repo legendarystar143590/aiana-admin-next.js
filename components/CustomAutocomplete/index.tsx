@@ -32,16 +32,22 @@ const CustomAutocomplete = ({ currentValue, options, onChange }) => {
     const toggleOpen = () => setIsOpen(!isOpen);
 
     return (
-        <div className="flex flex-col mt-4" ref={inputRef}>
+        <div className="flex flex-col" ref={inputRef}>
             <div className="relative">
                 <div>
-                    <button type="button" onClick={toggleOpen} className="flex justify-between items-center w-full rounded-md border border-[#767676] shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:border-indigo-500" aria-haspopup="true" aria-expanded={isOpen}>
-                        {inputValue || ''}
+                    <button 
+                        type="button" 
+                        onClick={toggleOpen} 
+                        className="flex justify-between items-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:border-gray-300" 
+                        aria-haspopup="true" 
+                        aria-expanded={isOpen}
+                    >
+                        {inputValue || 'Select knowledge base'}
                         <FaChevronDown />
                     </button>
                 </div>
                 {
-                    isOpen && <ul className="absolute bottom-12 z-10 w-full bg-white shadow-lg max-h-60 overflow-auto rounded-md my-1 filter">
+                    isOpen && <ul className="absolute top-8 z-10 w-full bg-white shadow-lg max-h-60 overflow-auto rounded-md my-1 filter">
                         {options.map((option) => (
                             <button
                                 type="button"

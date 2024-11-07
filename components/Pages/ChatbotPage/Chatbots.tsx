@@ -196,8 +196,8 @@ const Chatbots = () => {
           <h3 className="font-bold text-2xl">{t('Chatbots')}</h3>
         </div>
         <div className="max-sm:w-full w-[300px] h-fit mx-auto mt-10 flex flex-col items-center justify-between">
-          <Image src="/images/no_bot.png" alt="no_bot" width={100} height={100} />
-          <p className="text-xl font-bold text-center mt-10">{t('No_chatbots_created_yet')}</p>
+          <Image src="/images/icon_no_bot.png" alt="no_bot" width={200} height={200} />
+          <p className="text-xl font-bold text-center">{t('No_chatbots_created_yet')}</p>
           <p className="text-[#767676] text-center my-5">
             {t('Create_chatbots_to_help_you_communicate_You_will_see_chatbots_here_after_creating')}
           </p>
@@ -205,9 +205,9 @@ const Chatbots = () => {
             <button
               type="button"
               onClick={handleAddRow}
-              className="bg-[#A536FA] max-sm:w-full w-[160px] h-[40px] flex items-center justify-center gap-1 text-white font-bold rounded-md"
+              className="bg-black max-sm:w-full w-[160px] h-[40px] flex items-center justify-center gap-1 text-white font-bold rounded-md"
             >
-              <Image src="/images/icon_create.svg" alt="create" width={15} height={15} />
+              + 
               <p>{t('Create_Chatbot')}</p>
             </button>
           </div>
@@ -252,9 +252,9 @@ const Chatbots = () => {
           <button
             type="button"
             onClick={handleAddRow}
-            className="bg-[#A536FA] w-[160px] h-[40px] flex items-center justify-center gap-1 text-white font-bold rounded-md"
+            className="bg-black w-[160px] h-[40px] flex items-center justify-center gap-1 text-white font-bold rounded-md"
           >
-            <Image src="/images/icon_create.svg" alt="create" width={15} height={15} />
+            + 
             <p>{t('Create_Chatbot')}</p>
           </button>
         </div>
@@ -263,7 +263,7 @@ const Chatbots = () => {
         {bots&&bots.map((bot) => (
           <div
             key={bot.id}
-            className="w-[300px] h-fit border-2 border-solid border-[#A438FA] shadow-lg rounded-lg m-3"
+            className="w-[300px] h-fit border border-solid border-gray-300 shadow-lg rounded-lg m-3"
           >
             <div className="w-full h-fit px-5 pt-5">
               <div className="w-full flex items-center">
@@ -363,7 +363,14 @@ const Chatbots = () => {
         open={openDialog}
         setOpen={setOpenDialog}
       />
-        <EmbedAlert open={open} setOpen={setOpen} description={description} handleCopy={handleCopy} botId={botId}/>
+      
+      <EmbedAlert 
+        open={open} 
+        setOpen={setOpen} 
+        description={description} 
+        handleCopy={handleCopy} 
+        botId={botId}
+      />
 
       <ChatbotPage
         userId={userId}
