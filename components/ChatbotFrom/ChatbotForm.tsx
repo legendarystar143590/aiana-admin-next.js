@@ -69,6 +69,7 @@ const ChatbotForm = ({ bot }) => {
 
   const handleColorChange = (color) => {
     setThemeColor(color.hex)
+    setIsSaved(false)
   }
 
   useEffect(() => {
@@ -150,7 +151,6 @@ const ChatbotForm = ({ bot }) => {
         })
       const session = uuidv4().toString()
       setSessionId(session)
-      setMessages([{ id: session, isBot: true, text: `${t('Hello_How_can_I_assist_you_today')}` }])
     }
   }, [bot]) // Empty dependency array means this effect will only run once after the initial render
 
@@ -597,7 +597,7 @@ const ChatbotForm = ({ bot }) => {
                     }}
                   >
                     <Avatar
-                      src={message.isBot ? avatarPreview : "/images/logo_sm.png"}
+                      src={message.isBot ? avatarPreview || "/images/logo_sm.png" : "/images/logo_sm.png"}
                       name="avatar"
                       className={`rounded-full size-12 ${!message.isBot && "hidden"}`}
                     />
