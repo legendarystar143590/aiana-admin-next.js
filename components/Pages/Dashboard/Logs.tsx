@@ -8,7 +8,7 @@ import { AUTH_API } from "@/components/utils/serverURL"
 import {formatDateStringOnly} from "@/components/utils/common"
 import Avatar from "@/components/Avatar"
 
-const Logs = ({ session, chatLog, setChatLog, botAvatar }) => {
+const Logs = ({ session, setSession, chatLog, setChatLog, botAvatar }) => {
   const t = useTranslations('chatbot');
   const toa = useTranslations('toast');
   const INITIAL_BOT_OBJ = {
@@ -96,7 +96,6 @@ const Logs = ({ session, chatLog, setChatLog, botAvatar }) => {
   }, [session])
 
   const handleDelete = (sessionId) => {
-    console.log("sessionId >>>>>", sessionId)
     axios
     .post(`${AUTH_API.DELETE_CHATLOG}`, { sessionId }, {
       headers: {
@@ -108,6 +107,8 @@ const Logs = ({ session, chatLog, setChatLog, botAvatar }) => {
       if (response.status === 201) {
         const updatedChatLog = chatLog.filter((log) => log.session_id !== sessionId);
         setChatLog(updatedChatLog);
+        setSession("")
+        setConversation([]);
         toast.success(`${toa('Chatlog_deleted_successfully')}`, { position: toast.POSITION.TOP_RIGHT })
       }
     })
