@@ -5,19 +5,21 @@ import Image from "next/image"
 import router from "next/router"
 import { toast } from "react-toastify"
 import { useTranslations } from "next-intl"
+import { FaSearch, FaFilter } from "react-icons/fa"
 
 import { AUTH_API } from "@/components/utils/serverURL"
-import formatDateString, { setExpiryTime } from '@/components/utils/common'
-import AlertDialog from "@/components/AlertDialog"
+import {formatTimeStringOnly, setExpiryTime } from '@/components/utils/common'
+import Avatar from "@/components/Avatar"
 
-const Tickets = () => {
+const Tickets = ({setSession, tickets, setTickets, setBotAvatar, setTicketContent, setCurrentTicketId}) => {
   const t = useTranslations('ticket');
   const toa = useTranslations('toast');
   const [userId, setUserId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [tickets, setTickets] = useState([]);
-  const [openDialog, setOpenDialog] = useState(false);
-  const [currentItem, setCurrentItem] = useState("");
+  const [isClickedSearchBar, setIsClickedSearchBar] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const [isClickedFilterBar, setIsclickedFilterBar] = useState(false);
+  const [results, setResults] = useState([]);
 
   useEffect(() => {
     const userIdFromStorage = localStorage.getItem("userID");
@@ -34,6 +36,7 @@ const Tickets = () => {
         .then((response) => {
           if (response.status === 200) {
             setTickets(response.data);
+            setResults(response.data);
             setExpiryTime();
           }
           if (response.status === 401) {
@@ -65,53 +68,22 @@ const Tickets = () => {
     }
   }, []);
 
-  const handleCancelButton = (id) => {
-    setCurrentItem(id);
-    setOpenDialog(true);
-  }
+  useEffect(() => {  
+    const filteredWords = tickets.filter(log =>  
+      log.bot_name.toLowerCase().includes(searchValue.toLowerCase())  
+    );  
+    setResults(filteredWords);  
+  }, [searchValue]);
 
-  const handleAgree = () => {
-    setOpenDialog(false);
-    axios
-      .post(AUTH_API.DEL_TICKET, { currentItem }, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
-          'Content-Type': 'application/json',  // Explicitly defining the Content-Type
-        }
-      })
-      .then((response) => {
-        if (response.status === 201) {
-          const updatedTickets = tickets.filter(ticket => ticket.id !== currentItem);
-          setTickets(updatedTickets);
-          toast.success(`${toa('Successfully_deleted!')}`, { position: toast.POSITION.TOP_RIGHT })
-        }
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log('Error status code:', error.response.status);
-          console.log('Error response data:', error.response.data);
-          if (error.response.status === 401) {
-            toast.error(`${toa('Session_Expired_Please_log_in_again')}`, { position: toast.POSITION.TOP_RIGHT });
+  useEffect(()=>{
+    setResults(tickets)
+  },[tickets]);
 
-            router.push("/signin")
-          }
-          // Handle the error response as needed
-        } else if (error.request) {
-          // The request was made but no response was received
-          console.log('Error request:', error.request);
-          toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
-
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          console.log('Error message:', error.message);
-          toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
-
-        }
-      })
-  }
-
-  const handleDisagree = () => {
-    setOpenDialog(false);
+  const handleRowClick = (sessionId, botAvatar, content, ticketId) => {
+    setSession(sessionId);
+    setBotAvatar(botAvatar);
+    setTicketContent(content);
+    setCurrentTicketId(ticketId);
   }
 
   if (isLoading || !userId) {
@@ -121,61 +93,59 @@ const Tickets = () => {
   }
 
   return (
-    <div>
-      <div className="w-full mx-auto p-5">
-        <div className="w-full h-[50px] flex items-center justify-between pt-[24px] mb-[10px]">
-          <h3 className="font-bold text-2xl">{t('tickets')}</h3>
+    <div className="w-full h-full">
+      <div className="h-[10%] flex items-center justify-between">
+          <h3 className="font-bold text-2xl truncate">{t('tickets')}</h3>
+          <div className="flex flex-row gap-3">
+            <div className={`${isClickedSearchBar?"px-3 py-1 gap-2":"p-3"} w-auto flex flex-row border border-gray-300 rounded-full`}>
+              <input type="text" value={searchValue} onChange={(e)=>{setSearchValue(e.target.value)}} className={`${isClickedSearchBar?"block":"hidden"} rounded-xl text-base py-1`}/>
+              <button type="button" onClick={()=>setIsClickedSearchBar(!isClickedSearchBar)} aria-label="Search Button">
+                <FaSearch />
+              </button>            
+            </div>
+            <div className={`${isClickedFilterBar?"px-3 py-1 gap-2":"p-3"} w-auto flex flex-row border border-gray-300 rounded-full`}>
+              <button type="button" onClick={()=>setIsclickedFilterBar(!isClickedFilterBar)} aria-label="Filter Button">
+                <FaFilter />
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-      {tickets.length === 0 ? (
-        <div className="text-center w-full">{t('There_is_no_ticket')}</div>
-      ) : (
-        <table className="w-full rounded-table min-w-[600px]" aria-label="table">
-          <thead className="bg-[#EEEEEE] text-[#767676] text-sm ">
-            <tr>
-              <th className="px-4 py-2 text-start">{t('No')}</th>
-              <th className="px-4 py-2 text-start">{t('Email')}</th>
-              <th className="px-4 py-2 text-start">{t('Website')}</th>
-              <th className="px-4 py-2 text-start">{t('Content')}</th>
-              <th className="px-4 py-2 text-start">{t('Status')}</th>
-              <th className="px-4 py-2 text-start">{t('Created_at')}</th>
-              <th className="px-4 py-2 text-start">{t('Action')}</th>
-            </tr>
-          </thead>
-          <tbody className="gap-3 my-2">
-            {tickets.map((row, index) => (
-              <React.Fragment key={row.id}>
-                <tr className="h-3" />
-                <tr key={row.id} className="hover:bg-gray-100 cursor-pointer border border-[#BEBEBE] border-round">
-                  <td > {index + 1}</td>
-                  <td className="px-4 py-2">{row.email}</td>
-                  <td className="px-4 py-2">{row.website}</td>
-                  <td className="px-4 py-2">{row.content}</td>
-                  <td className="px-4 py-2">{row.status}</td>
-                  <td className="px-4 py-2">{formatDateString(row.created_at)}</td>
-                  <td className="px-4 py-2">
-                    <button
-                      type="button"
-                      onClick={() => handleCancelButton(row.id)}
-                      className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md flex justify-center items-center"
-                    >
-                      <Image src="/images/icon_trash.svg" alt="icon_trash" width={18} height={18} />
-                    </button>
-                  </td>
-                </tr>
-              </React.Fragment>
-            ))}
-          </tbody>
-        </table>
+      {results.length === 0 ? 
+        <div className="flex flex-row w-full h-[90%] justify-center items-center border">
+          <div className="flex flex-col justify-center items-center text-center">
+            <Image src="/images/icon_no_chat_logs.png" width={150} height={150} alt="No chat log."/>
+            <p className="text-lg">No chat occured yet</p>
+            <p className="w-2/3">We will show your chatlogs on this page once you have chats on your bot.</p>
+          </div>
+        </div>
+      : (
+        results.map((row)=>(          
+          <React.Fragment key={row.id}>
+            <div  
+              className="flex flex-row w-full cursor-pointer border-y py-6"  
+              onClick={() => handleRowClick(row.session_id, row.bot_avatar, row.content, row.id)}  
+              onKeyDown={(e) => {  
+                if (e.key === 'Enter' || e.key === ' ') {  
+                  handleRowClick(row.session_id, row.bot_avatar, row.content, row.id);  
+                  e.preventDefault(); // Prevent scrolling when space is pressed  
+                }  
+              }}  
+              tabIndex={0} // Makes the div focusable  
+              role="button" // Indicates this is a button-like element  
+            >
+              <div className="w-[15%]">
+                <Avatar src={row.bot_avatar || "/images/icon_bot_avatar.png"} name="avatar" className="size-10 rounded-full" />
+              </div>            
+              <div className="flex flex-col w-[85%]">
+                <div className="flex flex-row justify-between">
+                  <p className="text-base font-bold">{row.bot_name}</p>
+                  <p className="text-sm">{formatTimeStringOnly(row.created_at)}</p>
+                </div>
+              </div>
+            </div>
+          </React.Fragment>
+        ))
       )}
-      <AlertDialog
-        title={t("Confirm_Delete")}
-        description={t('Are_you_sure_you_want_to_delete_this_item_This_action_cannot_be_undone')}
-        handleAgree={handleAgree}
-        handleDisagree={handleDisagree}
-        open={openDialog}
-        setOpen={setOpenDialog}
-      />
     </div>
   )
 }
