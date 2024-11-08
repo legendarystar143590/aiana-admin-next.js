@@ -25,7 +25,7 @@ const MenuList = ({ open }) => {
   } = useSideMenu()
 
   return (
-    <div className={`relative z-[4] w-full ${open ? "mt-3" : "mt-10"}`}>
+    <div className={`relative z-[4] w-full pl-4 ${open ? "mt-3" : "mt-10"}`}>
       <div className={`flex justify-center items-center w-full pt-8 pb-4 pl-8 ${open ? navClasses : "hidden"}`}>
         <p className="flex justify-start text-left items-center w-full">
           SETUP

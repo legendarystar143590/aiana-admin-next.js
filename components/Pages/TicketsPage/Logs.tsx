@@ -7,8 +7,9 @@ import { FaDownload, FaRegTrashAlt } from "react-icons/fa"
 import { AUTH_API } from "@/components/utils/serverURL"
 import {formatDateStringOnly} from "@/components/utils/common"
 import Avatar from "@/components/Avatar"
+import AlertDialog from "@/components/AlertDialog"
 
-const Logs = ({ session, chatLog, setChatLog, botAvatar }) => {
+const Logs = ({ session,setSession, tickets, setTickets, botAvatar, ticketContent, currentTicketId }) => {
   const t = useTranslations('chatbot');
   const toa = useTranslations('toast');
   const INITIAL_BOT_OBJ = {
@@ -23,6 +24,7 @@ const Logs = ({ session, chatLog, setChatLog, botAvatar }) => {
   // const [ setBotAvatar] = useState('/images/icon_bot_avatar.png');
   const [userName, setUserName] = useState("")
   const [userEmail, setUserEmail] = useState("")
+  const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {
     if (session !== undefined) {
@@ -95,27 +97,6 @@ const Logs = ({ session, chatLog, setChatLog, botAvatar }) => {
     }
   }, [session])
 
-  const handleDelete = (sessionId) => {
-    console.log("sessionId >>>>>", sessionId)
-    axios
-    .post(`${AUTH_API.DELETE_CHATLOG}`, { sessionId }, {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
-        'Content-Type': 'application/json',  // Explicitly defining the Content-Type
-      }
-    })
-    .then((response) => {
-      if (response.status === 201) {
-        const updatedChatLog = chatLog.filter((log) => log.session_id !== sessionId);
-        setChatLog(updatedChatLog);
-        toast.success(`${toa('Chatlog_deleted_successfully')}`, { position: toast.POSITION.TOP_RIGHT })
-      }
-    })
-    .catch(() => {
-      toast.error(`${toa('Failed_to_delete_chatlog_Please_try_again_later')}`, { position: toast.POSITION.TOP_RIGHT });
-    });
-  }
-
   const handleExport = () => {
     // Convert data to CSV  
     const csvHeaders = `${Object.keys(conversation[0]).join(",")}\n`;  
@@ -145,6 +126,56 @@ const Logs = ({ session, chatLog, setChatLog, botAvatar }) => {
     )
   }
 
+  const handleDelete = () => {
+    setOpenDialog(true);
+  }
+
+  const handleAgree = () => {
+    setOpenDialog(false);
+    axios
+      .post(AUTH_API.DEL_TICKET, { currentTicketId }, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
+          'Content-Type': 'application/json',  // Explicitly defining the Content-Type
+        }
+      })
+      .then((response) => {
+        if (response.status === 201) {
+          const updatedTickets = tickets.filter(ticket => ticket.id !== currentTicketId);
+          setTickets(updatedTickets);
+          setSession("");
+          setConversation([]);
+          toast.success(`${toa('Successfully_deleted!')}`, { position: toast.POSITION.TOP_RIGHT })
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log('Error status code:', error.response.status);
+          console.log('Error response data:', error.response.data);
+          if (error.response.status === 401) {
+            toast.error(`${toa('Session_Expired_Please_log_in_again')}`, { position: toast.POSITION.TOP_RIGHT });
+
+            router.push("/signin")
+          }
+          // Handle the error response as needed
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.log('Error request:', error.request);
+          toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
+
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error message:', error.message);
+          toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
+
+        }
+      })
+  }
+
+  const handleDisagree = () => {
+    setOpenDialog(false);
+  }
+
   return (
     <div className="h-full w-full mx-auto">
       <div className="h-[10%] flex flex-row w-full items-center justify-between">
@@ -156,7 +187,7 @@ const Logs = ({ session, chatLog, setChatLog, botAvatar }) => {
         <div className="flex flex-row gap-4">
           <button
             type="button"
-            onClick={()=>session === "" ? "" : handleDelete(session)}
+            onClick={()=>session === "" ? "" : handleDelete()}
             className="px-4 py-1 flex flex-row justify-center items-center gap-2 border rounded-md border-gray-300"
           >
             <FaRegTrashAlt />
@@ -201,9 +232,36 @@ const Logs = ({ session, chatLog, setChatLog, botAvatar }) => {
                 </div>
               </div>
             )}
+            {conversation.length !== 0 && ticketContent !== "" && <div className="flex flex-col m-2">
+              <div className="flex flex-row justify-center items-center w-full pb-2 gap-4">
+                <div className="text-[14px] text-[#A536FA] bg-[#A536FA]/[0.08] border-[#A536FA]/[0.24] border px-2 py-1 rounded-full">
+                  Chat with Customer Support Agent
+                </div>
+              </div>
+              <div className="flex flex-row justify-end w-full">
+                <div className="flex items-right justify-end gap-2 w-[70%]">
+                  <div className="text-[14px] text-[#070E0B] bg-gray-100 rounded-md p-2">
+                    {ticketContent}
+                  </div>
+                  <Avatar
+                    src={botAvatar !== "" ? botAvatar : "/images/icon_bot_avatar.png"}
+                    name="avatar"
+                    className="rounded-full size-12"
+                  />
+                </div>
+              </div>
+            </div>}
           </div>
         </div>
       </div>
+      <AlertDialog
+        title={t("Confirm_Delete")}
+        description={t('Are_you_sure_you_want_to_delete_this_item_This_action_cannot_be_undone')}
+        handleAgree={handleAgree}
+        handleDisagree={handleDisagree}
+        open={openDialog}
+        setOpen={setOpenDialog}
+      />
     </div>
   )
 }
