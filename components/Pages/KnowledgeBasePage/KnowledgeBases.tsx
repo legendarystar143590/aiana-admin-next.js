@@ -196,7 +196,7 @@ const KnowledgeBase = () => {
       </div>
       <div className="relative w-full h-fit flex flex-col mt-10 items-center justify-start">
         {bases && bases.map((base) => (
-          <div key={base.id} className="flex flex-row justify-between w-full h-fit border border-gray-300 shadow-lg gap-4 rounded-3xl m-3 pl-2 py-2 pr-4 hover:shadow-2xl hover:scale-105 duration-300 cursor-pointer">
+          <div key={base.id} className="flex flex-row justify-between w-full h-fit border border-gray-300 shadow-lg gap-4 rounded-3xl m-3 pl-2 py-2 pr-4 hover:shadow-2xl hover:scale-[1.02] duration-300 cursor-pointer">
             <div className="flex flex-row w-[89%] xl:w-[93%] px-3 justify-between rounded-3xl border py-2" role="button" tabIndex={0} onClick={() => handleEditClick(base.id)} onKeyDown={(e)=>console.log("onKeyDown", e.key)}>
               <div className="h-[50px] flex flex-row items-center justify-center">
                 <div className="w-full h-fit">

@@ -31,7 +31,7 @@ const SideNavBar = () => {
   return (
     <>
       <div
-        className={`sm:flex flex-col h-screen bg-white sm:relative fixed z-[15] left-0 top-0 transition-all ease-in-out duration-300 justify-between ${isOpen ? "sm:w-[300px] w-[95%]" : "sm:w-16 w-0 overflow-hidden"
+        className={`sm:flex flex-col h-screen bg-white sm:relative fixed z-[15] left-0 top-0 transition-all ease-in-out duration-300 justify-between ${isOpen ? "sm:w-[300px] w-[95%]" : "sm:w-16 w-0"
           }`}
       >
         <div>
@@ -60,7 +60,7 @@ const SideNavBar = () => {
             aria-label="log out"
             title="log out"
             onClick={handleLogOut}
-            className={` w-full bg-contain bg-no-repeat bg-center rounded-[4px] p-[10px] text-[16px] text-black transition duration-300 hover:opacity-80 mt-auto sm:mb-10 mb-5 flex justify-start items-left`}
+            className={` w-full bg-contain bg-no-repeat bg-center rounded-[4px] p-[10px] pl-6 text-[16px] text-black transition duration-300 hover:opacity-80 mt-auto sm:mb-10 mb-5 flex justify-start items-left`}
           >
             <Image src="/images/navbar/icon_logout.png" alt="logout" width={18} height={18} className={`${isOpen ? "ml-4": "ml-2"} opacity-90`} />
             <p className={`ml-2 text-red opacity-90 ${isOpen ? "block" : "hidden"}`}>{t('Log_out')}</p>
