@@ -28,6 +28,7 @@ const Chatbots = () => {
   }
 
   React.useEffect(() => {
+    toast.dismiss()
     const userID = localStorage.getItem("userID")
     setUserIndex(localStorage.getItem("userIndex"))
     // if (userID) setUserId(userID)
@@ -90,6 +91,7 @@ const Chatbots = () => {
   }
 
   const handleDelete = (bot) => {
+    toast.dismiss()
     axios
       .post(
         AUTH_API.DELETE_BOT,

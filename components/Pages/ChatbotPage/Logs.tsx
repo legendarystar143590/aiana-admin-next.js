@@ -25,6 +25,7 @@ const Logs = ({ session, setSession, chatLog, setChatLog, botAvatar }) => {
   const [userEmail, setUserEmail] = useState("")
 
   useEffect(() => {
+    toast.dismiss() // Dismiss any existing toasts
     if (session !== undefined) {
       setIsLoading(true)
       axios
@@ -96,6 +97,7 @@ const Logs = ({ session, setSession, chatLog, setChatLog, botAvatar }) => {
   }, [session])
 
   const handleDelete = (sessionId) => {
+    toast.dismiss() // Dismiss any existing toasts
     axios
     .post(`${AUTH_API.DELETE_CHATLOG}`, { sessionId }, {
       headers: {

@@ -1,5 +1,6 @@
 import React, {useState} from "react";
-import { FaAngleUp, FaAngleDown, FaTrash } from "react-icons/fa";
+import Image from "next/image";
+import { FaAngleUp, FaAngleDown } from "react-icons/fa";
 
 const QuestionAnswerComponent = ({handleDeleteQA, questionAnswer, index}) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -12,8 +13,7 @@ const QuestionAnswerComponent = ({handleDeleteQA, questionAnswer, index}) => {
               onClick={() => handleDeleteQA(questionAnswer.id, index)}
               className="focus:outline-none focus:ring-2 mr-4 focus:ring-blue-500 bg-white size-7 rounded-md inline-flex justify-center items-center"
           >
-            <FaTrash/>
-            {/* <Image src="/images/icon_trash_1.svg" alt="trash_icon" width={15} height={15} /> */}
+            <Image src="/images/knowledgebase/icon_trash_bin.png" alt="Trash_Bin" width={20} height={20} />
           </button>
           <button
               type="button"
@@ -25,8 +25,7 @@ const QuestionAnswerComponent = ({handleDeleteQA, questionAnswer, index}) => {
               <FaAngleUp />
               :
               <FaAngleDown/>
-            }            
-            {/* <Image src="/images/icon_trash_1.svg" alt="trash_icon" width={15} height={15} /> */}
+            }
           </button>
         </div>
       </p>

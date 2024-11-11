@@ -2,7 +2,6 @@ import * as React from "react";
 import axios from "axios";
 import router from "next/router";
 import Image from "next/image";
-import { FaEdit, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
 
@@ -26,6 +25,7 @@ const KnowledgeBase = () => {
 
   // Fetch knowledge bases when component mounts
   React.useEffect(() => {
+    toast.dismiss() // Dismiss any existing toasts
     setIsLoading(true)
     const userID = localStorage.getItem('userID');
     const requestOptions = {
@@ -88,6 +88,7 @@ const KnowledgeBase = () => {
     setOpenDialog(true);
   }
   const handleDeleteClick = (baseId) => {
+    toast.dismiss() // Dismiss any existing toasts
     axios
       .post(AUTH_API.DELETE_KNOWLEDGEBASE, { baseId },
         {
@@ -195,8 +196,8 @@ const KnowledgeBase = () => {
       </div>
       <div className="relative w-full h-fit flex flex-col mt-10 items-center justify-start">
         {bases && bases.map((base) => (
-          <div key={base.id} className="flex flex-row justify-between w-full h-fit border border-gray-300 shadow-lg rounded-xl m-3 p-2">
-            <div className="flex flex-row w-[87%] px-3 justify-between rounded-2xl border py-2">
+          <div key={base.id} className="flex flex-row justify-between w-full h-fit border border-gray-300 shadow-lg gap-4 rounded-3xl m-3 pl-2 py-2 pr-4 hover:shadow-2xl hover:scale-[1.02] duration-300 cursor-pointer">
+            <div className="flex flex-row w-[89%] xl:w-[93%] px-3 justify-between rounded-3xl border py-2" role="button" tabIndex={0} onClick={() => handleEditClick(base.id)} onKeyDown={(e)=>console.log("onKeyDown", e.key)}>
               <div className="h-[50px] flex flex-row items-center justify-center">
                 <div className="w-full h-fit">
                   <p className="font-bold text-xl">{base.name}</p>
@@ -215,10 +216,10 @@ const KnowledgeBase = () => {
                 <button
                   type="button"
                   aria-label="edit-knowledge-base"
-                  className="size-8 text-[12px] text-black flex justify-center items-center"
+                  className="size-10 text-[12px] text-black flex justify-center items-center rounded-full border border-gray-300 p-1"
                   onClick={() => handleEditClick(base.id)}
                 >
-                  <FaEdit className="w-6 h-6" />
+                  <Image src="/images/knowledgebase/icon_pen_square.png" alt="Pen_Square" width={20} height={20} />
                 </button>
                 <span className="absolute top-9 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{t('Edit')}</span>
               </div>
@@ -227,10 +228,10 @@ const KnowledgeBase = () => {
                 <button
                   type="button"
                   aria-label="delete-knowledge-base"
-                  className="size-8 text-[12px] text-black flex justify-center items-center"
+                  className="size-10 text-[12px] text-black flex justify-center items-center rounded-full border border-gray-300 p-1"
                   onClick={() => handleDeleteButton(base.id)}
                 >
-                  <FaTrash className="w-6 h-6" />
+                  <Image src="/images/knowledgebase/icon_trash_bin.png" alt="Trash_Bin" width={20} height={20} />
                 </button>
                 <span className="absolute top-9 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{t('Delete')}</span>
               </div>

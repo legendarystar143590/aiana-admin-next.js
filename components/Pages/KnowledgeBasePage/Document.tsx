@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import { toast } from "react-toastify";
-import { FaInfoCircle, FaTrash } from "react-icons/fa";
+import { FaInfoCircle } from "react-icons/fa";
 
 import { AUTH_API } from "@/components/utils/serverURL";
 import AlertDialog from "@/components/AlertDialog";
@@ -222,10 +222,10 @@ const Document = ({ documents, documentRef, setDocuments, setFiles, setIsSaved }
                     <button
                       type="button"
                       onClick={() => handleDelete(doc.id, i)}
-                      className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md flex justify-center items-center"
+                      className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white border border-gray-300 size-9 pt-1 rounded-md flex justify-center items-center"
                       aria-label="Delete item"
                     >
-                      <FaTrash className="w-5 h-5" />
+                      <Image src="/images/knowledgebase/icon_trash_bin.png" alt="Trash_Bin" width={20} height={20} />
                     </button>
                   </td>
                 </tr>

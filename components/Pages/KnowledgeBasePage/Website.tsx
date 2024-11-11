@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import axios from "axios"
-import { FaInfoCircle, FaTrash } from "react-icons/fa"
+import { FaInfoCircle } from "react-icons/fa"
 import { toast } from "react-toastify"
 import { useTranslations } from "next-intl"
 
@@ -169,10 +169,10 @@ const Website = ({ urls, setUrls, websiteRef, setIsSaved }) => {
                     <button
                       type="button"
                       onClick={() => handleDeleteButton(url.id, i)}
-                      className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#D9D9D9] size-9 pt-1 rounded-md flex justify-center items-center"
+                      className="focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white border border-gray-300 size-9 pt-1 rounded-md flex justify-center items-center"
                       aria-label="Delete item"
                     >
-                      <FaTrash className="w-5 h-5"/>
+                      <Image src="/images/knowledgebase/icon_trash_bin.png" alt="Trash_Bin" width={20} height={20} />
                     </button>
                   </td>
                 </tr>
