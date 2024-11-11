@@ -21,7 +21,7 @@ const ChatLogs = ({chatLog, setSession, setChatLog, setBotAvatar}) => {
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    console.log(results)
+    toast.dismiss();
     setUserID(localStorage.getItem("userID"))
     if (userID !== "") {
       setIsLoading(true)
