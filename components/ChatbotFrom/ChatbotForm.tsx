@@ -61,6 +61,7 @@ const ChatbotForm = ({ bot }) => {
   const [isBook, setIsBook] = useState(false)
   const [userIndex, setUserIndex] = useState("")
   const [isAnswerLoading, setIsAnswerLoading] = useState(false)
+  const [registeredWebsite, setRegisteredWebsite] = useState("")
 
   const router = useRouter()
   // console.log("inner >>>", bot)
@@ -131,6 +132,8 @@ const ChatbotForm = ({ bot }) => {
             setAvatarPreview(data.bot_data.avatar)
             setTimeFrom(data.bot_data.start_time)
             setTimeUntil(data.bot_data.end_time)
+            setUrlInputValue(data.website.domain)
+            setRegisteredWebsite(data.website.domain)            
             // setIsLoading(false);
           }
           setIsLoading(false)
@@ -195,6 +198,11 @@ const ChatbotForm = ({ bot }) => {
     setIsSaved(false)
   }
 
+  const handleUrlChange = (event) => {
+    setUrlInputValue(event.target.value)
+    setIsSaved(false)
+  }
+
   const handleKnowledgeBaseChange = (value) => {
     // Find the index of the selected value in the bases array
     const selectedIndex = bases.findIndex((base) => base.name === value)
@@ -236,7 +244,10 @@ const ChatbotForm = ({ bot }) => {
       });
       return
     }
-
+    const website = {
+      domain: urlInputValue,
+      uniqueId: uuidv4().toString(),
+    }
     setIsSaving(true);
     formData.append("name", nameInputValue)
     formData.append("avatar", avatar)
@@ -244,6 +255,8 @@ const ChatbotForm = ({ bot }) => {
     formData.append("active", active !== undefined ? active.toString() : "false")
     formData.append("start_time", timeFrom)
     formData.append("end_time", timeUntil)
+    formData.append("website_domain", website.domain)
+    formData.append("website_unique_id", website.uniqueId)
     if (index === -1) {
       formData.append("knowledge_base", "-1")
     } else {
@@ -272,6 +285,7 @@ const ChatbotForm = ({ bot }) => {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 3000, // Close after 3 seconds
       })
+      setRegisteredWebsite(website.domain)
     } catch (error) {
       setExpiryTime();
       setIsSaving(false)
@@ -312,7 +326,8 @@ const ChatbotForm = ({ bot }) => {
     axios
       .post(
         AUTH_API.QUERY,
-        { botId, sessionId, website:'https://login.aiana.io', input, userId, createdAt, lang },
+        // { botId, sessionId, website:'https://login.aiana.io', input, userId, createdAt, lang },
+        { botId, sessionId, website:registeredWebsite ||'https://login.aiana.io', input, userId, createdAt, lang },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`, // Example for adding Authorization header
@@ -324,7 +339,7 @@ const ChatbotForm = ({ bot }) => {
         if (response.status === 200) {
           const { message, solve } = response.data
           const botResponse = { id: uuidv4(), text: message.replace(/\n/g, '<br>'), isBot: true }
-          
+          // console.log("Bot response:", registered_website)
           setMessages((prevMessages) => [...prevMessages, botResponse])
           if (!solve) {
             setShowYesNo(true) // Show the form if solve is false
@@ -482,7 +497,7 @@ const ChatbotForm = ({ bot }) => {
                 id="urlInput"
                 type="text" 
                 value={urlInputValue}
-                onChange={(e) => setUrlInputValue(e.target.value)}
+                onChange={handleUrlChange}
                 className="py-2 text-base rounded-md border-[#CFCFCF]" 
                 placeholder="e.g. www.aiana.com" 
               />
