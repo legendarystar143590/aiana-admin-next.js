@@ -13,6 +13,8 @@ import Avatar from "../Avatar"
 import CustomAutocomplete from "../CustomAutocomplete"
 import { setExpiryTime, isTimeBetween } from "../utils/common"
 import Spinner from "../Spinner"
+import SaveChangesButton from "../Buttons/SaveChangeButton"
+import CancelButton from "../Buttons/CancelButton"
 
 const options: Intl.DateTimeFormatOptions = {
   weekday: "short",
@@ -701,8 +703,8 @@ const ChatbotForm = ({ bot }) => {
                     ref={inputRef}
                     style={{ whiteSpace: 'pre-wrap' }}
                   />
-                  <button type="button" className="absolute bottom-1/2 translate-y-1/2 flex right-3 items-center" onClick={handleSendMessage}>
-                    {isAnswerLoading ? <Spinner color="#A536FA" /> : <Image src="/images/icon_send.svg" alt="send" width={20} height={20} />}
+                  <button type="button" className="absolute bottom-1/2 translate-y-1/2 flex bg-black p-2 rounded-full right-3 items-center" onClick={handleSendMessage}>
+                    {isAnswerLoading ? <Spinner color="#A536FA" /> : <Image src="/images/buttons/icon_send.png" alt="send" width={20} height={20} />}
                   </button>
                 </div>
               </div>
@@ -710,20 +712,8 @@ const ChatbotForm = ({ bot }) => {
           </div>          
         </div>
         <div className="w-full flex sm:flex-row flex-col-reverse items-center justify-end gap-5">
-          <button
-            type="button"
-            className="bg-[url('/images/button-bg-white.png')] max-sm:bg-[length:100%_40px] bg-[length:160px_40px] rounded-md bg-center bg-no-repeat max-sm:w-full w-[160px] h-[40px] text-[#A536FA] font-bold"
-            onClick={handleCancelClick}
-          >
-            {t('Cancel')}
-          </button>
-          <button
-            type="button"
-            className="bg-[#A536FA] max-sm:w-full w-[160px] h-[40px] text-white font-bold rounded-md"
-            onClick={(isSaving||isSaved)? () =>{} : handleSubmit}
-          >
-            {isSaving? <Spinner color=""/>:t('Save')}
-          </button>
+          <CancelButton handleCancelClick={handleCancelClick} t={t} />
+          <SaveChangesButton isSaved={isSaved} isSaving={isSaving} handleSubmit={handleSubmit} t={t} />
         </div>
       </div>
     </div>

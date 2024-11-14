@@ -5,7 +5,8 @@ import { useTranslations } from "next-intl"
 import { toast } from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
 import { setExpiryTime } from "@/components/utils/common"
-import Spinner from "@/components/Spinner"
+import SaveChangesButton from "@/components/Buttons/SaveChangeButton"
+import CancelButton from "@/components/Buttons/CancelButton"
 import Document from "./Document"
 import Website from "./Website"
 import Text from "./Text"
@@ -275,6 +276,10 @@ const KnowledgeBaseForm = ({ baseId }) => {
     }
   };
 
+  const handleCancelClick = () => {
+    router.push("/knowledge");
+  }
+
   if (isLoading) {
     return <div>{t('Loading')}</div>;
   }
@@ -311,21 +316,8 @@ const KnowledgeBaseForm = ({ baseId }) => {
         </div>
       </div>
       <div className="w-full flex sm:flex-row flex-col-reverse items-center justify-end gap-5 sm:px-7 px-3 pt-5">
-        <button
-          type="button"
-          className="bg-white border text-gray-800 max-sm:bg-[length:100%_35px] bg-[length:160px_35px] rounded-md bg-center bg-no-repeat max-sm:w-full px-8 h-[35px] font-bold"
-          onClick={() => router.push(`/knowledge`)}
-        >
-          {t('Cancel')}
-        </button>
-        <button
-          type="button"
-          className="bg-black max-sm:w-full w-[160px] h-[35px] text-white font-bold rounded-md"
-
-          onClick={isSaving || isSaved ? () => {console.log("isSaving", isSaving, "isSaved", isSaved)} : handleSubmit}
-        >
-          {isSaving? <Spinner color=""/>:t('SaveChanges')}
-        </button>
+        <CancelButton handleCancelClick={handleCancelClick} t={t} />
+        <SaveChangesButton isSaved={isSaved} isSaving={isSaving} handleSubmit={handleSubmit} t={t} />
       </div>
     </div>
   )

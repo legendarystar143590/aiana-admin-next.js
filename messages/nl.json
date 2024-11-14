@@ -84,7 +84,7 @@
         "Suggested_Messages": "Voorgestelde berichten",
         "Timing": "Timing",
         "Color": "Kleur",
-        "Save": "Opslaan",
+        "SaveChanges": "Wijzigingen opslaan",
         "Cancel": "Annuleren",
         "Edit_Chatbot": "Chatbot bewerken",
         "Hello_How_can_I_assist_you_today": "Hallo! Hoe kan ik u vandaag helpen?"
@@ -137,7 +137,6 @@
         "Please_do_not_upload_any_confidential_data": "Upload geen vertrouwelijke gegevens.",
         "Are_you_sure_you_want_to_delete_this_item_This_action_cannot_be_undone": "Weet u zeker dat u dit item wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.",
         "Cancel": "Annuleren",
-        "Save": "Opslaan",
         "SaveChanges": "Wijzigingen opslaan",
         "Note_Build_your_Chatbot_Knowledge_Base_by_uploading_urls_These_urls_train_your_chatbot_to_answer_questions_accurately": "Opmerking: Bouw de kennisbank van uw chatbot op door urls te uploaden. Deze urls trainen uw chatbot om vragen nauwkeurig te beantwoorden.",
         "Please_do_not_add_URLs_to_websites_that_contain_confidential_information_or_where_the_publisher_has_imposed_restrictions_on_sharing": "Voeg geen URLs toe aan websites die vertrouwelijke informatie bevatten of waar de uitgever beperkingen heeft opgelegd voor delen.",
