@@ -7,14 +7,14 @@ import Image from "next/image"
 import { FaChevronDown } from "react-icons/fa"
 import { useTranslations } from "next-intl"
 import { SketchPicker } from 'react-color';
-import SaveChangesButton from "../Buttons/SaveChangeButton"
-import CancelButton from "../Buttons/CancelButton"
 import { AUTH_API } from "@/components/utils/serverURL"
 import CustomSwitch from "../CustomSwitch"
 import Avatar from "../Avatar"
 import CustomAutocomplete from "../CustomAutocomplete"
 import { setExpiryTime, isTimeBetween } from "../utils/common"
 import Spinner from "../Spinner"
+import SaveChangesButton from "../Buttons/SaveChangeButton"
+import CancelButton from "../Buttons/CancelButton"
 
 const options: Intl.DateTimeFormatOptions = {
   weekday: "short",
