@@ -54,7 +54,7 @@
         "ContactInformation": "INFORMATIONS_DE_CONTACT",
         "EmailAddress": "Adresse e-mail",
         "Cancel": "Annuler",
-        "SaveChanges": "Sauvegarder",
+        "SaveChanges": "Enregistrer les modifications",
         "Back_to_Users": "Retour aux utilisateurs"
     },
     "chatbot": {
@@ -84,7 +84,7 @@
         "Hello_this_is_your_bot_let_me_know_what_I_can_help_you_with": "Bonjour ! Ceci est votre robot. Dites-moi comment je peux vous aider.",
         "Timing": "Horaire",
         "Color": "Couleur",
-        "Save": "Sauvegarder",
+        "SaveChanges": "Enregistrer les modifications",
         "Cancel": "Annuler",
         "Edit_Chatbot": "Modifier le bot",
         "Hello_How_can_I_assist_you_today": "Bonjour ! Comment puis-je vous aider aujourd'hui ?"
@@ -133,8 +133,7 @@
         "TYPE": "TYPE",
         "UPLOADED_ON": "TÉLÉCHARGÉ_LE",
         "ACTION": "ACTION",
-        "Save": "Sauvegarder",
-        "SaveChanges": "Sauvegarder",
+        "SaveChanges": "Enregistrer les modifications",
         "Cancel": "Annuler",
         "Please_do_not_upload_any_confidential_data": "Ne téléchargez pas de données confidentielles.",
         "Note_Build_your_Chatbot_Knowledge_Base_by_uploading_urls_These_urls_train_your_chatbot_to_answer_questions_accurately": "Remarque: Construisez la base de connaissances de votre bot en téléchargeant des urls. Ces urls entraînent votre bot à répondre précisément aux questions.",

@@ -453,18 +453,21 @@ const Profile = () => {
           </div>
         </div>
         <div className="w-full flex sm:flex-row flex-col-reverse items-center justify-end gap-5 mt-3">
+        <button
+          type="button"
+          className="bg-white px-4 py-2 rounded-md bg-center bg-no-repeat max-sm:w-full text-gray-600 border border-gray-300"
+        >
+          {t('Cancel')}
+        </button>
           <button
             type="button"
-            className="bg-[url('/images/button-bg-white.png')] max-sm:bg-[length:100%_40px] bg-[length:160px_40px] rounded-md bg-center bg-no-repeat max-sm:w-full w-[160px] h-[40px] text-[#A536FA] font-bold"
-          >
-            {t('Cancel')}
-          </button>
-          <button
-            type="button"
-            className="bg-[#A536FA] max-sm:w-full w-[160px] h-[40px] text-white font-bold rounded-md"
+            className="bg-black max-sm:w-full px-4 py-2 text-white font-bold rounded-md"
             onClick={handleSubmit}
           >
-            {isSaving ? <Spinner color="" /> : `${t('SaveChanges')}`}
+            <span className="flex items-center justify-center gap-2">
+              <Image src='/images/buttons/icon_white_diskette.png' alt="save" width={20} height={20} />
+              {isSaving ? <Spinner color="" /> : `${t('SaveChanges')}`}
+            </span>
           </button>
         </div>
       </div>

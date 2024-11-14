@@ -84,7 +84,7 @@
         "Hello_this_is_your_bot_let_me_know_what_I_can_help_you_with": "Hello! This is your bot. Let me know what I can help you with.",
         "Timing": "Timing",
         "Color": "Color",
-        "Save": "Save",
+        "SaveChanges": "Save Changes",
         "Cancel": "Cancel",
         "Edit_Chatbot": "Edit Chatbot",
         "Hello_How_can_I_assist_you_today": "Hello! How can I help you today?"
@@ -137,7 +137,6 @@
         "Please_do_not_upload_any_confidential_data": "Please do not upload any confidential data.",
         "Are_you_sure_you_want_to_delete_this_item_This_action_cannot_be_undone": "Are you sure you want to delete this item? This action cannot be undone.",
         "Cancel": "Cancel",
-        "Save": "Save",
         "SaveChanges": "Save Changes",
         "Note_Build_your_Chatbot_Knowledge_Base_by_uploading_urls_These_urls_train_your_chatbot_to_answer_questions_accurately": "Note: Build your Chatbot’s Knowledge Base by adding urls. These urls train your chatbot to answer questions accurately.",
         "Please_do_not_add_URLs_to_websites_that_contain_confidential_information_or_where_the_publisher_has_imposed_restrictions_on_sharing": "Please do not add URLs to websites that contain confidential information or where the publisher has imposed",

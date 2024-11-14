@@ -84,7 +84,7 @@
         "Hello_this_is_your_bot_let_me_know_what_I_can_help_you_with": "Hola, este es tu bot. Cuéntame en qué puedo ayudarte.",
         "Timing": "Tiempo",
         "Color": "Color",
-        "Save": "Guardar",
+        "SaveChanges": "Guardar cambios",
         "Cancel": "Cancelar",
         "Edit_Chatbot": "Editar Charlarbot",
         "Hello_How_can_I_assist_you_today": "Hola! ¿Cómo puedo ayudarte hoy?"
@@ -147,7 +147,6 @@
         "Question": "Pregunta",
         "Answer": "Respuesta",
         "Add": "Agregar",
-        "Save": "Guardar",
         "SaveChanges": "Guardar cambios",
         "Cancel": "Cancelar",
         "Click_to_upload": "Haga clic para cargar",
