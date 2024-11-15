@@ -150,7 +150,7 @@ const MenuList = ({ open }) => {
       <button
         type="button"
         className={`flex justify-center items-center w-full ${billingActive ? 'border rounded-lg shadow' : ''}`}
-        onClick={() => {if(localStorage.getItem("status") === "active") push("/invoice-plan"); else push("/pricing");}}
+        onClick={() => {if(localStorage.getItem("status") === "active") push("/billing-plan"); else push("/invoice-plan");}}
       >
         <div
           className={`text-white ${

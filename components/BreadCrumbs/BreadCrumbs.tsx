@@ -10,6 +10,7 @@ const BreadCrumbs = () => {
         "chatlogs": "Chatlogs",  
         "tickets": "Tickets",  
         "invoice-plan": "Invoice Plan",  
+        "billing-plan": "Billing Plan",
         "editbot": "Edit Chatbot",  
         "createbot": "Create Chatbot",  
         "editknowledge": "Edit Knowledge Base",  
@@ -22,7 +23,8 @@ const BreadCrumbs = () => {
         "knowledge": "icon_knowledge_selected.png",  
         "chatlogs": "icon_chatlogs_selected.png",  
         "tickets": "icon_tickets_selected.png",  
-        "invoice-plan": "icon_invoice_selected.png"  
+        "invoice-plan": "icon_invoice_selected.png",  
+        "billing-plan": "icon_invoice_selected.png"  
     }; 
     const router = useRouter();  
     const { pathname } = router;
