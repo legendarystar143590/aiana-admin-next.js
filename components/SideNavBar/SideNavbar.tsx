@@ -31,7 +31,7 @@ const SideNavBar = () => {
   return (
     <>
       <div
-        className={`sm:flex flex-col h-screen bg-white sm:relative fixed z-[15] left-0 top-0 transition-all ease-in-out duration-300 justify-between ${isOpen ? "sm:w-[300px] w-[95%]" : "sm:w-16 w-0"
+        className={`sm:flex flex-col h-screen bg-gray-100 sm:relative fixed z-[15] left-0 top-0 transition-all ease-in-out duration-300 justify-between ${isOpen ? "sm:w-[300px] w-[95%]" : "sm:w-16 w-0"
           }`}
       >
         <div>

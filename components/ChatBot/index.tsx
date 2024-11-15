@@ -294,7 +294,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                                 >
                                     <div className={`flex gap-2 ${message.isBot ? '' : 'flex-row-reverse'} items-center`}>
                                         <img
-                                            src={message.isBot ? bot.avatar : "/images/logo_sm.jpg"}
+                                            src={message.isBot ? bot.avatar : "/images/logo_short_black.jpg"}
                                             alt="avatar"
                                             className={`rounded-full size-12 ${!message.isBot && "hidden"}`}
                                         />
@@ -388,7 +388,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundImage: 'url("/images/logo_sm.png")',
+                    backgroundImage: 'url("/images/logo_short_black.png")',
                     backgroundSize: 'contain',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center'

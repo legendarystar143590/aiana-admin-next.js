@@ -8,7 +8,6 @@ import { toast } from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
 import { isTimeBetween, setExpiryTime } from "@/components/utils/common"
 import AlertDialog from "@/components/AlertDialog"
-import EmbedAlert from "@/components/Alerts/EmbedAlert"
 // import ChatbotPage from "@/components/Pages/ChatPage"
 import ToggleButton from "./ToggleButtons"
 
@@ -17,11 +16,7 @@ const Chatbots = () => {
   const toa = useTranslations('toast');
   const [isLoading, setIsLoading] = React.useState(false)
   const [bots, setBots] = React.useState([])
-  const [botId, setBotId] = React.useState(0)
-  const [open, setOpen] = React.useState(false)
-  const [description, setDescription] = React.useState("")
   const [openDialog, setOpenDialog] = React.useState(false)
-  const [userIndex, setUserIndex] = React.useState("")
   const [index, setIndex] = React.useState("")
   const handleAddRow = () => {
     router.push(`/chatbot/edit?bot=-1`)
@@ -30,7 +25,6 @@ const Chatbots = () => {
   React.useEffect(() => {
     toast.dismiss()
     const userID = localStorage.getItem("userID")
-    setUserIndex(localStorage.getItem("userIndex"))
     // if (userID) setUserId(userID)
     const requestOptions = {
       headers: new Headers({
@@ -142,20 +136,14 @@ const Chatbots = () => {
     setOpenDialog(true)
   }
 
-  const handleEmbedClickButton = (bot) => {
-    const embeddingCode = `<script src="https://login.aiana.io/aiana.js" data-user-id=${userIndex} data-bot-id=${bot.index}></script>`
-    setDescription(embeddingCode)
-    setBotId(bot.id)
-    console.log("Clicked on ", bot.id)
+  // const handleEmbedClickButton = (bot) => {
+  //   const embeddingCode = `<script src="https://login.aiana.io/aiana.js" data-user-id=${userIndex} data-bot-id=${bot.index}></script>`
+  //   setDescription(embeddingCode)
+  //   setBotId(bot.id)
+  //   console.log("Clicked on ", bot.id)
 
-    setOpen(true)
-  }
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(description)
-    toast.success(`${toa('Successfully_copied')}`, { position: toast.POSITION.TOP_RIGHT })
-    setOpen(false)
-  }
+  //   setOpen(true)
+  // }
 
   const handleAgree = () => {
     setOpenDialog(false)
@@ -200,13 +188,6 @@ const Chatbots = () => {
           open={openDialog}
           setOpen={setOpenDialog}
         />
-        <EmbedAlert
-          open={open}
-          setOpen={setOpen}
-          description={description}
-          handleCopy={handleCopy}
-          botId={botId}
-        />
       </div>
     )
   }
@@ -237,7 +218,7 @@ const Chatbots = () => {
                 <div className="flex flex-row items-center justify-center">
                   <div className="flex items-center">
                     <Image
-                      src={bot.avatar ? bot.avatar : "/images/logo_sm.png"}
+                      src={bot.avatar ? bot.avatar : "/images/logo_short_black.png"}
                       className="rounded-full size-[30px]"
                       alt="avatar"
                       width={50}
@@ -248,9 +229,6 @@ const Chatbots = () => {
                 </div>
                 <ToggleButton 
                   bot={bot} 
-                  handleEditClickButton={handleEditClickButton} 
-                  handleEmbedClickButton={handleEmbedClickButton} 
-                  handleChatClickButton={handleEditClickButton} 
                   handleDeleteClickButton={handleDeleteClickButton}
                 />
               </div>
@@ -310,14 +288,6 @@ const Chatbots = () => {
         handleDisagree={handleDisagree}
         open={openDialog}
         setOpen={setOpenDialog}
-      />
-      
-      <EmbedAlert 
-        open={open} 
-        setOpen={setOpen} 
-        description={description} 
-        handleCopy={handleCopy} 
-        botId={botId}
       />
     </div>
   )
