@@ -597,7 +597,7 @@ const ChatbotForm = ({ bot }) => {
                   style={{ backgroundColor: themeColor }}
                 >
                   <div className="flex items-center">
-                    <Avatar src={avatarPreview || "/images/logo_sm.png"} name="bot avatar" className="mr-2 size-12 rounded-full" />
+                    <Avatar src={avatarPreview || "/images/logo_short_black.png"} name="bot avatar" className="mr-2 size-12 rounded-full" />
                     <h3 className="ml-2 text-[16px] font-bold text-white">{nameInputValue || "My Bot"}</h3>
                   </div>
                 </div>
@@ -614,7 +614,7 @@ const ChatbotForm = ({ bot }) => {
                     }}
                   >
                     <Avatar
-                      src={message.isBot ? avatarPreview || "/images/logo_sm.png" : "/images/logo_sm.png"}
+                      src={message.isBot ? avatarPreview || "/images/logo_short_black.png" : "/images/logo_short_black.png"}
                       name="avatar"
                       className={`rounded-full size-12 ${!message.isBot && "hidden"}`}
                     />
