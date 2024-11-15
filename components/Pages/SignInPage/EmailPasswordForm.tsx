@@ -73,14 +73,15 @@ const EmailPasswordForm = () => {
         <div className="w-3/4 mx-auto">
           <div className="mt-10">
             <img src="/images/logo_final_black.png" alt="Logo" className="h-12 sm:mb-10 mb-5" />
-            <div className="flex mb-5">
+            <div className="flex flex-col mb-4">
               <h1 className="text-[1.3rem] font-bold">Welcome Back</h1>
+              <p className="pt-3 text-[1rem] text-gray-400">Enter email and password to access your account.</p>
             </div>
           </div>
           <form className="sm:mt-10 w-full flex flex-col gap-[3vh]">
             <div>
               <label htmlFor="username" className="font-bold">
-                Username/Email
+                Email
               </label>
               <input
                 type="text"
@@ -89,7 +90,7 @@ const EmailPasswordForm = () => {
                 value={email}
                 onChange={handleEmailChange}
                 className="rounded-lg border-gray-400 w-full mt-1 h-12"
-                placeholder="Enter your username/email"
+                placeholder="Enter your email"
               />
             </div>
 
