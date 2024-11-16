@@ -142,17 +142,17 @@ const Document = ({ documents, documentRef, setDocuments, setFiles, setIsSaved }
 
   return (
     <div className="w-full overflow-y-auto">
-      <div className="text-left bg-blue-100 py-2 sm:mx-7 mx-3">
+      <div className="text-left bg-blue-100 py-2 sm:mx-7 mx-3 rounded-lg">
         <span className="text-[#343434] text-sm text-left px-3">
           <FaInfoCircle className="text-blue-500 size-5 inline-block mr-3" />
           {t('Note_Build_your_Chatbot_Knowledge_Base_by_uploading_documents_These_documents_train_your_chatbot_to_answer_questions_accurately')}
         </span>
       </div>
 
-      <div className="flex justify-center items-center my-5 sm:mx-7 mx-3">
+      <div className="flex justify-center items-center my-5 sm:mx-7 mx-3 rounded-xl">
         <label
           htmlFor="file_upload"
-          className="bg-transparent text-gray-600 rounded-md w-full flex flex-col h-auto cursor-pointer items-center justify-center border-dashed border-2 border-gray-200 mb-5"
+          className="bg-transparent text-gray-600 rounded-md w-full flex flex-col h-auto cursor-pointer py-3 items-center justify-center border-dashed border-2 border-gray-200 mb-5"
         >
           <Image src="/images/knowledgebase/icon_file_upload.png" alt="icon_file_upload" width={200} height={200} />
           <p className="font-bold text-black text-[16px] text-center mt-5">
