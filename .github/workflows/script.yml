@@ -76,7 +76,7 @@ jobs:
         run: |
           sudo apt-get install -y sshpass
           sshpass -p $SERVER_PASSWORD ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "
-            cd /aiana-frontend/aiana-admin-next.js &&
+            cd /aiana-frontend/v2/aiana-admin-next.js &&
             git pull origin dev5 --force --autostash &&  # Pull the latest code
             npm install &&
             npm run build &&
