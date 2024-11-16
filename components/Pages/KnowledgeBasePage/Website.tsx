@@ -126,7 +126,7 @@ const Website = ({ urls, setUrls, websiteRef, setIsSaved }) => {
       <div className="text-left bg-blue-100 py-2 sm:mx-7 mx-3">
         <span className="text-[#343434] text-sm text-left px-3">
           <FaInfoCircle className="text-blue-500 size-5 inline-block mr-3" />
-          {t('Note_Build_your_Chatbot_Knowledge_Base_by_uploading_urls_These_urls_train_your_chatbot_to_answer_questions_accurately')}
+          {t('Note_Add_URLs_to_build_your_chatbot_knowledge_base_These_URLs_help_train_your_chatbot_to_answer_questions_accurately')}
         </span>
       </div>
       <p className="text-center pt-5 font-bold text-sm px-5">{t('Please_do_not_add_URLs_to_websites_that_contain_confidential_information_or_where_the_publisher_has_imposed_restrictions_on_sharing')}</p>

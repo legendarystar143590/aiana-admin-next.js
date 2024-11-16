@@ -34,7 +34,7 @@ const ScrollableItems = ({ items, tooltips }) => {
             {visibleItems.map((item, index) => (
                 <div key={item.index} className="relative group size-8 mx-1">
                     <Image
-                        src={item.item || "/images/logo_sm.png"}
+                        src={item.item || "/images/logo_short_black.png"}
                         alt="bot_avatar"
                         width={100}
                         height={100}

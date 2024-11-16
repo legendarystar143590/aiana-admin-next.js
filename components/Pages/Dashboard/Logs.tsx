@@ -24,8 +24,9 @@ const Logs = ({ session, setSession, chatLog, setChatLog, botAvatar }) => {
   const [userName, setUserName] = useState("")
   const [userEmail, setUserEmail] = useState("")
 
-  useEffect(() => {
-    if (session !== undefined) {
+  useEffect(() => {    
+    if (session) {
+      console.log("session >>>>>", session)
       setIsLoading(true)
       axios
         .post(AUTH_API.GET_LOG_DATA, { session }, {

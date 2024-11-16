@@ -241,10 +241,10 @@ const Chatbots = () => {
                 onKeyDown={(e)=>console.log("onKeyDown", e.key)}
               >
                 <div className="flex flex-row w-full justify-between items-center">
-                  <p className="text-gray-400 w-1/2">{t('Knowledge_Base')}</p>
+                  <p className="text-gray-400 w-1/2 truncate">{t('Knowledge_Base')}</p>
                   <p
                     className={`${bot.knowledgebase_name ? "text-black" : "text-[#D7263C]"
-                      }`}
+                      } truncate`}
                   >
                     {bot.knowledgebase_name ? bot.knowledgebase_name : "Not Connected"}
                   </p>
