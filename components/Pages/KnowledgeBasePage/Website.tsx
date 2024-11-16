@@ -122,27 +122,28 @@ const Website = ({ urls, setUrls, websiteRef, setIsSaved }) => {
   }
 
   return (
-    <div className="w-full overflow-y-auto">
-      <div className="text-left bg-blue-100 py-2 sm:mx-7 mx-3">
+    <div className="w-full overflow-y-auto p-10">
+      <div className="text-left bg-blue-100 py-2 rounded-lg">
         <span className="text-[#343434] text-sm text-left px-3">
           <FaInfoCircle className="text-blue-500 size-5 inline-block mr-3" />
           {t('Note_Add_URLs_to_build_your_chatbot_knowledge_base_These_URLs_help_train_your_chatbot_to_answer_questions_accurately')}
         </span>
       </div>
-      <p className="text-center pt-5 font-bold text-sm px-5">{t('Please_do_not_add_URLs_to_websites_that_contain_confidential_information_or_where_the_publisher_has_imposed_restrictions_on_sharing')}</p>
-      <div className="w-full md:inline-flex flex-wrap justify-center items-center px-10 mt-5 max-md:space-y-5 py-10">
-        <p className="w-[100px] text-lg">{t('Enter_URL')}</p>
-        <input
-          type="text"
-          value={urlInputValue}
-          onChange={(e) => setUrlInputValue(e.target.value)}
-          placeholder="e.g. https://www.your-url.com"
-          className="grow mr-5 border border-[#D9D9D9] rounded-md"
-          id="urlInput"
-        />
-        <button className={`${urlInputValue? "bg-black text-white":"bg-gray-200 text-gray-500"} px-2 py-2 rounded-md w-[150px]`} type="button" onClick={handleUrlAdd}>
-          {t('Add_this_URL')}
-        </button>
+      <div className="w-full md:inline-flex flex-col justify-center items-left gap-3 mt-5 max-md:space-y-5 p-3 border-gry-200 border border-dashed rounded-lg">
+        <p className="w-[100px] text-xl">{t('Enter_URL')}</p>
+        <div className="w-full flex flex-row md:flex-row items-center justify-between">
+          <input
+            type="text"
+            value={urlInputValue}
+            onChange={(e) => setUrlInputValue(e.target.value)}
+            placeholder="e.g. https://www.your-url.com"
+            className="grow mr-5 border border-[#D9D9D9] rounded-md"
+            id="urlInput"
+          />
+          <button className={`${urlInputValue? "bg-black text-white":"bg-gray-200 text-gray-500"} px-2 py-2 rounded-md w-[150px]`} type="button" onClick={handleUrlAdd}>
+            {t('Add_this_URL')}
+          </button>
+        </div>
       </div>
       <div>
         <div className="w-full justify-between flex my-5 sm:px-7 px-3">
@@ -152,7 +153,7 @@ const Website = ({ urls, setUrls, websiteRef, setIsSaved }) => {
         <div className="h-[280px] overflow-y-auto">
           <table className="min-w-max w-full whitespace-nowrap">
             <thead>
-              <tr className="text-xs font-semibold uppercase tracking-wide text-left text-[#767676] border-b-2">
+              <tr className="text-xs font-semibold uppercase tracking-wide text-left text-[#767676]">
                 <th className="sm:px-7 px-3 py-2">{t('URL')}</th>
                 <th className="sm:px-7 px-3 py-2">{t('ADDED_ON')}</th>
                 <th className="sm:px-7 px-3 py-2">{t('ACTION')}</th>

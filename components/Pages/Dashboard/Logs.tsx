@@ -26,7 +26,6 @@ const Logs = ({ session, setSession, chatLog, setChatLog, botAvatar }) => {
 
   useEffect(() => {    
     if (session) {
-      console.log("session >>>>>", session)
       setIsLoading(true)
       axios
         .post(AUTH_API.GET_LOG_DATA, { session }, {

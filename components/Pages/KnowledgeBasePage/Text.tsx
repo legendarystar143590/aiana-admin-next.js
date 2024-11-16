@@ -76,7 +76,7 @@ const Text = ({ questionAnswers, setQuestionAnswers, setIsSaved }) => {
 
   return (
     <div className="w-full overflow-y-auto">
-      <div className="text-left bg-blue-100 py-2 sm:mx-7 mx-3">
+      <div className="text-left bg-blue-100 py-2 sm:mx-7 mx-3 rounded-lg">
         <span className="text-[#343434] text-sm text-left px-3">
           <FaInfoCircle className="text-blue-500 size-5 inline-block mr-3" />
           {t('Note_Add_custom_texts_questions_to_build_your_chatbot_knowledge_base_These_texts_help_train_your_chatbot_to_answer_questions_accurately')}
