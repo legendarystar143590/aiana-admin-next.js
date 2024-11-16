@@ -361,7 +361,7 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div className="md:w-1/2 w-full border rounded-lg pl-5">
+          <div className="md:w-1/2 w-full border rounded-lg px-5">
             <div className="max-md:mt-5 flex max-sm:w-full max-md:w-3/4 max-md:justify-center">
               <div className="flex item-center gap-2 border-b py-6">
                 <Image src="/images/profile/icon_user.png" alt="" width={22} height={18} />

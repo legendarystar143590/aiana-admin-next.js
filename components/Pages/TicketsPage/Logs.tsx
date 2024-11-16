@@ -27,7 +27,7 @@ const Logs = ({ session,setSession, tickets, setTickets, botAvatar, ticketConten
   const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {
-    if (session !== undefined) {
+    if (session) {
       setIsLoading(true)
       axios
         .post(AUTH_API.GET_LOG_DATA, { session }, {

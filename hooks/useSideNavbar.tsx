@@ -26,7 +26,7 @@ const useSideNavbar = () => {
   const knowledgeActive = pathname.includes("/knowledge")
   const reviewsActive = pathname.includes("/reviews")
   const ticketsActive = pathname.includes("/tickets")
-  const billingActive = pathname.includes("/invoice-plan")
+  const billingActive = pathname.includes("/invoice-plan") || pathname.includes("/billing-plan")
   const dashboardActive = pathname.includes("/chatlogs")
   const helpActive = pathname.includes("/help")
   const settingsActive = pathname.includes("/settings")
