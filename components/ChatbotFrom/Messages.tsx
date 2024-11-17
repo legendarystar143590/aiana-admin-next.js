@@ -12,7 +12,7 @@ interface OutputMessageProps {
   avatarPreview: string | null;
 }
 
-const OutputMessage = ({ message, avatarPreview }: OutputMessageProps) => 
+const Messages = ({ message, avatarPreview }: OutputMessageProps) => 
   <div
     key={message.id}
     className={`p-2 flex gap-3 ${message.isBot ? "" : "justify-end"}`}
@@ -42,4 +42,4 @@ const OutputMessage = ({ message, avatarPreview }: OutputMessageProps) =>
     </div>
   </div>
 
-export default OutputMessage
+export default Messages

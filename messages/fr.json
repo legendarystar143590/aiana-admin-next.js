@@ -193,6 +193,7 @@
         "Successfully_copied": "Copie réussie !",
         "Its_not_the_time_to_be_active_for_this_assistant": "Ce n'est pas le moment d'être actif pour cet assistant !",
         "Please_provide_an_email_and_content": "Veuillez fournir un email et du contenu !",
+        "Please_provide_a_valid_email": "Veuillez fournir une adresse e-mail valide !",
         "Please_login": "Veuillez vous connecter !",
         "Session_Expired_Please_log_in_again": "La session a expiré. Veuillez vous reconnecter !",
         "Invalid_Request": "Demande invalide !",
