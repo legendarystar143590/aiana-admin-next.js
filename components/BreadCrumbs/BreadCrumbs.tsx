@@ -10,7 +10,7 @@ const BreadCrumbs = () => {
         "chatlogs": "Chatlogs",  
         "tickets": "Tickets",  
         "invoice-plan": "Invoice Plan",  
-        "billing-plan": "Billing Plan",
+        "billing-plan": "Invoice Plan",
         "editbot": "Edit Chatbot",  
         "createbot": "Create Chatbot",  
         "editknowledge": "Edit Knowledge Base",  

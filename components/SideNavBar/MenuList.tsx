@@ -161,7 +161,7 @@ const MenuList = ({ open }) => {
           <div className={billingActive ? iconActiveClasses : iconClasses}>
             <Image alt="icon_invoice" src={`${ billingActive ? "/images/navbar/icon_invoice_selected.png" : "/images/navbar/icon_invoice_unselected.png"}`} width={18} height={20} className="opacity-90" />
           </div>
-          <p className={`${open ? navClasses : "hidden"} ${billingActive ? "font-bold" : "font-normal"} ml-2 text-black opacity-90 text-[16px]`}>{t('Invoice')}</p>
+          <p className={`${open ? navClasses : "hidden"} ${billingActive ? "font-bold" : "font-normal"} ml-2 text-black opacity-90 text-[16px]`}>{t('Invoice_Plan')}</p>
         </div>
       </button>
     </div>
