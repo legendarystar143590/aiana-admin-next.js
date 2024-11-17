@@ -1,7 +1,20 @@
+
 import Avatar from "../Avatar"
-const OutputMessage = ({ message, avatarPreview, key }) => 
+
+interface Message {
+  id: string;
+  isBot: boolean;
+  text: string;
+}
+
+interface OutputMessageProps {
+  message: Message;
+  avatarPreview: string | null;
+}
+
+const OutputMessage = ({ message, avatarPreview }: OutputMessageProps) => 
   <div
-    key={key}
+    key={message.id}
     className={`p-2 flex gap-3 ${message.isBot ? "" : "justify-end"}`}
     style={{
       maxWidth: "90%",
