@@ -21,6 +21,10 @@ const ResetPasswordPage = () => {
       toast.error("Passwords are not match!", { position: toast.POSITION.TOP_RIGHT });
       return false;
     }
+    if (password.length < 8) {
+      toast.error("Password must be at least 8 characters long!", { position: toast.POSITION.TOP_RIGHT });
+      return false;
+    }
 
     axios
       .post(AUTH_API.RESET_PASSWORD, { password, token })
