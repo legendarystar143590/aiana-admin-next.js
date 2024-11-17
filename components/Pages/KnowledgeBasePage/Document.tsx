@@ -15,6 +15,15 @@ import { useTranslations } from "next-intl";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB in bytes
 
+interface Document {
+  created_at: string;
+  filename: string;
+  id: string;
+  type: string;
+  size: string;
+  unique_id: string;
+}
+
 const Document = ({ documents, documentRef, setDocuments, setFiles, setIsSaved }) => {
   const t = useTranslations('knowledge');
   const toa = useTranslations('toast');
@@ -40,6 +49,19 @@ const Document = ({ documents, documentRef, setDocuments, setFiles, setIsSaved }
     return `${fileSize} ${units[i]}`;
   }
 
+  function formatMySQLDateTime(date: Date): string {
+    // Get local date time components
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+  
+    // Format as YYYY-MM-DD HH:mm:ss
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
   const handleDocumentChanged = (event) => {
     const fileList = event.target.files;
     const validFiles = [];
@@ -59,7 +81,7 @@ const Document = ({ documents, documentRef, setDocuments, setFiles, setIsSaved }
     }
     setFiles((prev)=>[...prev, ...validFiles]); // Only set valid files
     const newDocs = validFiles.map((file: File) => ({
-      created_at: new Date().toISOString(),
+      created_at: formatMySQLDateTime(new Date()), // Will output: "2024-11-17 05:04:11"
       filename: file.name,
       id: uuidv4(),
       type: file.type,
