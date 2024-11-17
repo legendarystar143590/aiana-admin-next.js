@@ -31,7 +31,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
   const [files, setFiles] = useState([])
   const [urls, setUrls] = useState([])
   const [questionAnswers, setQuestionAnswers] = useState([])
-  const [isSaved, setIsSaved] = useState(false);
+  const [isSaved, setIsSaved] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   // const [length, setLength] = useState(0);
   const [base, setBase] = React.useState<Base>({

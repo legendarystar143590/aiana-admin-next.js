@@ -8,16 +8,8 @@ import { useTranslations } from "next-intl"
 
 import AlertDialog from "@/components/AlertDialog"
 import { AUTH_API } from "@/components/utils/serverURL"
+import { formatDateStringOnly } from "@/components/utils/common"
 import { isValidKnolwedgeUrl } from "./validation"
-
-const options: Intl.DateTimeFormatOptions = {
-  weekday: 'short',
-  year: 'numeric',
-  month: 'short',
-  day: 'numeric',
-  hour: 'numeric',
-  minute: 'numeric'
-};
 
 // Define the interface for a website object
 interface WebsiteObject {
@@ -35,10 +27,23 @@ const Website = ({ urls, setUrls, websiteRef, setIsSaved }) => {
   const [id, setId] = React.useState("")
   const [index, setIndex] = React.useState("")
 
+  function formatMySQLDateTime(date: Date): string {
+    // Get local date time components
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+  
+    // Format as YYYY-MM-DD HH:mm:ss
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
   const handleUrlAdd = () => {
     if (isValidKnolwedgeUrl(urlInputValue)) {
       const newWebsite: WebsiteObject = {
-        created_at: new Date().toISOString(),
+        created_at: formatMySQLDateTime(new Date()),
         id: urls.length, //
         unique_id: "",
         url: urlInputValue,
@@ -165,7 +170,7 @@ const Website = ({ urls, setUrls, websiteRef, setIsSaved }) => {
                 <tr key={url.id}>
                   <td className="sm:px-7 px-3 py-2">
                     <a href={`${url.url}`} target="_blank" className="text-[#A438FA] underline" rel="noreferrer">{url.url}</a></td>
-                  <td className="sm:px-7 px-3 py-2">{new Date(url.created_at).toLocaleDateString("en-US", options)}</td>
+                  <td className="sm:px-7 px-3 py-2">{formatDateStringOnly(url.created_at)}</td>
                   <td className="sm:px-7 px-3 py-2">
                     <button
                       type="button"
