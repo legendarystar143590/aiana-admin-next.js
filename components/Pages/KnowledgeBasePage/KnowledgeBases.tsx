@@ -170,7 +170,7 @@ const KnowledgeBase = () => {
           </div>
         </div>
         <AlertDialog
-          title={t('Confirm_Delete')}
+          title={t('Delete_Knowledge_Base')}
           description={t('Are_you_sure_you_want_to_delete_this_item_This_action_cannot_be_undone')}
           handleAgree={handleAgree}
           handleDisagree={handleDisagree}
@@ -243,7 +243,7 @@ const KnowledgeBase = () => {
         ))}
       </div>
       <AlertDialog
-        title={t('Confirm_Delete')}
+        title={t('Delete_Knowledge_Base')}
         description={t('Are_you_sure_you_want_to_delete_this_item_This_action_cannot_be_undone')}
         handleAgree={handleAgree}
         handleDisagree={handleDisagree}
