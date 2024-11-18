@@ -389,9 +389,9 @@ const ChatbotForm = ({ bot }) => {
     setIsBook(false)
   }
 
-  const isValidEmail = (email: string): boolean => {
+  const isValidEmail = (checkemail: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    return emailRegex.test(checkemail);
   };
 
   const handleOkayClick = () => {
@@ -623,7 +623,7 @@ const ChatbotForm = ({ bot }) => {
           </div>
           {/* <div className="flex flex-col w-1/2 border border-[#CFCFCF] rounded-3xl h-full overflow-y-auto"> */}
             <div
-              className={`w-1/2 h-full flex flex-col overflow-auto rounded-3xl transition-all duration-300 ease-in-out`} 
+              className="w-1/2 h-full flex flex-col overflow-auto rounded-3xl transition-all duration-300 ease-in-out"
               style={{ background: `linear-gradient(to bottom, ${themeColor}, white)` }}
             >
               <div className="flex">
