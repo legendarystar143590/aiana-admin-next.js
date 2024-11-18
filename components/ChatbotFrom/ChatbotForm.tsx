@@ -622,7 +622,7 @@ const ChatbotForm = ({ bot }) => {
             </div>            
           </div>
           <div
-            className="w-1/2 h-full flex flex-col overflow-auto rounded-3xl transition-all duration-300 ease-in-out"
+            className="w-1/2 h-full flex flex-col overflow-auto rounded-3xl transition-all duration-300 ease-in-out  border-gray-200 border"
             style={{ background: `linear-gradient(to bottom, ${themeColor}, white)` }}
           >
             <div className="flex">
