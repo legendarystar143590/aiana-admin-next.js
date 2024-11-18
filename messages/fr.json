@@ -41,6 +41,7 @@
         "CompanyAddress": "ADRESSE_DE_L'ENTREPRISE",
         "CompanyDetails": "DÉTAILS_DE_L'ENTREPRISE",
         "UserProfile": "PROFIL D'UTILISATEUR",
+        "UserContact": "CONTACT AVEC L'UTILISATEUR",
         "Address_Street": "Adresse/Rue",
         "StreetNumber": "Numéro de rue",
         "City": "Ville",
