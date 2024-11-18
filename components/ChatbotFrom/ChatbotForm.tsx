@@ -621,77 +621,75 @@ const ChatbotForm = ({ bot }) => {
               </div>
             </div>            
           </div>
-          {/* <div className="flex flex-col w-1/2 border border-[#CFCFCF] rounded-3xl h-full overflow-y-auto"> */}
-            <div
-              className="w-1/2 h-full flex flex-col overflow-auto rounded-3xl transition-all duration-300 ease-in-out"
-              style={{ background: `linear-gradient(to bottom, ${themeColor}, white)` }}
-            >
-              <div className="flex">
-                <div
-                  className="w-full flex justify-between items-center p-3"
-                >
-                  <div className="flex items-center">
-                    <Avatar src={avatarPreview || "/images/logo_short_black.png"} name="bot avatar" className="mr-2 size-12 rounded-full" />
-                    <h3 className="ml-2 text-[16px] font-bold text-white">{nameInputValue || "My Bot"}</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col flex-grow space-y-2 m-3 rounded-3xl bg-white">
-                <div className="overflow-auto flex flex-col flex-grow space-y-2 p-2 ">
-                  {messages && messages.map((message) => (
-                    <Messages message={message} avatarPreview={avatarPreview} key={message.id} />
-                  ))}
-                  <div ref={messagesEndRef} />
-                </div>
-                {showYesNo && (
-                  <div className="flex justify-center mt-2">
-                    <button
-                      type="button"
-                      className="mr-2 py-2 px-4 text-white bg-[#A536FA]"
-                      onClick={handleYesClick}
-                    >
-                      {ts('Yes')}
-                    </button>
-                    <button
-                      type="button"
-                      className="py-2 px-4 text-[#A536FA] border-[#A536FA] border"
-                      onClick={handleNoClick}
-                    >
-                      {ts('No')}
-                    </button>
-                  </div>
-                )}
-                {showForm && (
-                  <ShowForm 
-                    ts={ts} 
-                    email={email} 
-                    content={content} 
-                    handleOkayClick={handleOkayClick} 
-                    handleCancelClick={handleCancelClick} 
-                    setEmail={setEmail} 
-                    setContent={setContent}
-                  />
-                )}
-                <div className="flex p-2 h-16">
-                  <div className="relative w-full">
-                    <textarea
-                      id="input"
-                      className="w-full h-full h-15 pt-3 pr-10 border border-gray-300 rounded-md"
-                      value={input}
-                      onChange={(e) => setInput(e.target.value)}
-                      onKeyDown={handleKeyDown}
-                      disabled={isAnswerLoading || isBook}
-                      ref={inputRef}
-                      style={{ whiteSpace: 'pre-wrap' }}
-                    />
-                    <button type="button" className="absolute bottom-1/2 translate-y-1/2 flex bg-black p-2 rounded-full right-3 items-center" onClick={handleSendMessage}>
-                      {isAnswerLoading ? <Spinner color="#A536FA" /> : <Image src="/images/buttons/icon_send.png" alt="send" width={20} height={20} />}
-                    </button>
-                  </div>
+          <div
+            className="w-1/2 h-full flex flex-col overflow-auto rounded-3xl transition-all duration-300 ease-in-out"
+            style={{ background: `linear-gradient(to bottom, ${themeColor}, white)` }}
+          >
+            <div className="flex">
+              <div
+                className="w-full flex justify-between items-center p-3"
+              >
+                <div className="flex items-center">
+                  <Avatar src={avatarPreview || "/images/logo_short_black.png"} name="bot avatar" className="mr-2 size-12 rounded-full" />
+                  <h3 className="ml-2 text-[16px] font-bold text-white">{nameInputValue || "My Bot"}</h3>
                 </div>
               </div>
             </div>
-          {/* </div>           */}
+            <div className="flex flex-col flex-grow space-y-2 m-3 rounded-3xl bg-white">
+              <div className="overflow-auto flex flex-col flex-grow space-y-2 p-2 ">
+                {messages && messages.map((message) => (
+                  <Messages message={message} avatarPreview={avatarPreview} key={message.id} />
+                ))}
+                <div ref={messagesEndRef} />
+              </div>
+              {showYesNo && (
+                <div className="flex justify-center mt-2">
+                  <button
+                    type="button"
+                    className="mr-2 py-2 px-4 text-white bg-[#A536FA]"
+                    onClick={handleYesClick}
+                  >
+                    {ts('Yes')}
+                  </button>
+                  <button
+                    type="button"
+                    className="py-2 px-4 text-[#A536FA] border-[#A536FA] border"
+                    onClick={handleNoClick}
+                  >
+                    {ts('No')}
+                  </button>
+                </div>
+              )}
+              {showForm && (
+                <ShowForm 
+                  ts={ts} 
+                  email={email} 
+                  content={content} 
+                  handleOkayClick={handleOkayClick} 
+                  handleCancelClick={handleCancelClick} 
+                  setEmail={setEmail} 
+                  setContent={setContent}
+                />
+              )}
+              <div className="flex p-2 h-16">
+                <div className="relative w-full">
+                  <textarea
+                    id="input"
+                    className="w-full h-full h-15 pt-3 pr-10 border border-gray-300 rounded-md"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    disabled={isAnswerLoading || isBook}
+                    ref={inputRef}
+                    style={{ whiteSpace: 'pre-wrap' }}
+                  />
+                  <button type="button" className={`absolute bottom-1/2 translate-y-1/2 flex   rounded-full right-3 items-center ${isAnswerLoading ? "":"p-2 bg-black"}`} onClick={handleSendMessage}>
+                    {isAnswerLoading ? <Spinner color="#A536FA" /> : <Image src="/images/buttons/icon_send.png" alt="send" width={20} height={20} />}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="w-full flex sm:flex-row flex-col-reverse items-center justify-end gap-5">
           <CancelButton handleCancelClick={handleCancelClick} t={t} />

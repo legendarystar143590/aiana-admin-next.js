@@ -38,20 +38,16 @@ function AlertDialog({ title, description, handleAgree, handleDisagree, open, se
         >
             <div className='flex justify-center items-center w-full h-[120px] relative'>
                 <div className='flex h-fit items-center justify-center rounded-2xl p-1 border-white border bg-[#FFFFFF]/20 pt-2 '>
-                    <Image src="/images/alert_image.png" alt="Logo" width={80} height={80} />
+                    <Image src="/images/alert_image.png" alt="Alert icon" width={80} height={80} priority quality={75} />
                 </div>
-                <div 
-                    role='button'
+                <button 
+                    type='button'
                     className='absolute top-2 right-2 border p-1 rounded-full'
                     onClick={handleClose}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                            handleClose();
-                        }
-                    }}
+                    aria-label='Close dialog'
                 >
                     <FaTimes width={30} height={30} />
-                </div>
+                </button>
             </div>
         </DialogTitle>
         <DialogContent>
@@ -69,8 +65,8 @@ function AlertDialog({ title, description, handleAgree, handleDisagree, open, se
             }}
         >
             <div className='flex flex-row w-full gap-2'>
-                <button onClick={handleDisagree} className='w-1/2 bg-gray-500 text-white hover:bg-gray-200 rounded-lg py-2'>No</button>
-                <button onClick={handleAgree} autoFocus className='w-1/2 bg-red-500 hover:bg-gray-200 text-white rounded-lg py-2'>
+                <button type='button' onClick={handleDisagree} className='w-1/2 bg-gray-500 text-white hover:bg-gray-200 rounded-lg py-2'>No</button>
+                <button type='button' onClick={handleAgree} autoFocus className='w-1/2 bg-red-500 hover:bg-gray-200 text-white rounded-lg py-2'>
                     Yes
                 </button>
             </div>

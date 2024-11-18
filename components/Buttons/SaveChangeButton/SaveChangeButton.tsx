@@ -8,7 +8,7 @@ const SaveChangesButton = ({isSaving,isSaved,handleSubmit,t}:{isSaving:boolean,i
     onClick={(isSaving||isSaved)? () =>{} : handleSubmit}
   >
     <span className="flex items-center justify-center gap-2">
-      <Image src={`/images/buttons/${isSaved?'icon_black_diskette.png':'icon_white_diskette.png'}`} alt="save" width={20} height={20} />
+      {!isSaving && <Image src={`/images/buttons/${isSaved?'icon_black_diskette.png':'icon_white_diskette.png'}`} alt="save" width={20} height={20} />}
       {isSaving? <Spinner color=""/>:t('SaveChanges')}
     </span>
   </button>
