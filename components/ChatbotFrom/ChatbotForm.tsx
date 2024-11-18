@@ -15,7 +15,8 @@ import { setExpiryTime, isTimeBetween } from "../utils/common"
 import Spinner from "../Spinner"
 import SaveChangesButton from "../Buttons/SaveChangeButton"
 import CancelButton from "../Buttons/CancelButton"
-import OutputMessage from "./OutputMessage"
+import Messages from "./Messages"
+import ShowForm from "./ShowForm"
 
 const options: Intl.DateTimeFormatOptions = {
   weekday: "short",
@@ -388,9 +389,18 @@ const ChatbotForm = ({ bot }) => {
     setIsBook(false)
   }
 
+  const isValidEmail = (checkemail: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(checkemail);
+  };
+
   const handleOkayClick = () => {
     if (email === "" || content === "") {
       toast.error(`${toa('Please_provide_an_email_and_content')}`, { position: toast.POSITION.TOP_RIGHT })
+      return
+    }
+    if(!isValidEmail(email)){
+      toast.error(`${toa('Please_provide_a_valid_email')}`, { position: toast.POSITION.TOP_RIGHT })
       return
     }
     // Logic to handle the form submission (e.g., send email and content to backend)
@@ -484,7 +494,7 @@ const ChatbotForm = ({ bot }) => {
           />
         </div>
         <div className="bg-none w-full h-full flex md:flex-row flex-col gap-4 overflow-auto">          
-          <div className="p-4 gap-4 flex flex-col w-1/2 border border-[#CFCFCF] rounded-lg h-full overflow-y-auto">
+          <div className="p-4 gap-4 flex flex-col w-1/2 border border-[#CFCFCF] rounded-3xl h-full overflow-y-auto">
             <div className="flex flex-col">
               <div className="flex flex-col">
                 <CustomSwitch value={active} onChange={handleSwitchChange} />
@@ -505,21 +515,44 @@ const ChatbotForm = ({ bot }) => {
                 placeholder="e.g. www.aiana.com" 
               />
             </div>
-            <div className="flex flex-col gap-2">
-              <p className="font-bold">{t('Initial_Messages')}</p>
+            <div className="flex flex-col ">
+              <p className="font-bold mb-2">{t('Initial_Messages')}</p>
               <textarea
                 id="initialmessage"
                 value={isInitialMessaged}
-                onChange={(e) => setIsInitialMessaged(e.target.value)}
-                className="w-full border border-[#D9D9D9] h-12 rounded-md"                
+                onChange={(e) => {
+                  const sentences = e.target.value.split('\n');
+                  if (sentences.length <= 1) {
+                    setIsInitialMessaged(e.target.value);
+                  }
+                }}
+                onKeyDown={(e) => {
+                  const sentences = isInitialMessaged.split('\n');
+                  if (e.key === 'Enter' && sentences.length >= 1) {
+                    e.preventDefault();
+                  }
+                }}
+                className="w-full border border-[#D9D9D9] h-12 rounded-md"  
+                placeholder="e.g. Hello, this is your bot, let me know what I can help you with."              
               />
             </div>
-            <div className="flex flex-col gap-2">
-              <p className="font-bold">{t('Suggested_Messages')}</p>
+            <div className="flex flex-col ">
+              <p className="font-bold mb-2">{t('Suggested_Messages')}</p>
               <textarea
                 id="suggestedmessage"
                 value={isSuggestedMessaged}
-                onChange={(e) => setIsSuggestedMessaged(e.target.value)}
+                onChange={(e) => {
+                  const sentences = e.target.value.split('\n');
+                  if (sentences.length <= 3) {
+                    setIsSuggestedMessaged(e.target.value);
+                  }
+                }}
+                onKeyDown={(e) => {
+                  const sentences = isInitialMessaged.split('\n');
+                  if (e.key === 'Enter' && sentences.length >= 3) {
+                    e.preventDefault();
+                  }
+                }}
                 className="w-full border border-[#D9D9D9] h-12 rounded-md"  
                 placeholder={t("Hello_this_is_your_bot_let_me_know_what_I_can_help_you_with")}           
               />
@@ -588,14 +621,14 @@ const ChatbotForm = ({ bot }) => {
               </div>
             </div>            
           </div>
-          <div className="p-4 flex flex-col w-1/2 border border-[#CFCFCF] rounded-lg h-full overflow-y-auto">
+          {/* <div className="flex flex-col w-1/2 border border-[#CFCFCF] rounded-3xl h-full overflow-y-auto"> */}
             <div
-              className="w-full h-full transition-all rounded-md duration-300 ease-in-out border-solid border-2 flex flex-col overflow-auto bg-white"
+              className="w-1/2 h-full flex flex-col overflow-auto rounded-3xl transition-all duration-300 ease-in-out"
+              style={{ background: `linear-gradient(to bottom, ${themeColor}, white)` }}
             >
               <div className="flex">
                 <div
                   className="w-full flex justify-between items-center p-3"
-                  style={{ backgroundColor: themeColor }}
                 >
                   <div className="flex items-center">
                     <Avatar src={avatarPreview || "/images/logo_short_black.png"} name="bot avatar" className="mr-2 size-12 rounded-full" />
@@ -603,87 +636,62 @@ const ChatbotForm = ({ bot }) => {
                   </div>
                 </div>
               </div>
-              <hr className="mb-2 font-bold" />
-              <div className="overflow-auto flex flex-col flex-grow space-y-2 p-2">
-                {messages && messages.map((message) => (
-                  <OutputMessage message={message} avatarPreview={avatarPreview} key={message.id} />
-                ))}
-                <div ref={messagesEndRef} />
-              </div>
-              {showYesNo && (
-                <div className="flex justify-center mt-2">
-                  <button
-                    type="button"
-                    className="mr-2 py-2 px-4 text-white bg-[#A536FA]"
-                    onClick={handleYesClick}
-                  >
-                    {ts('Yes')}
-                  </button>
-                  <button
-                    type="button"
-                    className="py-2 px-4 text-[#A536FA] border-[#A536FA] border"
-                    onClick={handleNoClick}
-                  >
-                    {ts('No')}
-                  </button>
+              <div className="flex flex-col flex-grow space-y-2 m-3 rounded-3xl bg-white">
+                <div className="overflow-auto flex flex-col flex-grow space-y-2 p-2 ">
+                  {messages && messages.map((message) => (
+                    <Messages message={message} avatarPreview={avatarPreview} key={message.id} />
+                  ))}
+                  <div ref={messagesEndRef} />
                 </div>
-              )}
-              {showForm && (
-                <div className="p-4 mt-2">
-                  <p className="text-center text-[#070E0B]">
-                    {ts('Please_provide_your_email_and_content_to_book_a_ticket')}
-                  </p>
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    className="w-full mb-2 p-2 border border-gray-300 rounded-md"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <textarea
-                    placeholder="Content"
-                    className="w-full mb-2 p-2 border border-gray-300 rounded-md"
-                    rows={4}
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                  />
-                  <div className="flex justify-end">
+                {showYesNo && (
+                  <div className="flex justify-center mt-2">
                     <button
                       type="button"
                       className="mr-2 py-2 px-4 text-white bg-[#A536FA]"
-                      onClick={handleOkayClick}
+                      onClick={handleYesClick}
                     >
-                      {ts('Okay')}
+                      {ts('Yes')}
                     </button>
                     <button
                       type="button"
                       className="py-2 px-4 text-[#A536FA] border-[#A536FA] border"
-                      onClick={handleCancelClick}
+                      onClick={handleNoClick}
                     >
-                      {ts('Cancel')}
+                      {ts('No')}
+                    </button>
+                  </div>
+                )}
+                {showForm && (
+                  <ShowForm 
+                    ts={ts} 
+                    email={email} 
+                    content={content} 
+                    handleOkayClick={handleOkayClick} 
+                    handleCancelClick={handleCancelClick} 
+                    setEmail={setEmail} 
+                    setContent={setContent}
+                  />
+                )}
+                <div className="flex p-2 h-16">
+                  <div className="relative w-full">
+                    <textarea
+                      id="input"
+                      className="w-full h-full h-15 pt-3 pr-10 border border-gray-300 rounded-md"
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                      disabled={isAnswerLoading || isBook}
+                      ref={inputRef}
+                      style={{ whiteSpace: 'pre-wrap' }}
+                    />
+                    <button type="button" className="absolute bottom-1/2 translate-y-1/2 flex bg-black p-2 rounded-full right-3 items-center" onClick={handleSendMessage}>
+                      {isAnswerLoading ? <Spinner color="#A536FA" /> : <Image src="/images/buttons/icon_send.png" alt="send" width={20} height={20} />}
                     </button>
                   </div>
                 </div>
-              )}
-              <div className="flex p-2 h-16">
-                <div className="relative w-full">
-                  <textarea
-                    id="input"
-                    className="w-full h-full h-15 pt-3 pr-10 border border-gray-300 rounded-md"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    disabled={isAnswerLoading || isBook}
-                    ref={inputRef}
-                    style={{ whiteSpace: 'pre-wrap' }}
-                  />
-                  <button type="button" className="absolute bottom-1/2 translate-y-1/2 flex bg-black p-2 rounded-full right-3 items-center" onClick={handleSendMessage}>
-                    {isAnswerLoading ? <Spinner color="#A536FA" /> : <Image src="/images/buttons/icon_send.png" alt="send" width={20} height={20} />}
-                  </button>
-                </div>
               </div>
             </div>
-          </div>          
+          {/* </div>           */}
         </div>
         <div className="w-full flex sm:flex-row flex-col-reverse items-center justify-end gap-5">
           <CancelButton handleCancelClick={handleCancelClick} t={t} />

@@ -194,6 +194,7 @@
         "Successfully_copied": "Successfully copied!",
         "Its_not_the_time_to_be_active_for_this_assistant": "It's not the time to be active for this assistant!",
         "Please_provide_an_email_and_content": "Please provide an email and content!",
+        "Please_provide_a_valid_email": "Please provide a valid email!",
         "Please_login": "Please login!",
         "Session_Expired_Please_log_in_again": "Session Expired. Please log in again!",
         "Invalid_Request": "Invalid Request!",
