@@ -19,7 +19,7 @@ function AlertDialog({ title, description, handleAgree, handleDisagree, open, se
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         maxWidth="sm"
-        fullWidth={true}
+        fullWidth
         PaperProps={{
             style: {
             width: '300px', // Set custom width
@@ -66,7 +66,7 @@ function AlertDialog({ title, description, handleAgree, handleDisagree, open, se
         >
             <div className='flex flex-row w-full gap-2'>
                 <button type='button' onClick={handleDisagree} className='w-1/2 bg-gray-500 text-white hover:bg-gray-200 rounded-lg py-2'>No</button>
-                <button type='button' onClick={handleAgree} autoFocus className='w-1/2 bg-red-500 hover:bg-gray-200 text-white rounded-lg py-2'>
+                <button type='button' onClick={handleAgree} className='w-1/2 bg-red-500 hover:bg-gray-200 text-white rounded-lg py-2'>
                     Yes
                 </button>
             </div>
