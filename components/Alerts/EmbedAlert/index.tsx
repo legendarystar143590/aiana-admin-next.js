@@ -20,7 +20,7 @@ interface WebsiteObject {
   domain: string
 }
 
-export default function EmbedAlert({ open, setOpen, description, handleCopy, botId }) {
+export default function EmbedAlert({ open, setOpen, description, handleCopy, botId, setRegisteredWebsite }) {
   const [urlInputValue, setUrlInputValue] = useState("")
   const t = useTranslations('common');
   const tk = useTranslations('knowledge');
@@ -136,6 +136,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
             if (response.status === 201) {
               toast.success(`${toa('Successfully_added')}`, { position: toast.POSITION.TOP_RIGHT })
               setUrls(prevUrls => [...prevUrls, newWebsite]);
+              setRegisteredWebsite(urlInputValue);
               setUrlInputValue("");
             } else {
               toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
@@ -195,6 +196,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
           if (response.status === 201) {
             toast.success(`${toa('Successfully_deleted!')}`, { position: toast.POSITION.TOP_RIGHT })
             setUrls((prevBases) => prevBases.filter((prev) => prev.index !== _index))
+            setRegisteredWebsite("");
           } else {
             toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
           }

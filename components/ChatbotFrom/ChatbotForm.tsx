@@ -8,6 +8,7 @@ import { FaChevronDown } from "react-icons/fa"
 import { useTranslations } from "next-intl"
 import { SketchPicker } from 'react-color';
 import { AUTH_API } from "@/components/utils/serverURL"
+import EmbedAlert from "@/components/Alerts/EmbedAlert"
 import CustomSwitch from "../CustomSwitch"
 import Avatar from "../Avatar"
 import CustomAutocomplete from "../CustomAutocomplete"
@@ -71,6 +72,9 @@ const ChatbotForm = ({ bot }) => {
   // console.log("inner >>>", bot)
   const [index, setIndex] = useState(-1)
   const [userId, setUserId] = useState(null)
+  const [isOpen, setIsOpen] = useState(false)
+  const [description, setDescription] = useState("")
+  const [botId, setBotId] = useState("")
 
   const handleColorChange = (color) => {
     setThemeColor(color.hex)
@@ -137,7 +141,8 @@ const ChatbotForm = ({ bot }) => {
             setTimeFrom(data.bot_data.start_time)
             setTimeUntil(data.bot_data.end_time)
             setUrlInputValue(data.website.domain)
-            setRegisteredWebsite(data.website.domain)            
+            setRegisteredWebsite(data.website.domain) 
+            setBotId(data.bot_data.index)           
             // setIsLoading(false);
           }
           setIsLoading(false)
@@ -180,6 +185,20 @@ const ChatbotForm = ({ bot }) => {
       setIsSaved(false)
       reader.readAsDataURL(file)
     }
+  }
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(description)
+    toast.success(`${toa('Successfully_copied')}`, { position: toast.POSITION.TOP_RIGHT })
+    setIsOpen(false)
+  }
+
+  const handleEmbedClickButton = () => {
+    const embeddingCode = `<script src="https://login.aiana.io/aiana.js" data-user-id=${localStorage.getItem("userIndex")} data-bot-id=${botId}></script>`
+    setDescription(embeddingCode)
+    console.log("Clicked on ", bot)
+
+    setIsOpen(true)
   }
 
   const handleSwitchChange = () => {
@@ -494,7 +513,7 @@ const ChatbotForm = ({ bot }) => {
           />
         </div>
         <div className="bg-none w-full h-full flex md:flex-row flex-col gap-4 overflow-auto">          
-          <div className="p-4 gap-4 flex flex-col w-1/2 border border-[#CFCFCF] rounded-3xl h-full overflow-y-auto">
+          <div className="p-4 gap-4 flex flex-col w-full md:w-1/2 border border-[#CFCFCF] rounded-3xl h-full overflow-y-auto">
             <div className="flex flex-col">
               <div className="flex flex-col">
                 <CustomSwitch value={active} onChange={handleSwitchChange} />
@@ -506,14 +525,20 @@ const ChatbotForm = ({ bot }) => {
             </div>
             <div className="flex flex-col gap-2">
               <p className="font-bold">{t('Website_URL')}</p>
-              <input 
-                id="urlInput"
-                type="text" 
-                value={urlInputValue}
-                onChange={handleUrlChange}
-                className="py-2 text-base rounded-md border-[#CFCFCF]" 
-                placeholder="e.g. www.aiana.com" 
-              />
+              <div className="grid grid-cols-[1fr,auto] gap-4 items-center">
+                <input 
+                  id="urlInput"
+                  type="text" 
+                  value={urlInputValue}
+                  onChange={handleUrlChange}
+                  className="py-2 text-base rounded-md border-[#CFCFCF]" 
+                  placeholder="e.g. www.aiana.com" 
+                />
+                <button type="button" className="bg-black text-white px-4 py-2 rounded-md flex items-center gap-2" onClick={handleEmbedClickButton}>
+                  <Image src="/images/icon _link_url.png" alt="Search" width={20} height={20} />
+                  <span>Link Website</span>
+                </button>
+              </div>              
             </div>
             <div className="flex flex-col ">
               <p className="font-bold mb-2">{t('Initial_Messages')}</p>
@@ -563,7 +588,7 @@ const ChatbotForm = ({ bot }) => {
                   <p className="font-bold">{t('Timing')}</p>
                 </div>
                 <div className="flex flex-row w-full mt-2 gap-2">
-                  <input type="time" value={timeFrom} onChange={handleTimeFromChange} className="w-1/2 rounded-md border-[#CFCFCF]" />
+                  <input type="time" value={timeFrom} onChange={() => handleTimeFromChange} className="w-1/2 rounded-md border-[#CFCFCF]" />
                   <input
                     type="time"
                     value={timeUntil}
@@ -585,7 +610,7 @@ const ChatbotForm = ({ bot }) => {
                       </div>
                     )
                       : (
-                        <button aria-label="color-picker" type="button" onClick={() => setPickerOpen(true)} className="flex p-1 rounded-md border border-[#CFCFCF] justify-between items-center w-full">
+                        <button aria-label="color-picker" type="button" onClick={handleEmbedClickButton} className="flex p-1 rounded-md border border-[#CFCFCF] justify-between items-center w-full">
                           <div className="rounded-md size-8" style={{ backgroundColor: themeColor }} />
                           <FaChevronDown />
                         </button>
@@ -622,7 +647,7 @@ const ChatbotForm = ({ bot }) => {
             </div>            
           </div>
           <div
-            className="w-1/2 h-full flex flex-col overflow-auto rounded-3xl transition-all duration-300 ease-in-out  border-gray-200 border"
+            className="w-full md:w-1/2 h-full flex flex-col overflow-auto rounded-3xl transition-all duration-300 ease-in-out  border-gray-200 border"
             style={{ background: `linear-gradient(to bottom, ${themeColor}, white)` }}
           >
             <div className="flex">
@@ -697,6 +722,14 @@ const ChatbotForm = ({ bot }) => {
           <SaveChangesButton isSaved={isSaved} isSaving={isSaving} handleSubmit={handleSubmit} t={t} />
         </div>
       </div>
+      <EmbedAlert 
+        open={isOpen} 
+        setOpen={setIsOpen} 
+        description={description} 
+        handleCopy={handleCopy} 
+        botId={bot}
+        setRegisteredWebsite={setUrlInputValue}
+      />
     </div>
   )
 }
