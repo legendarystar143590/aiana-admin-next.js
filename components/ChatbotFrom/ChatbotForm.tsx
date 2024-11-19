@@ -535,8 +535,8 @@ const ChatbotForm = ({ bot }) => {
                   placeholder="e.g. www.aiana.com" 
                   readOnly
                 />
-                <button type="button" className="bg-black text-white px-4 py-2 rounded-md flex items-center gap-2" onClick={handleEmbedClickButton}>
-                  <Image src="/images/icon _link_url.png" alt="Search" width={20} height={20} />
+                <button type="button" className={`${urlInputValue === "" ? "bg-black" : "bg-green-400"} text-white px-4 py-2 rounded-md flex items-center gap-2`} onClick={handleEmbedClickButton}>
+                  <Image src={`/images/${urlInputValue === "" ? 'icon_link_url': 'icon_linked_url'}.png`} alt="Search" width={20} height={20} />
                   <span>Link Website</span>
                 </button>
               </div>              
