@@ -44,7 +44,7 @@ const BillingPlanTable: React.FC = () => {
             ))}         
         </div>
         <div className='flex items-center justify-center w-full'>
-            <button type='button' className='bg-[#7412c4] rounded-md text-white w-full md:w-[500px]  h-[40px] text-[18px]' onClick={handleSubscribeClick}>{toa('Upgrade')}</button>
+            <button type='button' className='bg-[#7412c4] rounded-md text-white w-full md:w-[500px]  h-[40px] text-[18px] hidden' onClick={handleSubscribeClick}>{toa('Upgrade')}</button>
         </div>
     </div>
   );
