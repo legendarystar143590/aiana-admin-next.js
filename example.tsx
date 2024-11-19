@@ -1,32 +1,43 @@
 import * as React from "react"
-import { FaCheck, FaExclamation } from "react-icons/fa"
+import { FaCheck, FaEdit, FaLink, FaRegCommentAlt, FaRegTrashAlt } from "react-icons/fa"
 import router from "next/router"
 import Image from "next/image"
 import axios from "axios"
-import Script from 'next/script'
 import { useTranslations } from "next-intl"
 import { toast } from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
 import { isTimeBetween, setExpiryTime } from "@/components/utils/common"
 import AlertDialog from "@/components/AlertDialog"
-// import ChatbotPage from "@/components/Pages/ChatPage"
-import ToggleButton from "./ToggleButtons"
+import EmbedAlert from "@/components/Alerts/EmbedAlert"
+import ChatbotPage from "@/components/Pages/ChatPage"
 
 const Chatbots = () => {
   const t = useTranslations('chatbot');
   const toa = useTranslations('toast');
   const [isLoading, setIsLoading] = React.useState(false)
   const [bots, setBots] = React.useState([])
+  const [botId, setBotId] = React.useState(0)
+  const [open, setOpen] = React.useState(false)
+  const [description, setDescription] = React.useState("")
+
+  const [botVisible, setBotVisible] = React.useState(false)
   const [openDialog, setOpenDialog] = React.useState(false)
+  const [botName, setBotName] = React.useState("")
+  const [botAvatar, setBotAvatar] = React.useState("")
+  const [botThemeColor, setBotThemeColor] = React.useState("#1976D2")
+  const [userId, setUserId] = React.useState("")
+  const [userIndex, setUserIndex] = React.useState("")
+  const [startTime, setStartTime] = React.useState("")
+  const [endTime, setEndTime] = React.useState("")
   const [index, setIndex] = React.useState("")
   const handleAddRow = () => {
     router.push(`/chatbot/edit?bot=-1`)
   }
 
   React.useEffect(() => {
-    toast.dismiss()
     const userID = localStorage.getItem("userID")
-    // if (userID) setUserId(userID)
+    setUserIndex(localStorage.getItem("userIndex"))
+    if (userID) setUserId(userID)
     const requestOptions = {
       headers: new Headers({
         "Content-Type": "application/json",
@@ -53,7 +64,6 @@ const Chatbots = () => {
         })
         .then((data) => {
           setBots(data)
-          console.log(data)
           setIsLoading(false)
         })
         .catch((error) => {
@@ -85,8 +95,23 @@ const Chatbots = () => {
     router.push(`/chatbot/edit?bot=${id}`)
   }
 
+  const handleChatClickButton = (id: any) => {
+    const bot = bots.find((b) => b.id === id)
+    if (!bot.active || !isTimeBetween(bot.start_time, bot.end_time)) {
+      toast.warn(`${toa('This_bot_is_not_active_yet_Please_wait_until_it_is_active')}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      })
+    }
+    setStartTime(bot.start_time)
+    setEndTime(bot.end_time)
+    setBotId(id)
+    setBotName(bot.name)
+    setBotAvatar(bot.avatar)
+    setBotThemeColor(bot.color) // Assuming there's a themeColor property
+    setBotVisible(true)
+  }
+
   const handleDelete = (bot) => {
-    toast.dismiss()
     axios
       .post(
         AUTH_API.DELETE_BOT,
@@ -137,14 +162,20 @@ const Chatbots = () => {
     setOpenDialog(true)
   }
 
-  // const handleEmbedClickButton = (bot) => {
-  //   const embeddingCode = `<script src="https://login.aiana.io/aiana.js" data-user-id=${userIndex} data-bot-id=${bot.index}></script>`
-  //   setDescription(embeddingCode)
-  //   setBotId(bot.id)
-  //   console.log("Clicked on ", bot.id)
+  const handleEmbedClickButton = (bot) => {
+    const embeddingCode = `<script src="https://login.aiana.io/aiana.js" data-user-id=${userIndex} data-bot-id=${bot.index}></script>`
+    setDescription(embeddingCode)
+    setBotId(bot.id)
+    console.log("Clicked on ", bot.id)
 
-  //   setOpen(true)
-  // }
+    setOpen(true)
+  }
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(description)
+    toast.success(`${toa('Successfully_copied')}`, { position: toast.POSITION.TOP_RIGHT })
+    setOpen(false)
+  }
 
   const handleAgree = () => {
     setOpenDialog(false)
@@ -189,12 +220,32 @@ const Chatbots = () => {
           open={openDialog}
           setOpen={setOpenDialog}
         />
+        <EmbedAlert
+          open={open}
+          setOpen={setOpen}
+          description={description}
+          handleCopy={handleCopy}
+          botId={botId}
+        />
+
+        <ChatbotPage
+          userId={userId}
+          userIndex={userIndex}
+          startTime={startTime}
+          endTime={endTime}
+          botId={botId}
+          botName={botName}
+          color={botThemeColor}
+          avatar={botAvatar}
+          visible={botVisible}
+          setVisible={setBotVisible}
+        />
       </div>
     )
   }
 
   return (
-    <div className="w-full mx-auto p-5">
+    <div className="w-[90%] mx-auto p-5">
       <div className="w-full h-[50px] flex items-center justify-between pt-[24px] mb-[10px]">
         <h3 className="font-bold text-2xl">{t('Chatbots')}</h3>
         <div>
@@ -208,80 +259,101 @@ const Chatbots = () => {
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-10">
+      <div className="relative w-full h-fit flex flex-wrap mt-10 items-center justify-start">
         {bots&&bots.map((bot) => (
           <div
             key={bot.id}
-            className="relative h-fit border border-solid border-gray-300 shadow-lg rounded-xl min-w-[240px] max-h-[400px] hover:shadow-2xl hover:scale-105 duration-300 cursor-pointer"
+            className="w-[300px] h-fit border border-solid border-gray-300 shadow-lg rounded-lg m-3"
           >
-            <div className="w-full h-fit flex flex-col gap-2 p-2">
-              <div className="w-full flex flex-row items-center justify-between py-2">
-                <div className="flex flex-row items-center justify-center">
-                  <div className="flex items-center">
-                    <Image
-                      src={bot.avatar ? bot.avatar : "/images/logo_short_black.png"}
-                      className="rounded-full size-[30px]"
-                      alt="avatar"
-                      width={50}
-                      height={50}
-                    />
-                  </div>
-                  <p className="font-bold text-xl ml-2 truncate">{bot.name}</p>
+            <div className="w-full h-fit px-5 pt-5">
+              <div className="w-full flex items-center">
+                <div className="w-20 h-20 flex items-center">
+                  <Image
+                    src={bot.avatar ? bot.avatar : "/images/logo_sm.png"}
+                    className="rounded-full size-[50px]"
+                    alt="avatar"
+                    width={100}
+                    height={100}
+                  />
                 </div>
-                <ToggleButton 
-                  bot={bot} 
-                  handleDeleteClickButton={handleDeleteClickButton}
-                />
-              </div>
-
-              <div 
-                role="button" 
-                tabIndex={0} 
-                className="flex-grow flex flex-col w-full text-base gap-2 rounded-xl border p-2" 
-                onClick={()=>handleEditClickButton(bot.id)}
-                onKeyDown={(e)=>console.log("onKeyDown", e.key)}
-              >
-                <div className="flex flex-row w-full justify-between items-center">
-                  <p className="text-gray-400 w-1/2 truncate">{t('Knowledge_Base')}</p>
-                  <p
-                    className={`${bot.knowledgebase_name ? "text-black" : "text-[#D7263C]"
-                      } truncate`}
-                  >
-                    {bot.knowledgebase_name ? bot.knowledgebase_name : "Not Connected"}
-                  </p>
-                </div>
-                <div className="flex flex-row w-full justify-between">
-                  <p className="text-gray-400 truncate">Linked to</p>
-                  <p className="truncate">{bot.registered_website ? bot.registered_website:"Not connected"}</p>
-                </div>
-                <div className="flex flex-row w-full justify-between">
-                  <p className="text-gray-400">Bot color</p>
-                  <div className="h-5 w-8 rounded-lg" style={{ backgroundColor: bot.color }} />
-                </div>                
-                <div className="group relative w-full flex flex-row justify-between">
-                  <p className="text-gray-400">Status</p>
+                  <p className="font-bold text-xl ml-2">{bot.name}</p>
+                <div className="group relative w-32 ml-auto flex justify-end">
                   {isTimeBetween(bot.start_time, bot.end_time) && bot.active ? (
-                    <div className="border border-gray-300 rounded-full flex flex-row items-center justify-center px-1 gap-2">
-                      <div className="bg-green-600 border rounded-full p-1">
-                        <FaCheck className="text-gray-100 size-2" />
-                      </div>
-                      <p>Active</p>
+                    <div className="size-5 bg-[#2CA84D] rounded-full flex items-center justify-center">
+                      <FaCheck className="text-white size-3" />
                     </div>
                   ) : (
-                    <div className="bg-gray-100 border border-gray-300 rounded-full flex flex-row items-center justify-center px-1 gap-2">
-                      <div className="bg-gray-600 border rounded-full p-1">
-                        <FaExclamation className="text-gray-100 size-2" />
-                      </div>
-                      <p>Inactive</p>
-                    </div>
+                    <div className="size-5 border-[1px] border-[#767676] rounded-full flex items-center justify-center" />
                   )}
                   <span className="absolute top-8 w-20 text-center scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{isTimeBetween(bot.start_time, bot.end_time) && bot.active ? t('Active') : t('Not_active')}</span>
                 </div>
               </div>
+
+              <div className="flex-grow flex flex-col text-[.8rem]">
+                <div className="mt-3 flex items-center">
+                  <p className="text-gray-600 w-1/2 ">{t('Status')}</p>
+                  <p className={`italic font-bold ${bot.active ? "text-black" : "text-[#D7263C]"}`}>{bot.active ? "Active" : "Inactive"}</p>
+                </div>
+                <div className="flex items-center">
+                  <p className="text-gray-600 w-1/2">{t('Knowledge_Base')}</p>
+                  <p
+                    className={`italic font-bold ${bot.knowledgebase_name ? "text-black" : "text-[#D7263C]"
+                      }`}
+                  >
+                    {bot.knowledgebase_name ? bot.knowledgebase_name : "Not Connected"}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <hr className="my-5" />
+            <div className="flex flex-row justify-between gap-3 mx-5 mb-5">
+              <div className="group relative flex justify-center">
+                <button
+                  type="button"
+                  aria-label="edit-chatbot"
+                  className="size-8 text-[12px] rounded-full border-2 border-[#2CA84D] text-[#2CA84D] flex justify-center items-center"
+                  onClick={() => handleEditClickButton(bot.id)}
+                >
+                  <FaEdit className="w-4 h-4" />
+                </button>
+                <span className="absolute top-9 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{t('Edit')}</span>
+              </div>
+              <div className="group relative flex justify-center">
+                <button
+                  type="button"
+                  aria-label="embed-chatbot"
+                  className="size-8 text-[12px] rounded-full border-2 border-[#184A92] text-[#184A92] flex justify-center items-center"
+                  onClick={() => handleEmbedClickButton(bot)}
+                >
+                  <FaLink className="w-4 h-4" />
+                </button>
+                <span className="absolute top-9 w-24 text-center scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{t('Add_to_website')}</span>
+              </div>
+              <div className="group relative flex justify-center">
+                <button
+                  type="button"
+                  aria-label="open-chatbot"
+                  className="size-8 text-[12px] rounded-full border-2 border-[#A438FA] text-[#A438FA] flex justify-center items-center"
+                  onClick={() => handleChatClickButton(bot.id)}
+                >
+                  <FaRegCommentAlt className="w-4 h-4" />
+                </button>
+                <span className="absolute top-9 w-24 text-center scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{t('Test_chatbot')}</span>
+              </div>
+              <div className="group relative flex justify-center">
+                <button
+                  type="button"
+                  aria-label="delete-chatbot"
+                  className="size-8 text-[12px] rounded-full border-2 border-[#D7263C] text-[#D7263C] flex justify-center items-center"
+                  onClick={() => handleDeleteClickButton(bot.id)}
+                >
+                  <FaRegTrashAlt className="w-4 h-4" />
+                </button>
+                <span className="absolute top-9 scale-0 rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100">{t('Delete')}</span>
+              </div>
             </div>
           </div>
         ))}
-        <Script src="https://login.aiana.io/aiana.js" data-user-id="b33417f7-37c8-4ab8-b30c-5176225f6be0" data-bot-id="74c9fd11-8e0a-4c62-bf4b-2c78be389c4d" strategy="afterInteractive"/>
       </div>
       <AlertDialog
         title={`${t("Confirm_Delete")}`}
@@ -290,6 +362,27 @@ const Chatbots = () => {
         handleDisagree={handleDisagree}
         open={openDialog}
         setOpen={setOpenDialog}
+      />
+      
+      <EmbedAlert 
+        open={open} 
+        setOpen={setOpen} 
+        description={description} 
+        handleCopy={handleCopy} 
+        botId={botId}
+      />
+
+      <ChatbotPage
+        userId={userId}
+        userIndex={userIndex}
+        startTime={startTime}
+        endTime={endTime}
+        botId={botId}
+        botName={botName}
+        color={botThemeColor}
+        avatar={botAvatar}
+        visible={botVisible}
+        setVisible={setBotVisible}
       />
     </div>
   )
