@@ -138,7 +138,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
   const isValidName = (name: string): boolean => {
     console.log("name checker")
     // Check if name is not empty, starts with a letter, ends with a letter, and contains only letters and spaces
-    return /^[A-Za-z][A-Za-z0-9\s]*[A-Za-z]$/.test(name);
+    return /^[A-Za-z0-9][A-Za-z0-9\s]*[A-Za-z0-9]$/.test(name);
   };
 
   const handleSubmit = async () => {
