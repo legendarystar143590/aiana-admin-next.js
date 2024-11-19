@@ -74,7 +74,7 @@ const ChatbotForm = ({ bot }) => {
   const [userId, setUserId] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
   const [description, setDescription] = useState("")
-  const [botId, setBotId] = useState("")
+  const [isBotId, setIsBotId] = useState("")
 
   const handleColorChange = (color) => {
     setThemeColor(color.hex)
@@ -142,7 +142,7 @@ const ChatbotForm = ({ bot }) => {
             setTimeUntil(data.bot_data.end_time)
             setUrlInputValue(data.website.domain)
             setRegisteredWebsite(data.website.domain) 
-            setBotId(data.bot_data.index)           
+            setIsBotId(data.bot_data.index)           
             // setIsLoading(false);
           }
           setIsLoading(false)
@@ -194,7 +194,7 @@ const ChatbotForm = ({ bot }) => {
   }
 
   const handleEmbedClickButton = () => {
-    const embeddingCode = `<script src="https://login.aiana.io/aiana.js" data-user-id=${localStorage.getItem("userIndex")} data-bot-id=${botId}></script>`
+    const embeddingCode = `<script src="https://login.aiana.io/aiana.js" data-user-id=${localStorage.getItem("userIndex")} data-bot-id=${isBotId}></script>`
     setDescription(embeddingCode)
     console.log("Clicked on ", bot)
 
@@ -533,6 +533,7 @@ const ChatbotForm = ({ bot }) => {
                   onChange={handleUrlChange}
                   className="py-2 text-base rounded-md border-[#CFCFCF]" 
                   placeholder="e.g. www.aiana.com" 
+                  readOnly
                 />
                 <button type="button" className="bg-black text-white px-4 py-2 rounded-md flex items-center gap-2" onClick={handleEmbedClickButton}>
                   <Image src="/images/icon _link_url.png" alt="Search" width={20} height={20} />
