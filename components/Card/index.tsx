@@ -8,9 +8,11 @@ interface CardProps {
   description: string;
   price:string;
   features:string[];
+  iconImage:string;
+  buttonText:string;
 }
 
-const Card: React.FC<CardProps> = ({ title, description, price, features }) => {
+const Card: React.FC<CardProps> = ({ title, description, price, features, iconImage, buttonText }) => {
     const router = useRouter()
     const [billingPlan, setBillingPlan] = useState("")
     useEffect(()=>{
@@ -32,30 +34,43 @@ const Card: React.FC<CardProps> = ({ title, description, price, features }) => {
     }, [])
 
   return (
-    <div className="relative bg-gray-100 shadow-md rounded-lg p-5 m-4 flex flex-col gap-3 pt-[50px] h-full pb-[100px]">
-      {(billingPlan===price)&&(<div className='absolute top-0 -left-1 w-[100px] h-[40px] bg-blue-500 flex items-center justify-center text-white'>
-            <p>Current Plan</p>
-      </div>)}
+    <div className="relative rounded-xl border-gray-200 border p-5 m-4 flex flex-col gap-3 pt-[70px] h-full">
+      <div className='absolute top-5 left-5 flex items-center justify-center text-white'>
+        <Image src={`/images/icon_${iconImage}.png`} alt='iconImage' width={35} height={35} />
+      </div>
       <div className='flex flex-col justify-between h-[180px]'>
         <div>
             <h2 className="text-xl font-bold mb-2">{title}</h2>
-            <p className="text-gray-400">{description}</p>
+            <p className="text-gray-800">{description}</p>
         </div>
         <div className='flex flex-col gap-2'>
             {price!==''&&(
-                 <div className='flex flex-row items-center gap-2'>
+                 <div className='flex flex-row items-end'>
                     <p className='text-[30px] font-semibold'>&euro;{price}</p>
-                    <p className='text-gray-500 w-[10px] text-[12px]'>per month</p>
+                    <p className='text-gray-500 w-[10px] text-[12px] pb-1.5'>/month</p>
                 </div>
             )}
         </div>
+        <div>
+          <button 
+            type='button' 
+            className='w-full bg-black text-white text-[14px] py-2 rounded-lg'
+            onClick={()=>{
+              localStorage.setItem("plan", billingPlan)
+              router.push("/signin")
+            }}
+          >
+            {buttonText}
+          </button>
+        </div>
       </div>
+      <hr className='my-3'/>
       {features.length!==0&&(
         <div className='flex flex-col gap-2'>
             This includes:
             {features.map((item)=>(
                 <div key={item.toString()} className='flex flex-row justify-start items-center text-[14px] gap-1'>
-                    <Image src="/images/circle-check-solid.svg" alt="avatar" width={12} height={12} />
+                    <Image src="/images/circle-check-solid.png" alt="avatar" width={16} height={16} />
                     {item}
                 </div>
             ))}

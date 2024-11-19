@@ -36,6 +36,7 @@
         "CompanyAddress": "COMPANY ADDRESS",
         "CompanyDetails": "COMPANY DETAILS",
         "UserProfile": "USER PROFILE",
+        "UserContact": "USER CONTACT",
         "Address_Street": "Address/Street",
         "StreetNumber": "Street Number",
         "City": "City",

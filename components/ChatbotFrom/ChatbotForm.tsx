@@ -636,7 +636,7 @@ const ChatbotForm = ({ bot }) => {
               </div>
             </div>
             <div className="flex flex-col flex-grow space-y-2 m-3 rounded-3xl bg-white">
-              <div className="overflow-auto flex flex-col flex-grow space-y-2 p-2 ">
+              <div className="overflow-auto flex flex-col flex-grow space-y-2 p-2 border-gray-200 border rounded-3xl">
                 {messages && messages.map((message) => (
                   <Messages message={message} avatarPreview={avatarPreview} key={message.id} />
                 ))}
@@ -675,13 +675,14 @@ const ChatbotForm = ({ bot }) => {
                 <div className="relative w-full">
                   <textarea
                     id="input"
-                    className="w-full h-full h-15 pt-3 pr-10 border border-gray-300 rounded-md"
+                    className="w-full h-full h-15 pt-3 pr-10 rounded-md outline-none focus:outline-none focus:border-gray-500 focus:border border-0"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
                     disabled={isAnswerLoading || isBook}
                     ref={inputRef}
                     style={{ whiteSpace: 'pre-wrap' }}
+                    placeholder="Enter your message..."
                   />
                   <button type="button" className={`absolute bottom-1/2 translate-y-1/2 flex   rounded-full right-3 items-center ${isAnswerLoading ? "":"p-2 bg-black"}`} onClick={handleSendMessage}>
                     {isAnswerLoading ? <Spinner color="#A536FA" /> : <Image src="/images/buttons/icon_send.png" alt="send" width={20} height={20} />}

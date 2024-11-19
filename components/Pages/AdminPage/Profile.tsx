@@ -240,14 +240,17 @@ const Profile = () => {
         <h3 className="font-bold text-2xl mb-5">{t('myAccount')}</h3>
         <div className="flex max-md:flex-col mx-auto max-md:gap-3 gap-8">
           <div className="md:w-1/2 w-full border rounded-lg p-5">
-            <div className="flex item-center gap-2 border-b py-6">
+            <div className="flex item-center gap-2 py-6">
               <Image src="/images/profile/icon_company.png" alt="" width={22} height={18} />
-              <h4 className="font-[600] text-[#767676]">{t('CompanyInformation')}</h4>
+              <h4 className="font-[600] text-black text-lg">{t('CompanyInformation')}</h4>
             </div>
             <div className="flex flex-col gap-3">
               <div>
+                <p className="font-[600] text-[#767676] text-sm">{t('CompanyDetails')}</p>
+              </div>
+              <div>
                 <div>
-                  <p className="text-[#767676]">{t('CompanyName')}</p>
+                  <p className="text-black">{t('CompanyName')}</p>
                 </div>
                 <div>
                   <input
@@ -261,7 +264,7 @@ const Profile = () => {
               </div>
               <div>
                 <div>
-                  <p className="text-[#767676]">{t('CompanyURL')}</p>
+                  <p className="text-black">{t('CompanyURL')}</p>
                 </div>
                 <div>
                   <input
@@ -275,7 +278,7 @@ const Profile = () => {
               </div>
               <div>
                 <div>
-                  <p className="text-[#767676]">{t('VATNumber')}</p>
+                  <p className="text-black">{t('VATNumber')}</p>
                 </div>
                 <div>
                   <input
@@ -289,11 +292,11 @@ const Profile = () => {
               </div>
             </div>
 
-            <h4 className="font-[600] text-[#767676] mt-5 mb-3">{t('CompanyAddress')}</h4>
+            <h4 className="font-[600] text-[#767676] mt-5 mb-3 text-sm">{t('CompanyAddress')}</h4>
             <div className="flex flex-col gap-3">
               <div>
                 <div>
-                  <p className="text-[#767676]">{t('Address_Street')}</p>
+                  <p className="text-black">{t('Address_Street')}</p>
                 </div>
                 <div>
                   <input
@@ -308,7 +311,7 @@ const Profile = () => {
               <div className="flex flex-col md:flex-row gap-3">
                 <div className="flex flex-col gap-3 w-full md:w-1/2">
                   <div>
-                    <p className="text-[#767676]">{t('StreetNumber')}</p>
+                    <p className="text-black">{t('StreetNumber')}</p>
                   </div>
                   <div>
                     <input
@@ -322,7 +325,7 @@ const Profile = () => {
                 </div>
                 <div className="flex flex-col gap-3 w-full md:w-1/2">
                   <div>
-                    <p className="text-[#767676]">{t('City')}</p>
+                    <p className="text-black">{t('City')}</p>
                   </div>
                   <div>
                     <input
@@ -338,7 +341,7 @@ const Profile = () => {
               <div className="flex flex-col md:flex-row gap-3">
                 <div className="flex flex-col gap-3 w-full md:w-1/2">
                   <div>
-                    <p className="text-[#767676]">{t('PostalCode')}</p>
+                    <p className="text-black">{t('PostalCode')}</p>
                   </div>
                   <div>
                     <input
@@ -352,7 +355,7 @@ const Profile = () => {
                 </div>
                 <div className="flex flex-col gap-3 w-full md:w-1/2">
                   <div>
-                    <p className="text-[#767676]">{t('Country')}</p>
+                    <p className="text-black">{t('Country')}</p>
                   </div>
                   <div className="w-full">
                     <CustomDropdown selectedOption={formState.com_country} onSelect={handleInputChange} countries={Countries} />
@@ -361,18 +364,21 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div className="md:w-1/2 w-full border rounded-lg px-5">
+          <div className="md:w-1/2 w-full border rounded-lg p-5">
             <div className="max-md:mt-5 flex max-sm:w-full max-md:w-3/4 max-md:justify-center">
-              <div className="flex item-center gap-2 border-b py-6">
+              <div className="flex item-center gap-2 py-6">
                 <Image src="/images/profile/icon_user.png" alt="" width={22} height={18} />
-                <h4 className="font-[600] text-[#767676]">{t('UserInformation')}</h4>
+                <h4 className="font-[600] text-black text-lg">{t('UserInformation')}</h4>
               </div>
             </div>
             <div className="flex flex-col gap-3">
+              <div>
+                <p className="font-[600] text-[#767676] text-sm">{t('UserProfile')}</p>
+              </div>
               <div className="flex max-lg:flex-col lg:justify-between">
                 <div className="max-sm:w-full w-3/4 md:w-full lg:w-[45%]">
                   <div>
-                    <p className="text-[#767676]">{t('firstName')}<FaStarOfLife className="text-red-700 inline-flex mb-4 size-2" /></p>
+                    <p className="text-black">{t('firstName')}<FaStarOfLife className="text-red-700 inline-flex mb-4 size-2" /></p>
                   </div>
                   <div>
                     <input
@@ -386,7 +392,7 @@ const Profile = () => {
                 </div>
                 <div className="max-sm:w-full w-3/4 md:w-full lg:w-[45%]">
                   <div>
-                    <p className="text-[#767676]">{t('lastName')}<FaStarOfLife className="text-red-700 inline-flex mb-4 size-2" /></p>
+                    <p className="text-black">{t('lastName')}<FaStarOfLife className="text-red-700 inline-flex mb-4 size-2" /></p>
                   </div>
                   <div>
                     <input
@@ -402,7 +408,7 @@ const Profile = () => {
               <div className="flex max-lg:flex-col lg:justify-between">
                 <div className="max-sm:w-full w-3/4 md:w-full lg:w-[45%]">
                   <div>
-                    <p className="text-[#767676]">{t('role')}</p>
+                    <p className="text-black">{t('role')}</p>
                   </div>
                   <div>
                     <input
@@ -416,7 +422,7 @@ const Profile = () => {
                 </div>
                 <div className="max-sm:w-full w-3/4 md:w-full lg:w-[45%]">
                   <div>
-                    <p className="text-[#767676]">{t('Language')}</p>
+                    <p className="text-black">{t('Language')}</p>
                   </div>
                   <div className="w-full sm:w-full md:w-3/4 lg:w-full">
                     <CustomSelect
@@ -431,12 +437,12 @@ const Profile = () => {
               </div>
             </div>
 
-            <h4 className="font-[600] text-[#767676] mt-5 mb-3">{t('ContactInformation')}</h4>
+            <h4 className="font-[600] text-[#767676] text-sm mt-5 mb-3">{t('UserContact')}</h4>
 
             <div className="flex flex-col gap-3">
               <div>
                 <div>
-                  <p className="text-[#767676]">{t('EmailAddress')}<FaStarOfLife className="text-red-700 inline-flex mb-4 size-2" /></p>
+                  <p className="text-black">{t('EmailAddress')}</p>
                 </div>
                 <div>
                   <input
