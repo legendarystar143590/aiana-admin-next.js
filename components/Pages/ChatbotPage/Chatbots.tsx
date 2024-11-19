@@ -280,8 +280,6 @@ const Chatbots = () => {
             </div>
           </div>
         ))}        
-      </div>
-      <div className="absoute bottom-0 right-0 w-[50px] h-[50px]">
         <script src="https://login.aiana.io/aiana.js" data-user-id="b33417f7-37c8-4ab8-b30c-5176225f6be0" data-bot-id="74c9fd11-8e0a-4c62-bf4b-2c78be389c4d"/>
       </div>
       <AlertDialog
