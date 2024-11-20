@@ -257,11 +257,11 @@ const ChatBot = ({ userIndex, botId, website }) => {
 
             {isVisible ? (
                 <div
-                    className={`flex flex-col overflow-auto ${visibleClass}`}
+                    className={`flex flex-col overflow-auto rounded-2xl ${visibleClass}`}
                     style={{
                         height: '600px',
                         width: '400px',
-                        backgroundColor: 'white',
+                        background: `linear-gradient(to bottom, ${bot.color}, white)`,
                         border: '1px solid #ccc',
                         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                         overflow: 'hidden',
@@ -269,19 +269,21 @@ const ChatBot = ({ userIndex, botId, website }) => {
                         flexDirection: 'column',
                     }}>
                     <div className='w-full h-full flex flex-col flex-grow' id="chat-form">
-                        <div className={`relative h-[70px] flex items-center w-full `} style={{ backgroundColor: bot.color || '#fff', borderRadius: '0px' }}>
+                        <div className="relative h-[70px] flex items-center w-full ">
                             <div className="w-full bg-none flex justify-between items-center mx-4">
                                 <div className="h-full flex items-center">
                                     <img className='w-10 h-10 rounded-full' src={bot.avatar} alt="bot avatar" />
                                     <div className='ml-1'>{bot.name}</div>
                                 </div>
-                                <button onClick={() => setIsVisible(!isVisible)}
+                                <button
+                                    className='flex w-8 h-8 rounded-full bg-white items-center justify-center text-center' 
+                                    onClick={() => setIsVisible(!isVisible)}
                                     type='button' aria-label="Toggle Chatbot">
-                                    <FaCaretDown />
+                                    ✕
                                 </button>
                             </div>
                         </div>
-                        <div className="overflow-auto flex flex-col flex-grow mt-2 mx-1 space-y-2">
+                        <div className="overflow-auto flex flex-col flex-grow mt-1 mx-2 space-y-2 bg-white rounded-2xl shadow">
                             {messages.map((message) => (
                                 <div
                                     key={message.id}
@@ -344,14 +346,13 @@ const ChatBot = ({ userIndex, botId, website }) => {
                                 </div>
                             </div>
                         )}
-                        <div className="flex p-2 h-16">
+                        <div className="flex p-2 h-16 relative">
                             <style>
                                 {`
                                 .custom-input {
                                     width: 100%;
                                     padding: 8px;
                                     font-size: 16px;
-                                    border: 1px solid #ccc;
                                     border-radius: 4px;
                                     outline: none;
                                     box-sizing: border-box;
@@ -363,14 +364,14 @@ const ChatBot = ({ userIndex, botId, website }) => {
                             </style>
                             <textarea
                                 id='input'
-                                className="custom-input"
+                                className="custom-input focus:border border-0"
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 onKeyDown={handleKeyDown}
                                 disabled={isLoading || isBook}
                             />
-                            <button type="button" className="absolute translate-y-4 flex right-4 items-center" onClick={handleSendMessage}>
-                                {isLoading ? <Spinner color="#A536FA" /> : <img src="/images/icon_send.svg" alt="send" width={20} height={20} />}
+                            <button type="button" className={`absolute bottom-1/2 translate-y-1/2 flex   rounded-full right-3 items-center ${isLoading ? "":"p-2 bg-black"}`} onClick={handleSendMessage}>
+                                {isLoading ? <Spinner color="#A536FA" /> : <img src="/images/buttons/icon_send.png" alt="send" width={20} height={20} />}
                             </button>
                         </div>
                     </div>
