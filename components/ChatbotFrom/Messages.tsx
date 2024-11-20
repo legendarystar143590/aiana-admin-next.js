@@ -30,8 +30,8 @@ const Messages = ({ message, avatarPreview }: OutputMessageProps) =>
     <div
       className={`flex gap-2 p-2 rounded-lg break-words ${
         message.isBot
-          ? "bg-[#EBEBEB] text-[#070E0B]"
-          : "flex-row-reverse bg-[#A536FA] text-white"
+          ? "bg-gray-200 text-[#070E0B] border rounded-md border-gray-300"
+          : "flex-row-reverse bg-gray-100 text-black border rounded-md border-gray-300"
       }`}
     >
       <div
