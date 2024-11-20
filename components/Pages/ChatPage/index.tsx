@@ -8,6 +8,7 @@ import { FaCaretDown } from "react-icons/fa"
 import { useTranslations } from "next-intl"
 import { AUTH_API } from "@/components/utils/serverURL"
 import { isTimeBetween } from "@/components/utils/common"
+import { customerToast } from "@/components/Toast"
 import Spinner from "@/components/Spinner"
 import Avatar from "../../Avatar"
 
@@ -201,7 +202,7 @@ const ChatPage = ({
         if (response.status === 201) {
           const { message } = response.data
           if (message === "success") {
-            toast.success(`${toa('Successfully_Booked')}`, { position: toast.POSITION.TOP_RIGHT })
+            customerToast({type:'success',title:`${toa('Successfully_Booked')}`, content:''})
           } else {
             toast.error(`${toa('Busy_Network_Try_again')}`, { position: toast.POSITION.TOP_RIGHT })
           }

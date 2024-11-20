@@ -7,6 +7,7 @@ import { AUTH_API } from "@/components/utils/serverURL"
 import { setExpiryTime } from "@/components/utils/common"
 import SaveChangesButton from "@/components/Buttons/SaveChangeButton"
 import CancelButton from "@/components/Buttons/CancelButton"
+import { customerToast } from "@/components/Toast"
 import Document from "./Document"
 import Website from "./Website"
 import Text from "./Text"
@@ -220,10 +221,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
         setIsSaved(true);
         setExpiryTime();
         setOldName(nameInputValue);
-        toast.success(`${toa('Successfully_updated')} ${badAlert}`, { 
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 3000, // Close after 3 seconds
-        })
+        customerToast({type:'success',title:`${toa('Successfully_updated')}`, content:`${badAlert}`})
         if(newBaseId === "-1") {
           router.push(`/knowledge`);
         }

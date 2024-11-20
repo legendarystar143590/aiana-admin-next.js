@@ -4,6 +4,7 @@ import Link from "next/link"
 import axios from "axios"
 
 import { AUTH_API } from "@/components/utils/serverURL"
+import { customerToast } from "@/components/Toast"
 
 const ResetPasswordForm = () => {
   const [email, setEmail] = useState("")
@@ -28,9 +29,7 @@ const ResetPasswordForm = () => {
         )
         .then((response) => {
           if (response.status === 200) {
-            toast.success("Check your email.  Sent the reset password link!", {
-              position: toast.POSITION.TOP_RIGHT,
-            })
+            customerToast({type:'success',title:"Check your email.  Sent the reset password link!", content:''})
           }
         })
         .catch((error) => {

@@ -9,6 +9,7 @@ import { useTranslations } from "next-intl"
 import { SketchPicker } from 'react-color';
 import { AUTH_API } from "@/components/utils/serverURL"
 import EmbedAlert from "@/components/Alerts/EmbedAlert"
+import { customerToast } from "@/components/Toast"
 import CustomSwitch from "../CustomSwitch"
 import Avatar from "../Avatar"
 import CustomAutocomplete from "../CustomAutocomplete"
@@ -189,7 +190,7 @@ const ChatbotForm = ({ bot }) => {
 
   const handleCopy = () => {
     navigator.clipboard.writeText(description)
-    toast.success(`${toa('Successfully_copied')}`, { position: toast.POSITION.TOP_RIGHT })
+    customerToast({type:'success',title:`${toa('Successfully_copied')}`, content:''})
     setIsOpen(false)
   }
 
@@ -304,10 +305,7 @@ const ChatbotForm = ({ bot }) => {
       setExpiryTime();
       setIsSaved(true);
       setIsSaving(false);
-      toast.success(`${ bot === "-1" ? toa('Successfully_Created') : toa('Successfully_updated')}`, { 
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000, // Close after 3 seconds
-      })
+      customerToast({type:'success',title:`${ bot === "-1" ? toa('Successfully_Created') : toa('Successfully_updated')}`, content:''})
       setRegisteredWebsite(website.domain)
     } catch (error) {
       setExpiryTime();
@@ -442,7 +440,7 @@ const ChatbotForm = ({ bot }) => {
         if (response.status === 201) {
           const { message } = response.data
           if (message === "success") {
-            toast.success(`${toa('Successfully_Booked')}`, { position: toast.POSITION.TOP_RIGHT })
+            customerToast({type:'success',title:`${toa('Successfully_Booked')}`, content:''})
           } else {
             toast.error(`${toa('Busy_Network_Try_again')}`, { position: toast.POSITION.TOP_RIGHT })
           }

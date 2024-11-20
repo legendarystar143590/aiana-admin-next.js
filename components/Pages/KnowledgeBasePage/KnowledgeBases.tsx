@@ -9,6 +9,7 @@ import { AUTH_API } from "@/components/utils/serverURL"
 import AlertDialog from "@/components/AlertDialog"
 import ScrollableItems from "@/components/ScrollableItems";
 import { setExpiryTime } from "@/components/utils/common";
+import { customerToast } from "@/components/Toast";
 
 const KnowledgeBase = () => {
   const t = useTranslations('knowledge');
@@ -101,7 +102,7 @@ const KnowledgeBase = () => {
       .then((response) => {
         if (response.status === 201) {
           setBases(prevBases => prevBases.filter(prev => prev.id !== baseId));
-          toast.success(`${toa('Successfully_deleted!')}`, { position: toast.POSITION.TOP_RIGHT });
+          customerToast({type:'success',title:`${toa('Successfully_deleted!')}`, content:''})
         } else {
           toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
         }
