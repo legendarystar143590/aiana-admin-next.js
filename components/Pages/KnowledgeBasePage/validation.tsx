@@ -7,9 +7,9 @@ export function isValidUrl(url: string): boolean {
         '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
         '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
     if (!url.toLowerCase().startsWith('https://')) return false;
-    // for (let i = 10; i < url.length; i += 1) {
-    //     if (url[i] === '/') return false;
-    // }
+    for (let i = 10; i < url.length; i += 1) {
+        if (url[i] === '/') return false;
+    }
     return !!pattern.test(url);
 }
 
