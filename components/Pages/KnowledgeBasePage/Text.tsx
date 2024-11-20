@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 
 import { AUTH_API } from "@/components/utils/serverURL"
 import QustionAnswerComponent from "@/components/QuestionAnswer/index"
+import { customerToast } from "@/components/Toast";
 
 const Text = ({ questionAnswers, setQuestionAnswers, setIsSaved }) => {
   const router = useRouter();
@@ -42,7 +43,7 @@ const Text = ({ questionAnswers, setQuestionAnswers, setIsSaved }) => {
         })
       .then((response) => {
         if (response.status === 201) {
-          toast.success(`${toa('Successfully_deleted!')}`, { position: toast.POSITION.TOP_RIGHT });
+          customerToast({type:'success',title:`${toa('Successfully_deleted!')}`, content:''})
         } else {
           toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
         }

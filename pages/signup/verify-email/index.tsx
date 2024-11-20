@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import router from "next/router"
 import { toast } from "react-toastify";
 import {AUTH_API} from "@/components/utils/serverURL";
+import { customerToast } from "@/components/Toast";
 
 const VerifyEmailPage = () => {
     const isMounted = useRef(false);
@@ -30,9 +31,7 @@ const VerifyEmailPage = () => {
             .then((response) => {
                 toast.dismiss();
                 if (response.status === 200) {
-                    toast.success("Email is successfully verified. Please, sign in...", {
-                        position: toast.POSITION.TOP_RIGHT,
-                    });
+                    customerToast({type:'success',title:"Email is successfully verified. Please, sign in...", content:''})
                     const isVerified = "true";
                     localStorage.setItem("isVerified", isVerified);
                     router.push("/signin");

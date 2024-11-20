@@ -5,6 +5,7 @@ import Image from 'next/image'
 import axios from "axios"
 
 import { AUTH_API } from "@/components/utils/serverURL"
+import { customerToast } from "@/components/Toast"
 
 const SendLinkPage = () => {
 
@@ -34,9 +35,7 @@ const SendLinkPage = () => {
       )
       .then((response) => {
         if (response.status === 200) {
-          toast.success("New verification email is successfully sent. Please, check your email...", {
-            position: toast.POSITION.TOP_RIGHT,
-          })
+          customerToast({type:'success',title:"New verification email is successfully sent. Please, check your email...", content:''})
         }
       })
       .catch((error) => {

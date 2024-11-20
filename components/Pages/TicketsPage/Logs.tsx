@@ -8,6 +8,7 @@ import { AUTH_API } from "@/components/utils/serverURL"
 import {formatDateStringOnly} from "@/components/utils/common"
 import Avatar from "@/components/Avatar"
 import AlertDialog from "@/components/AlertDialog"
+import { customerToast } from "@/components/Toast"
 
 const Logs = ({ session,setSession, tickets, setTickets, botAvatar, ticketContent, currentTicketId }) => {
   const t = useTranslations('chatbot');
@@ -145,7 +146,7 @@ const Logs = ({ session,setSession, tickets, setTickets, botAvatar, ticketConten
           setTickets(updatedTickets);
           setSession("");
           setConversation([]);
-          toast.success(`${toa('Successfully_deleted!')}`, { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'success',title:`${toa('Successfully_deleted!')}`, content:''})
         }
       })
       .catch((error) => {

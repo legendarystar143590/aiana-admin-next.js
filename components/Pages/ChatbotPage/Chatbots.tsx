@@ -9,6 +9,7 @@ import { toast } from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
 import { isTimeBetween, setExpiryTime } from "@/components/utils/common"
 import AlertDialog from "@/components/AlertDialog"
+import { customerToast } from "@/components/Toast"
 // import ChatbotPage from "@/components/Pages/ChatPage"
 import ToggleButton from "./ToggleButtons"
 
@@ -102,7 +103,7 @@ const Chatbots = () => {
       .then((response) => {
         if (response.status === 201) {
           setBots((prevBases) => prevBases.filter((prev) => prev.id !== bot))
-          toast.success(`${toa('Successfully_deleted!')}`, { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'success',title:`${toa('Successfully_deleted!')}`, content:''})
         } else {
           toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
         }

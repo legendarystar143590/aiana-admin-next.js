@@ -7,6 +7,7 @@ import { AUTH_API } from "@/components/utils/serverURL"
 import Spinner from "@/components/Spinner"
 
 import PasswordInputField from "@/components/PasswordInputField"
+import { customerToast } from "@/components/Toast"
 import { validateForm } from "./validation"
 
 function EmailPasswordForm() {
@@ -62,10 +63,7 @@ function EmailPasswordForm() {
         if (response.status === 201) {
           const {message, email} = response.data;
           localStorage.setItem("email", email);
-          toast.success(message, { 
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 3000, // Close after 3 seconds
-          })
+          customerToast({type:'success',title:message, content:''})
           router.push("/signup/please-verify")
           setIsSaving(false)
           setIsSaved(true)

@@ -129,3 +129,13 @@ textarea {
   border-radius: 5px !important;
   outline: none !important;
 }
+
+.black-close-icon .Toastify__close-button > svg {
+  color: black;
+}
+
+.toast-icon-border .Toastify__toast-icon svg {
+  /* border: 1px solid #ffffff; */
+  border-radius: 50%;
+  /* margin: 2px; */
+}

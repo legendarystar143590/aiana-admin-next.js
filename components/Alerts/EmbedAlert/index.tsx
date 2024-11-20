@@ -8,6 +8,7 @@ import { AUTH_API } from "@/components/utils/serverURL"
 import { isValidUrl } from "@/components/Pages/KnowledgeBasePage/validation"
 import Spinner from "@/components/Spinner"
 import { setExpiryTime } from "@/components/utils/common"
+import { customerToast } from "@/components/Toast"
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -134,7 +135,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
           .then((response) => {
             setIsLoading(false)
             if (response.status === 201) {
-              toast.success(`${toa('Successfully_added')}`, { position: toast.POSITION.TOP_RIGHT })
+              customerToast({type:'success',title:`${toa('Successfully_added')}`, content:''})
               setUrls(prevUrls => [...prevUrls, newWebsite]);
               setRegisteredWebsite(urlInputValue);
               setUrlInputValue("");
@@ -194,7 +195,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
         .then((response) => {
           setIsDeleting(false)
           if (response.status === 201) {
-            toast.success(`${toa('Successfully_deleted!')}`, { position: toast.POSITION.TOP_RIGHT })
+            customerToast({type:'success',title:`${toa('Successfully_deleted!')}`, content:''})
             setUrls((prevBases) => prevBases.filter((prev) => prev.index !== _index))
             setRegisteredWebsite("");
           } else {

@@ -4,6 +4,7 @@ import { toast } from "react-toastify"
 import { v4 as uuidv4 } from 'uuid';
 import Image from 'next/image';
 import { AUTH_API } from '@/components/utils/serverURL';
+import { customerToast } from '../Toast';
 import Spinner from '../Spinner';
 import { isTimeBetween, setExpiryTime } from '../utils/common';
 
@@ -215,7 +216,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                 if (response.status === 201) {
                     const { message } = response.data;
                     if (message === 'success') {
-                        toast.success("Successfully Booked!", { position: toast.POSITION.BOTTOM_RIGHT })
+                        customerToast({type:'success',title:'Successfully Booked!', content:''})
                     } else {
                         toast.error("Busy Network! Try again!", { position: toast.POSITION.BOTTOM_RIGHT })
                     }

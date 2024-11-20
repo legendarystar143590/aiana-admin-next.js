@@ -7,6 +7,7 @@ import { FaDownload, FaRegTrashAlt } from "react-icons/fa"
 import { AUTH_API } from "@/components/utils/serverURL"
 import {formatDateStringOnly} from "@/components/utils/common"
 import Avatar from "@/components/Avatar"
+import { customerToast } from "@/components/Toast"
 
 const Logs = ({ session, setSession, chatLog, setChatLog, botAvatar }) => {
   const t = useTranslations('chatbot');
@@ -109,7 +110,7 @@ const Logs = ({ session, setSession, chatLog, setChatLog, botAvatar }) => {
         setChatLog(updatedChatLog);
         setSession("")
         setConversation([]);
-        toast.success(`${toa('Chatlog_deleted_successfully')}`, { position: toast.POSITION.TOP_RIGHT })
+        customerToast({type:'success',title:`${toa('Chatlog_deleted_successfully')}`, content:''})
       }
     })
     .catch(() => {

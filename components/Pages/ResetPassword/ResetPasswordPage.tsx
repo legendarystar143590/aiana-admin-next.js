@@ -5,6 +5,7 @@ import router from "next/router"
 import { AUTH_API } from "@/components/utils/serverURL"
 import { useToken } from "@/providers/TokenContext"
 import PasswordInputField from "@/components/PasswordInputField"
+import { customerToast } from "@/components/Toast"
 
 const ResetPasswordPage = () => {
 
@@ -30,7 +31,7 @@ const ResetPasswordPage = () => {
       .post(AUTH_API.RESET_PASSWORD, { password, token })
       .then(( response ) => { // Use object destructuring here
         if (response.status===201) {
-          toast.success("Successfully updated the password!", {position: toast.POSITION.TOP_RIGHT});
+          customerToast({type:'success',title:"Successfully updated the password!", content:''})
           router.push('/signin');
           return true;
         }

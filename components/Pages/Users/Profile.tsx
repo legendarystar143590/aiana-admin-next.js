@@ -10,6 +10,7 @@ import { AUTH_API } from "@/components/utils/serverURL"
 import Countries from "@/components/Countries"
 import Spinner from "@/components/Spinner"
 import CustomDropdown from "@/components/CountrySelect"
+import { customerToast } from "@/components/Toast"
 import CustomSelect from "../../CustomSelect"
 import Language from "../../Language"
 import { validateForm } from "./validation"
@@ -148,7 +149,7 @@ const Profile = () => {
           })
         .then((response) => {
           if (response.status === 201) {
-            toast.success(`${toa('Successfully_updated')}`, { position: toast.POSITION.TOP_RIGHT })
+            customerToast({type:'success',title:`${toa('Successfully_updated')}`, content:''})
           } else if (response.status === 401) {
             toast.error(`${toa('Session_Expired_Please_log_in_again')}`, { position: toast.POSITION.TOP_RIGHT })
             router.push("/signin")

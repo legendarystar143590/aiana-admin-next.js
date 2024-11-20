@@ -9,6 +9,7 @@ import { useTranslations } from "next-intl"
 import AlertDialog from "@/components/AlertDialog"
 import { AUTH_API } from "@/components/utils/serverURL"
 import { formatDateStringOnly } from "@/components/utils/common"
+import { customerToast } from "@/components/Toast"
 import { isValidKnolwedgeUrl } from "./validation"
 
 // Define the interface for a website object
@@ -71,7 +72,7 @@ const Website = ({ urls, setUrls, websiteRef, setIsSaved }) => {
       )
       .then((response) => {
         if (response.status === 201) {
-          toast.success(`${toa('Successfully_deleted!')}`, { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'success',title:`${toa('Successfully_deleted!')}`, content:''})
         } else {
           toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
         }
