@@ -302,8 +302,8 @@ const ChatBot = ({ userIndex, botId, website }) => {
                                         />
                                         <div
                                             className={`flex gap-2 p-2 rounded-lg break-words ${message.isBot
-                                                ? "bg-[#EBEBEB] text-[#070E0B]"
-                                                : "flex-row-reverse bg-[#A536FA] text-white"
+                                                ? "bg-gray-200 text-[#070E0B] border rounded-md border-gray-300"
+                                                : "flex-row-reverse bg-gray-100 text-black border rounded-md border-gray-300"
                                                 }`}
                                         >
                                             <div
@@ -390,7 +390,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                     alignItems: 'center',
                     justifyContent: 'center',
                 }} >
-                    <Image src="/images/icon_embedding_bot.png" alt="Chatbot Icon" width={30} height={30} />
+                    <Image src={bot.avatar ? bot.avatar : "/images/icon_embeddig_bot.png"} alt="Chatbot Icon" width={30} height={30} />
                 </button>
             )}
         </div>
