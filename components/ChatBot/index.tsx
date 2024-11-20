@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import axios from 'axios';
 import { toast } from "react-toastify"
-import { FaCaretDown } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
 import { AUTH_API } from '@/components/utils/serverURL';
 import Spinner from '../Spinner';
