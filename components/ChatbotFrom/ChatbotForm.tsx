@@ -611,7 +611,7 @@ const ChatbotForm = ({ bot }) => {
                       </div>
                     )
                       : (
-                        <button aria-label="color-picker" type="button" onClick={handleEmbedClickButton} className="flex p-1 rounded-md border border-[#CFCFCF] justify-between items-center w-full">
+                        <button aria-label="color-picker" type="button" onClick={()=>setPickerOpen(true)} className="flex p-1 rounded-md border border-[#CFCFCF] justify-between items-center w-full">
                           <div className="rounded-md size-8" style={{ backgroundColor: themeColor }} />
                           <FaChevronDown />
                         </button>

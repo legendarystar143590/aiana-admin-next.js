@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import axios from 'axios';
 import { toast } from "react-toastify"
 import { v4 as uuidv4 } from 'uuid';
+import Image from 'next/image';
 import { AUTH_API } from '@/components/utils/serverURL';
 import Spinner from '../Spinner';
 import { isTimeBetween, setExpiryTime } from '../utils/common';
@@ -382,17 +383,15 @@ const ChatBot = ({ userIndex, botId, website }) => {
                     width: '50px',
                     height: '50px',
                     borderRadius: '50%',
-                    backgroundColor: '#ccccff',
+                    background: `linear-gradient(to bottom, ${bot.color}, white)`,
                     color: 'white',
                     fontSize: '24px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundImage: 'url("/images/logo_short_black.png")',
-                    backgroundSize: 'contain',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center'
-                }} />
+                }} >
+                    <Image src="/images/icon_embedding_bot.png" alt="Chatbot Icon" width={30} height={30} />
+                </button>
             )}
         </div>
     )
