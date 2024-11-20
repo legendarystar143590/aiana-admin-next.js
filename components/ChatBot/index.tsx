@@ -390,7 +390,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                     alignItems: 'center',
                     justifyContent: 'center',
                 }} >
-                    <Image src="/images/icon_embedding_bot.png" alt="Chatbot Icon" width={30} height={30} />
+                    <Image src={bot.avatar ? bot.avatar : "/images/icon_embeddig_bot.png"} alt="Chatbot Icon" width={30} height={30} />
                 </button>
             )}
         </div>
