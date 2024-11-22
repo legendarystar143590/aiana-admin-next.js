@@ -35,7 +35,7 @@ export default function EmbedAppAlert({ open, setOpen, description, handleCopy }
   return (
     open && (
       <div
-        className="fixed z-10 inset-0 overflow-y-auto"
+        className="fixed z-10 inset-0 overflow-y-auto min-w-[485px]"
         aria-labelledby="modal-title"
         role="dialog"
         aria-modal="true"
