@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react"
 import router from "next/router"
 import axios from "axios"
-import { toast } from "react-toastify"
 import { useTranslations } from "use-intl"
 
 import { AUTH_API } from "@/components/utils/serverURL"
 import {formatTimeStringOnly} from "@/components/utils/common"
 import Avatar from "@/components/Avatar"
+import { customerToast } from "@/components/Toast"
 import Image from "next/image"
 import { FaFilter, FaSearch } from "react-icons/fa"
 
@@ -39,7 +39,7 @@ const ChatLogs = ({chatLog, setSession, setChatLog, setBotAvatar}) => {
             setResults(chatLogs);
           }
           if (response.status === 401) {
-            toast.error(`${toa('Please_login')}`, { position: toast.POSITION.TOP_RIGHT });
+            customerToast({type:'error', title: `${toa('Please_login')}`, content: ""})
             router.push("/signin");
           }
           setIsLoading(false)
@@ -50,20 +50,19 @@ const ChatLogs = ({chatLog, setSession, setChatLog, setBotAvatar}) => {
             console.log('Error status code:', error.response.status);
             console.log('Error response data:', error.response.data);
             if (error.response.status === 401) {
-              toast.error(`${toa('Session_Expired_Please_log_in_again')}`, { position: toast.POSITION.TOP_RIGHT });
-
+              customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
               router.push("/signin")
             }
             // Handle the error response as needed
           } else if (error.request) {
             // The request was made but no response was received
             console.log('Error request:', error.request);
-            toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
+            customerToast({type:'error', title: `${error.request}`, content: ""})
 
           } else {
             // Something happened in setting up the request that triggered an Error
             console.log('Error message:', error.message);
-            toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
+            customerToast({type:'error', title: `${error.message}`, content: ""})
 
           }
           setIsLoading(false);

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import { useRouter } from "next/router" // Corrected import
 import Image from "next/image"
-import { toast } from "react-toastify"
 import { FaArrowLeft, FaStarOfLife } from "react-icons/fa"
 import { useTranslations } from "next-intl"
 
@@ -75,7 +74,7 @@ const Profile = () => {
               // Update other fields as per the response data
             }))
           } else if (response.status === 401) {
-            toast.error(`${toa('Please_login')}`, { position: toast.POSITION.TOP_RIGHT })
+            customerToast({type:'error', title: `${toa('Please_login')}`, content: ""})
             router.push("/signin")
           }
           setIsLoading(false)
@@ -85,7 +84,7 @@ const Profile = () => {
             console.log('Error status code:', error.response.status);
             console.log('Error response data:', error.response.data);
             if (error.response.status === 401) {
-              toast.error(`${toa('Session_Expired_Please_log_in_again')}`, { position: toast.POSITION.TOP_RIGHT });
+              customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
 
               router.push("/signin")
             }
@@ -93,12 +92,12 @@ const Profile = () => {
           } else if (error.request) {
             // The request was made but no response was received
             console.log('Error request:', error.request);
-            toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
+            customerToast({type:'error', title: `${error.request}`, content: ""})
 
           } else {
             // Something happened in setting up the request that triggered an Error
             console.log('Error message:', error.message);
-            toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
+            customerToast({type:'error', title: `${error.message}`, content: ""})
 
           }
           setIsLoading(false);
@@ -117,7 +116,7 @@ const Profile = () => {
   const handleSubmit = () => {
     const validationError = validateForm(formState)
     if (validationError !== "") {
-      toast.error(validationError, { position: toast.POSITION.TOP_RIGHT })
+      customerToast({type:'error', title: `${validationError}`, content: ""})
       return;
     }
 
@@ -151,10 +150,10 @@ const Profile = () => {
           if (response.status === 201) {
             customerToast({type:'success',title:`${toa('Successfully_updated')}`, content:''})
           } else if (response.status === 401) {
-            toast.error(`${toa('Session_Expired_Please_log_in_again')}`, { position: toast.POSITION.TOP_RIGHT })
+            customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
             router.push("/signin")
           } else {
-            toast.error(response.data, { position: toast.POSITION.TOP_RIGHT })
+            customerToast({type:'error', title: `${response.data}`, content: ""})
           }
           setIsSaving(false)
           setChange(false);
@@ -165,7 +164,7 @@ const Profile = () => {
             console.log('Error status code:', error.response.status);
             console.log('Error response data:', error.response.data);
             if (error.response.status === 401) {
-              toast.error(`${toa('Session_Expired_Please_log_in_again')}`, { position: toast.POSITION.TOP_RIGHT });
+              customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
 
               router.push("/signin")
             }
@@ -173,12 +172,12 @@ const Profile = () => {
           } else if (error.request) {
             // The request was made but no response was received
             console.log('Error request:', error.request);
-            toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
+            customerToast({type:'error', title: `${error.request}`, content: ""})
 
           } else {
             // Something happened in setting up the request that triggered an Error
             console.log('Error message:', error.message);
-            toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
+            customerToast({type:'error', title: `${error.message}`, content: ""})            
           }
           setIsSaving(false);
           setIsEdit(false);

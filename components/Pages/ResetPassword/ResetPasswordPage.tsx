@@ -19,11 +19,11 @@ const ResetPasswordPage = () => {
       return false;
     }
     if (password !== confirmPassword) {
-      toast.error("Passwords are not match!", { position: toast.POSITION.TOP_RIGHT });
+      customerToast({type:'error', title: "Passwords are not match!", content: ""})
       return false;
     }
     if (password.length < 8) {
-      toast.error("Password must be at least 8 characters long!", { position: toast.POSITION.TOP_RIGHT });
+      customerToast({type:'error', title: "Password must be at least 8 characters long!", content: ""})
       return false;
     }
 
@@ -40,10 +40,10 @@ const ResetPasswordPage = () => {
       })
       .catch((error) => {
         if(error.status===400){
-          toast.error("Token Expired!", { position: toast.POSITION.TOP_RIGHT });
+          customerToast({type:'error', title: "Token Expired!", content: ""})
         }
         if(error.status === 500){
-          toast.error("Server Error!", { position: toast.POSITION.TOP_RIGHT });
+          customerToast({type:'error', title: "Server Error!", content: ""})
         }
         return false;
 

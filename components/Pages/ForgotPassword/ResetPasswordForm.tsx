@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import { toast } from "react-toastify"
 import Link from "next/link"
 import axios from "axios"
 
@@ -10,7 +9,6 @@ const ResetPasswordForm = () => {
   const [email, setEmail] = useState("")
 
   const handleSendButton = () => {
-    toast.dismiss() // Dismiss any existing toasts
     if (email !== "") {
       const requestOptions = {
         headers: {
@@ -36,24 +34,18 @@ const ResetPasswordForm = () => {
           if (error.response) {
             const { status } = error.response // Destructure status directly
             if (status === 404) {
-              toast.error("Unregistered email", {
-                position: toast.POSITION.TOP_RIGHT,
-              })
+              customerToast({type:'error', title: "Unregistered email", content: ""})
             } else if (status === 500) {
-              toast.error("Internal Server Error: Something went wrong on the server", {
-                position: toast.POSITION.TOP_RIGHT,
-              })
+              customerToast({type:'error', title: "Internal Server Error: Something went wrong on the server", content: ""})
             } else {
-              toast.error(`Error: ${status}`, { position: toast.POSITION.TOP_RIGHT })
+              customerToast({type:'error', title: `Error: ${status}`, content: ""})
             }
           } else {
-            toast.error("Network Error: Unable to connect to the server", {
-              position: toast.POSITION.TOP_RIGHT,
-            })
+            customerToast({type:'error', title: "Network Error: Unable to connect to the server", content: ""})
           }
         })
     } else {
-      toast.error("Please enter your email", { position: toast.POSITION.TOP_RIGHT })
+      customerToast({type:'error', title: "Please enter your email", content: ""})
     }
   }
 

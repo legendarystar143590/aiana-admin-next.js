@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { useRouter } from "next/router";
 import axios from "axios";
-import { toast } from "react-toastify";
 import { FaInfoCircle } from "react-icons/fa";
 import { useTranslations } from "next-intl";
 
@@ -27,7 +26,7 @@ const Text = ({ questionAnswers, setQuestionAnswers, setIsSaved }) => {
       setAnswerInputValue("")
       setIsSaved(false);
     } else {
-      toast.error(`${toa('Question_and_Answer_are_required')}`, { position: toast.POSITION.TOP_RIGHT });
+      customerToast({type:'error', title: `${toa('Question_and_Answer_are_required')}`, content: ""})
     }
   }
 
@@ -45,7 +44,7 @@ const Text = ({ questionAnswers, setQuestionAnswers, setIsSaved }) => {
         if (response.status === 201) {
           customerToast({type:'success',title:`${toa('Successfully_deleted!')}`, content:''})
         } else {
-          toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'error', title: `${toa('Invalid_Request')}`, content: ""})
         }
       })
       .catch((error) => {
@@ -53,7 +52,7 @@ const Text = ({ questionAnswers, setQuestionAnswers, setIsSaved }) => {
           console.log('Error status code:', error.response.status);
           console.log('Error response data:', error.response.data);
           if (error.response.status === 401) {
-            toast.error(`${toa('Session_Expired_Please_log_in_again')}`, { position: toast.POSITION.TOP_RIGHT });
+            customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
 
             router.push("/signin")
           }
@@ -61,12 +60,12 @@ const Text = ({ questionAnswers, setQuestionAnswers, setIsSaved }) => {
         } else if (error.request) {
           // The request was made but no response was received
           console.log('Error request:', error.request);
-          toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
+          customerToast({type:'error', title: `${error.request}`, content: ""})
 
         } else {
           // Something happened in setting up the request that triggered an Error
           console.log('Error message:', error.message);
-          toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
+          customerToast({type:'error', title: `${error.message}`, content: ""})
 
         }
       });

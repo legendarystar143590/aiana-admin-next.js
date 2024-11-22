@@ -23,16 +23,42 @@ const BillingPlanTable: React.FC = () => {
   }, [])
 
   const handleSubscribeClick = async() => {
-    const response = await fetch((`${AUTH_API.GET_UPGRADE_URL}`),{
-      method:"POST",
-      headers:{
-        'Content-Type': 'application/json',
-        'ngrok-skip-brower-warning': "1",
-      },
-      body: JSON.stringify({email})
-    });
-    const data = await response.json();
-    window.open(`${data.sessionId}`, '_blank');
+    try{
+      const response = await fetch((`${AUTH_API.GET_UPGRADE_URL}`),{
+        method:"POST",
+        headers:{
+          'Content-Type': 'application/json',
+          'ngrok-skip-brower-warning': "1",
+        },
+        body: JSON.stringify({email})
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      
+      if (!data.sessionId) {
+        throw new Error('No session ID received');
+      }
+      
+      window.open(`${data.sessionId}`, '_blank');
+    } catch(error){
+      if (error instanceof TypeError) {
+        console.error('Network error:', error.message);
+        // Handle network errors (e.g., no internet connection)
+      } else {
+        console.error('Error during subscription:', error);
+        // Handle other types of errors
+      }
+  
+      // You can show error message to user using your preferred UI method
+      // For example, using an alert or toast notification
+      alert('Failed to process subscription. Please try again later.');
+    } finally {
+      // Clean up or reset loading state if needed
+    }
   }
 
   return (

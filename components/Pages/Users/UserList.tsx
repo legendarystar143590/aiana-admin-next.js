@@ -2,10 +2,10 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { useRouter } from "next/router"
 import { FaEdit } from "react-icons/fa"
-import { toast } from "react-toastify"
 import { useTranslations } from "use-intl"
 import formatDateString, { setExpiryTime } from '@/components/utils/common'
 import { AUTH_API } from "@/components/utils/serverURL"
+import { customerToast } from "@/components/Toast"
 
 const UserList = () => {
   const t = useTranslations('users');
@@ -32,7 +32,7 @@ const UserList = () => {
             setExpiryTime();
           }
           if (response.status === 401) {
-            toast.error(`${toa('Please_login')}`, { position: toast.POSITION.TOP_RIGHT });
+            customerToast({type:'error', title: `${toa('Please_login')}`, content: ""})
             router.push("/signin");
           }
           setIsLoading(false);
@@ -42,21 +42,18 @@ const UserList = () => {
             console.log('Error status code:', error.response.status);
             console.log('Error response data:', error.response.data);
             if (error.response.status === 401) {
-              toast.error(`${toa('Session_Expired_Please_log_in_again')}`, { position: toast.POSITION.TOP_RIGHT });
-
+              customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
               router.push("/signin")
             }
             // Handle the error response as needed
           } else if (error.request) {
             // The request was made but no response was received
             console.log('Error request:', error.request);
-            toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
-
+            customerToast({type:'error', title: `${error.request}`, content: ""})
           } else {
             // Something happened in setting up the request that triggered an Error
             console.log('Error message:', error.message);
-            toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
-
+            customerToast({type:'error', title: `${error.message}`, content: ""})            
           }
           setIsLoading(false);
         });

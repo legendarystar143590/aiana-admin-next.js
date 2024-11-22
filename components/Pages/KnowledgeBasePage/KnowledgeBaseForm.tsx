@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react"
 import { useRouter } from "next/router"
 import axios from "axios"
 import { useTranslations } from "next-intl"
-import { toast } from "react-toastify"
 import { AUTH_API } from "@/components/utils/serverURL"
 import { setExpiryTime } from "@/components/utils/common"
 import SaveChangesButton from "@/components/Buttons/SaveChangeButton"
@@ -103,7 +102,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
               console.log('Error response data:', error.response.data);
              
               if (error.response.status === 401) {
-                toast.error(toa('Session_Expired_Please_log_in_again'), { position: toast.POSITION.TOP_RIGHT });
+                customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
   
                 router.push("/signin")
               }
@@ -111,13 +110,13 @@ const KnowledgeBaseForm = ({ baseId }) => {
             } else if (error.request) {
               // The request was made but no response was received
               console.log('Error request:', error.request);
-              toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
+              customerToast({type:'error', title: `${error.request}`, content: ""})
 
             } else {
               console.log(error.msg)              
               // Something happened in setting up the request that triggered an Error
               console.log('Error message:', error.msg);
-              toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
+              customerToast({type:'error', title: `${error.message}`, content: ""})
 
             }
             setIsLoading(false)
@@ -143,28 +142,18 @@ const KnowledgeBaseForm = ({ baseId }) => {
   };
 
   const handleSubmit = async () => {
-    toast.dismiss() // Dismiss any existing toasts
     if (nameInputValue === "") {
-      toast.error(toa('Please_input_the_name'), { 
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000, // Close after 3 seconds
-      })
+      customerToast({type:'error', title: `${toa('Please_input_the_name')}`, content: ""})
       return
     }
 
     if (!isValidName(nameInputValue)) {
-      toast.error(`${toa('Name_must_start_and_end_with_a_letter_and_contain_only_letters_and_spaces')}`, { 
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000,
-      });
+      customerToast({type:'error', title: `${toa('Name_must_start_and_end_with_a_letter_and_contain_only_letters_and_spaces')}`, content: ""})
       return
     }
 
     if (documents.length === 0 && urls.length === 0 && questionAnswers.length === 0) {
-      toast.error(toa('Please_input_the_data'), { 
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000, // Close after 3 seconds
-      })
+      customerToast({type:'error', title: `${toa('Please_input_the_data')}`, content: ""})
       return
     }
     
@@ -236,25 +225,16 @@ const KnowledgeBaseForm = ({ baseId }) => {
         console.log('Error response data:', error.response.data);
         if (error.response.status && error.response.status === 401) {
   
-          toast.error(toa('Session_Expired'), { 
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 3000, // Close after 3 seconds
-          })
+          customerToast({type:'error', title: `${toa('Session_Expired')}`, content: ""})
           router.push("/signin")
         }
         if (error.response.status && error.response.status === 403) {
   
-          toast.error(toa('Need_Ugrade'), { 
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 3000, // Close after 3 seconds
-          })    
+          customerToast({type:'error', title: `${toa('Need_Ugrade')}`, content: ""})   
         }
         else if (error.response.status && error.response.status === 504) {
   
-          toast.error(toa('It_takes_too_much_time_to_retrieve_information_from_your_document'), { 
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 3000, // Close after 3 seconds
-          })
+          customerToast({type:'error', title: `${toa('It_takes_too_much_time_to_retrieve_information_from_your_document')}`, content: ""})
         }
         // Handle the error response as needed
       } else if (error.request) {
@@ -263,10 +243,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
         console.log('Error request:', error.request.status);
       } else {
 
-          toast.error(`${toa('Busy_Network_Try_again')}`, { 
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 3000, // Close after 3 seconds
-          })
+          customerToast({type:'error', title: `${toa('Busy_Network_Try_again')}`, content: ""})
         // Something happened in setting up the request that triggered an Error
         console.log('Error message:', error.message);
       }

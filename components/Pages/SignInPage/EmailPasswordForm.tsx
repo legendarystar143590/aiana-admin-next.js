@@ -1,11 +1,11 @@
 import React from "react"
-import { toast } from "react-toastify"
 import Link from "next/link"
 import router from "next/router"
 
 import { loginUser } from "@/components/utils/common"
 import Spinner from "@/components/Spinner"
 import PasswordInputField from "@/components/PasswordInputField"
+import { customerToast } from "@/components/Toast"
 
 const EmailPasswordForm = () => {
   const [email, setEmail] = React.useState("")
@@ -13,20 +13,17 @@ const EmailPasswordForm = () => {
   const [isLoading, setIsLoading] = React.useState(false)
   const [isLoaded, setIsLoaded] = React.useState(false)
   const handleAuth = async () => {
-    toast.dismiss() // Dismiss any existing toasts
     // const login_datetime = new Date().toISOString().slice(0, 19).replace('T', ' ');
     if (email === "") {
-      toast.error("Email is required!", { 
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000, // Close after 3 seconds
-      })
+      // toast.error("Email is required!", { 
+      //   position: toast.POSITION.TOP_RIGHT,
+      //   autoClose: 3000, // Close after 3 seconds
+      // })
+      customerToast({type:'error', title:"Email is required!", content:""})
       return false
     }
     if (password === "") {
-      toast.error("Password is required!", { 
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000, // Close after 3 seconds
-      })
+      customerToast({type:'error', title:"Password is required!", content:""})
       return false
     }
     setIsLoading(true)
@@ -41,18 +38,12 @@ const EmailPasswordForm = () => {
         router.push("/signup/please-verify")
         setIsLoading(false)
       } else if(isVerified === "error") {
-        toast.error("Unrecognized email or password", {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 3000, // Close after 3 seconds
-        })
+        customerToast({type:'error', title:"Unrecognized email or password", content:""})        
         setIsLoading(false)
       }
     } catch (error) {
       setIsLoading(false)
-      toast.error(error.message, { 
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000, // Close after 3 seconds
-      })
+      customerToast({type:'error', title:`${error.message}`, content:""})
     }
     return true
   }

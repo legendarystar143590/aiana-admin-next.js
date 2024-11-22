@@ -35,8 +35,8 @@ export const customerToast = ({type, title, content}) => {
         hideProgressBar: true,
         className: 'toast-icon-border black-close-icon',
         style: {
-          background: `linear-gradient(to bottom, rgb(220 252 231), white)`,
-          color: '#03AB83',
+          background: `linear-gradient(to bottom, rgb(252 220 221), white)`,
+          color: '#D32660',
           borderRadius: '10px',
         }
       }
