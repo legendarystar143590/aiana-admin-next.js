@@ -70,14 +70,16 @@ const Card: React.FC<CardProps> = ({ title, description, price, features, iconIm
         <div>
           <button 
             type='button' 
-            className='w-full bg-black text-white text-[14px] py-2 rounded-lg'
+            className={`w-full ${billingPlan !== price ? 'bg-black text-white' : 'bg-white text-black cursor-default'} text-[14px] py-2 rounded-lg`}
             onClick={()=>{
-              localStorage.setItem("plan", billingPlan)
-              handleSubscribeClick()
-              // router.push("/signin")
+              if (billingPlan !== price) {
+                handleSubscribeClick()
+                // router.push("/signin")
+              }
             }}
           >
-            {buttonText}
+            {/* {buttonText} */}
+            {billingPlan !== price ? buttonText : 'Your current plan'}
           </button>
         </div>
       </div>
