@@ -12,7 +12,7 @@ const BillingPlanTable: React.FC = () => {
     { title: 'Try out Aiana', description: 'For business starts', price:'0', features:['1 chatbot', '25 chat sessions/month', '50MB document storage','1 linked website', 'Tickets', 'Chat logs', 'Email notifications'], iconImage:'FreePlan', buttonText:'Try for free'  },
     { title: 'Essentials', description: 'For small businesses', price:'29', features:['3 chatbot', '500 chat sessions/month', '250MB document storage','3 linked website', 'Tickets', 'Chat logs', 'Email notifications'], iconImage:'EssentialsPlan', buttonText:'Subscribe'  },
     { title: 'Advanced', description: 'More of everything', price:'49' , features:['5 chatbot', '1000 chat sessions/month', '1GB document storage','Up to 7 linked website', 'Tickets', 'Chat logs', 'Email notifications'], iconImage:'AdvancedPlan', buttonText:'Subscribe'  },
-    { title: 'Enterprise', description: 'Tailored Solutions for Enterprises Seeking Unmatched Performance', price:'0' , features:[], iconImage:'EnterprisePlan', buttonText:'Contact us'  },
+    { title: 'Enterprise', description: 'Tailored Solutions for Enterprises Seeking Unmatched Performance', price:'' , features:[], iconImage:'EnterprisePlan', buttonText:'Contact us'  },
   ];
 
   useEffect(()=>{
