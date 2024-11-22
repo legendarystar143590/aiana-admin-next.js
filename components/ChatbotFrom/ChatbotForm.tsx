@@ -7,8 +7,9 @@ import { FaChevronDown } from "react-icons/fa"
 import { useTranslations } from "next-intl"
 import { SketchPicker } from 'react-color';
 import { AUTH_API } from "@/components/utils/serverURL"
-import EmbedAlert from "@/components/Alerts/EmbedAlert"
+import EmbedAppAlert from "@/components/Alerts/EmbedAppAlert"
 import { customerToast } from "@/components/Toast"
+import { isValidUrl } from "@/components/Pages/KnowledgeBasePage/validation"
 import CustomSwitch from "../CustomSwitch"
 import Avatar from "../Avatar"
 import CustomAutocomplete from "../CustomAutocomplete"
@@ -254,6 +255,10 @@ const ChatbotForm = ({ bot }) => {
 
     if (!isValidName(nameInputValue)) {
       customerToast({type:'error', title: `${toa('Name_must_start_and_end_with_a_letter_and_contain_only_letters_and_spaces')}`, content: ""})
+      return
+    }
+    if (!isValidUrl(urlInputValue)) {
+      customerToast({type:'error', title: 'Invalid Domain. ', content: "Please enter a valid Domain. ex:https://example.com"})
       return
     }
     const website = {
@@ -512,7 +517,7 @@ const ChatbotForm = ({ bot }) => {
                   onChange={handleUrlChange}
                   className="py-2 text-base rounded-md border-[#CFCFCF]" 
                   placeholder="e.g. www.aiana.com" 
-                  readOnly
+                  // readOnly
                 />
                 <button type="button" className={`${urlInputValue === "" ? "bg-black" : "bg-green-400"} text-white px-4 py-2 rounded-md flex items-center gap-2`} onClick={handleEmbedClickButton}>
                   <Image src={`/images/${urlInputValue === "" ? 'icon_link_url': 'icon_linked_url'}.png`} alt="Search" width={20} height={20} />
@@ -702,13 +707,11 @@ const ChatbotForm = ({ bot }) => {
           <SaveChangesButton isSaved={isSaved} isSaving={isSaving} handleSubmit={handleSubmit} t={t} />
         </div>
       </div>
-      <EmbedAlert 
+      <EmbedAppAlert 
         open={isOpen} 
         setOpen={setIsOpen} 
         description={description} 
         handleCopy={handleCopy} 
-        botId={bot}
-        setRegisteredWebsite={setUrlInputValue}
       />
     </div>
   )
