@@ -712,8 +712,6 @@ const ChatbotForm = ({ bot }) => {
         setOpen={setIsOpen} 
         description={description} 
         handleCopy={handleCopy} 
-        botId={bot}
-        setRegisteredWebsite={setUrlInputValue}
       />
     </div>
   )
