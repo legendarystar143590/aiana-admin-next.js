@@ -1,5 +1,4 @@
 import { useTranslations } from "next-intl"
-import { toast } from "react-toastify"
 import Image from "next/image"
 import axios from "axios"
 import { useRouter } from "next/router"
@@ -53,9 +52,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
           .then((response) => {
             if (response.status === 401) {
               // Handle 401 Unauthorized
-              toast.error(`${toa('Session_Expired_Please_log_in_again')}`, {
-                position: toast.POSITION.TOP_RIGHT,
-              })
+              customerToast({type:'error',title:`${toa('Session_Expired_Please_log_in_again')}`, content:''})
               setIsLoading(false) // Ensure loading state is updated
               router.push("/signin") // Redirect to sign-in page
             }
@@ -73,9 +70,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
               console.log("Error status code:", error.response.status)
               console.log("Error response data:", error.response.data)
               if (error.response.status === 401) {
-                toast.error(`${toa('Session_Expired_Please_log_in_again')}`, {
-                  position: toast.POSITION.TOP_RIGHT,
-                })
+                customerToast({type:'error',title:`${toa('Session_Expired_Please_log_in_again')}`, content:''})
 
                 router.push("/signin")
               }
@@ -83,11 +78,11 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
             } else if (error.request) {
               // The request was made but no response was received
               console.log("Error request:", error.request)
-              toast.error(error.request, { position: toast.POSITION.TOP_RIGHT })
+              customerToast({type:'error',title:`${error.request}`, content:''})
             } else {
               // Something happened in setting up the request that triggered an Error
               console.log("Error message:", error.message)
-              toast.error(error.message, { position: toast.POSITION.TOP_RIGHT })
+              customerToast({type:'error',title:`${error.message}`, content:''})
             }
             setIsLoading(false)
           })
@@ -100,16 +95,15 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
 
     const handleUrlAdd = async () => {
       // console.log(botId)
-      toast.dismiss();
       const userId = localStorage.getItem("userID");
       if (isValidUrl(urlInputValue)) {
         if (urls.length > 0) {
-          toast.error(`${toa('Bot_already_has_weebsite')}`, { position: toast.POSITION.TOP_RIGHT });
+          customerToast({type:'error',title:`${toa('Bot_already_has_weebsite')}`, content:''})
         }
         else {
           const existingUrl = urls.find(url => url.domain === urlInputValue);
           if (existingUrl) {
-            toast.error(`${toa('URL_already_exist')}`, { position: toast.POSITION.TOP_RIGHT });
+            customerToast({type:'error',title:`${toa('URL_already_exist')}`, content:''})
           } else {
             const newWebsite: WebsiteObject = {
               created_at: new Date().toISOString(),
@@ -140,7 +134,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
               setRegisteredWebsite(urlInputValue);
               setUrlInputValue("");
             } else {
-              toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
+              customerToast({type:'error',title:`${toa('Invalid_Request')}`, content:''})
             }
           })
           .catch((error) => {
@@ -152,10 +146,10 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
                 router.push("/signin")
               }
               if (error.response.status === 402) {
-                toast.error(`${error.response.data.message}`, { position: toast.POSITION.TOP_RIGHT })
+                customerToast({type:'error',title:`${error.response.data.message}`, content:''})
               }
               if(error.response.status === 403){
-                toast.error(toa('Need_Upgrade_For_Website'), {position:toast.POSITION.TOP_RIGHT})
+                customerToast({type:'error',title:`${toa('Need_Upgrade_For_Website')}`, content:''})
               }
               // Handle the error response as needed
             } else if (error.request) {
@@ -164,7 +158,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
             } else {
               // Something happened in setting up the request that triggered an Error
               console.log("Error message:", error.message)
-              toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
+              customerToast({type:'error',title:`${toa('Invalid_Request')}`, content:''})
 
             }
           })
@@ -172,7 +166,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
           }
         }
       } else {
-        toast.error(tk("Invalid_Domain_Please_enter_a_valid_Domain"), { position: toast.POSITION.TOP_RIGHT });
+        customerToast({type:'error',title:`${tk("Invalid_Domain_Please_enter_a_valid_Domain")}`, content:''})
       }
     };
   
@@ -199,13 +193,13 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
             setUrls((prevBases) => prevBases.filter((prev) => prev.index !== _index))
             setRegisteredWebsite("");
           } else {
-            toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
+            customerToast({type:'error',title:`${toa('Invalid_Request')}`, content:''})
           }
         })
         .catch((error) => {
           setIsDeleting(false)
           if(error.response && error.response.status === 403){
-            toast.error("You need to upgrade to ask more questions to the bot!", { position: toast.POSITION.BOTTOM_RIGHT });
+            customerToast({type:'error',title:"You need to upgrade to ask more questions to the bot!", content:''})
           } else if (error.response) {
             console.log("Error status code:", error.response.status)
             console.log("Error response data:", error.response.data)
@@ -221,7 +215,7 @@ export default function EmbedAlert({ open, setOpen, description, handleCopy, bot
             console.log("Error message:", error.message)
           }
           console.log("Error config:", error.config)
-          toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'error',title:`${toa('Invalid_Request')}`, content:''})
         })
       
     }

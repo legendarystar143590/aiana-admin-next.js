@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import { toast } from "react-toastify"
 import router from "next/router"
 import Image from 'next/image'
 import axios from "axios"
@@ -42,20 +41,14 @@ const SendLinkPage = () => {
         if (error.response) {
           const { status } = error.response // Destructure status directly
           if (status === 404) {
-            toast.error("Unregistered email", {
-              position: toast.POSITION.TOP_RIGHT,
-            })
+            customerToast({type:'error', title: "Unregistered email", content: ""})
           } else if (status === 500) {
-            toast.error("Internal Server Error: Something went wrong on the server", {
-              position: toast.POSITION.TOP_RIGHT,
-            })
+            customerToast({type:'error', title:"Internal Server Error: Something went wrong on the server", content: ""})
           } else {
-            toast.error(`Error: ${status}`, { position: toast.POSITION.TOP_RIGHT })
+            customerToast({type:'error', title:`Error: ${status}`, content: ""})
           }
         } else {
-          toast.error("Network Error: Unable to connect to the server", {
-            position: toast.POSITION.TOP_RIGHT,
-          })
+          customerToast({type:'error', title: "Network Error: Unable to connect to the server", content: ""})          
         }
       })
       console.log("Send Message")

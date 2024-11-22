@@ -3,7 +3,6 @@ import Image from "next/image"
 import { useRouter } from "next/router";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
-import { toast } from "react-toastify";
 import { FaInfoCircle } from "react-icons/fa";
 
 import { AUTH_API } from "@/components/utils/serverURL";
@@ -74,10 +73,7 @@ const Document = ({ documents, documentRef, setDocuments, setFiles, setIsSaved }
         validFiles.push(fileList[i]);
         // console.log(fileList[i].type);
       } else {
-        toast.error(
-          `File "${fileList[i].name}" exceeds the maximum size of 5MB.`,
-          { position: toast.POSITION.TOP_RIGHT }
-        );
+        customerToast({type:'error', title: `File "${fileList[i].name}" exceeds the maximum size of 5MB.`, content: ""})
       }
     }
     setFiles((prev)=>[...prev, ...validFiles]); // Only set valid files
@@ -122,7 +118,7 @@ const Document = ({ documents, documentRef, setDocuments, setFiles, setIsSaved }
         if (response.status === 201) {
           customerToast({type:'success',title:`${toa('Successfully_deleted!')}`, content:''})
         } else {
-          toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'error', title: `${toa('Invalid_Request')}`, content: ""})
         }
       })
       .catch((error) => {
@@ -130,20 +126,18 @@ const Document = ({ documents, documentRef, setDocuments, setFiles, setIsSaved }
           console.log('Error status code:', error.response.status);
           console.log('Error response data:', error.response.data);
           if (error.response.status === 401) {
-            toast.error(`${toa('Session_Expired_Please_log_in_again')}`, { position: toast.POSITION.TOP_RIGHT });
-
+            customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
             router.push("/signin")
           }
           // Handle the error response as needed
         } else if (error.request) {
           // The request was made but no response was received
           console.log('Error request:', error.request);
-          toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
-
+          customerToast({type:'error', title: `${error.request}`, content: ""})
         } else {
           // Something happened in setting up the request that triggered an Error
           console.log('Error message:', error.message);
-          toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
+          customerToast({type:'error', title: `${error.message}`, content: ""})
 
         }
       });

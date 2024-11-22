@@ -4,7 +4,6 @@ import router from "next/router"
 import Image from "next/image"
 import axios from "axios"
 import { useTranslations } from "next-intl"
-import { toast } from "react-toastify"
 // import Script from "next/script"
 import { AUTH_API } from "@/components/utils/serverURL"
 import { isTimeBetween, setExpiryTime } from "@/components/utils/common"
@@ -25,7 +24,6 @@ const Chatbots = () => {
   }
 
   React.useEffect(() => {
-    toast.dismiss()
     const userID = localStorage.getItem("userID")
     // if (userID) setUserId(userID)
     const requestOptions = {
@@ -42,9 +40,7 @@ const Chatbots = () => {
         .then((response) => {
           if (response.status === 401) {
             // Handle 401 Unauthorized
-            toast.error(`${toa('Session_Expired_Please_log_in_again')}`, {
-              position: toast.POSITION.TOP_RIGHT,
-            })
+            customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
             setIsLoading(false) // Ensure loading state is updated
             router.push("/signin") // Redirect to sign-in page
           }
@@ -62,21 +58,18 @@ const Chatbots = () => {
             console.log("Error status code:", error.response.status)
             console.log("Error response data:", error.response.data)
             if (error.response.status === 401) {
-              toast.error(`${toa('Session_Expired_Please_log_in_again')}`, {
-                position: toast.POSITION.TOP_RIGHT,
-              })
-
+              customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
               router.push("/signin")
             }
             // Handle the error response as needed
           } else if (error.request) {
             // The request was made but no response was received
             console.log("Error request:", error.request)
-            toast.error(error.request, { position: toast.POSITION.TOP_RIGHT })
+            customerToast({type:'error', title: `${error.request}`, content: ""})
           } else {
             // Something happened in setting up the request that triggered an Error
             console.log("Error message:", error.message)
-            toast.error(error.message, { position: toast.POSITION.TOP_RIGHT })
+            customerToast({type:'error', title: `${error.message}`, content: ""})
           }
           setIsLoading(false)
         })
@@ -87,7 +80,6 @@ const Chatbots = () => {
   }
 
   const handleDelete = (bot) => {
-    toast.dismiss()
     axios
       .post(
         AUTH_API.DELETE_BOT,
@@ -105,7 +97,7 @@ const Chatbots = () => {
           setBots((prevBases) => prevBases.filter((prev) => prev.id !== bot))
           customerToast({type:'success',title:`${toa('Successfully_deleted!')}`, content:''})
         } else {
-          toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'error', title: `${toa('Invalid_Request')}`, content: ""})
         }
       })
       .catch((error) => {
@@ -113,21 +105,18 @@ const Chatbots = () => {
           console.log("Error status code:", error.response.status)
           console.log("Error response data:", error.response.data)
           if (error.response.status === 401) {
-            toast.error(`${toa('Session_Expired_Please_log_in_again')}`, {
-              position: toast.POSITION.TOP_RIGHT,
-            })
-
+            customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
             router.push("/signin")
           }
           // Handle the error response as needed
         } else if (error.request) {
           // The request was made but no response was received
           console.log("Error request:", error.request)
-          toast.error(error.request, { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'error', title: `${error.request}`, content: ""})
         } else {
           // Something happened in setting up the request that triggered an Error
           console.log("Error message:", error.message)
-          toast.error(error.message, { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'error', title: `${error.message}`, content: ""})          
         }
         setIsLoading(false)
       })

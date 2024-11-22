@@ -3,7 +3,6 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 import axios from "axios"
 import { FaInfoCircle } from "react-icons/fa"
-import { toast } from "react-toastify"
 import { useTranslations } from "next-intl"
 
 import AlertDialog from "@/components/AlertDialog"
@@ -53,7 +52,7 @@ const Website = ({ urls, setUrls, websiteRef, setIsSaved }) => {
       setUrlInputValue("")
       setIsSaved(false);
     } else {
-      toast.error(t("Invalid_URL_Please_enter_a_valid_URL"), { position: toast.POSITION.TOP_RIGHT })
+      customerToast({type:'error', title: `${t("Invalid_URL_Please_enter_a_valid_URL")}`, content: ""})
     }
   }
 
@@ -74,7 +73,7 @@ const Website = ({ urls, setUrls, websiteRef, setIsSaved }) => {
         if (response.status === 201) {
           customerToast({type:'success',title:`${toa('Successfully_deleted!')}`, content:''})
         } else {
-          toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'error', title: `${toa('Invalid_Request')}`, content: ""})
         }
       })
       .catch((error) => {
@@ -93,7 +92,7 @@ const Website = ({ urls, setUrls, websiteRef, setIsSaved }) => {
           console.log("Error message:", error.message)
         }
         console.log("Error config:", error.config)
-        toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
+        customerToast({type:'error', title: `${toa('Invalid_Request')}`, content: ""})
       })
     const updatedUrls = urls.filter((_, i) => i !== index)
     setUrls(updatedUrls)

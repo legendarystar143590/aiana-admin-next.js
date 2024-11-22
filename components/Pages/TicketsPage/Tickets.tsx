@@ -3,13 +3,13 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import Image from "next/image"
 import router from "next/router"
-import { toast } from "react-toastify"
 import { useTranslations } from "next-intl"
 import { FaSearch, FaFilter } from "react-icons/fa"
 
 import { AUTH_API } from "@/components/utils/serverURL"
 import {formatTimeStringOnly, setExpiryTime } from '@/components/utils/common'
 import Avatar from "@/components/Avatar"
+import { customerToast } from "@/components/Toast"
 
 const Tickets = ({setSession, tickets, setTickets, setBotAvatar, setTicketContent, setCurrentTicketId}) => {
   const t = useTranslations('ticket');
@@ -40,7 +40,7 @@ const Tickets = ({setSession, tickets, setTickets, setBotAvatar, setTicketConten
             setExpiryTime();
           }
           if (response.status === 401) {
-            toast.error(`${toa('Please_login')}`, { position: toast.POSITION.TOP_RIGHT });
+            customerToast({type:'error', title: `${toa('Please_login')}`, content: ""})
             router.push("/signin");
 
           }
@@ -51,16 +51,16 @@ const Tickets = ({setSession, tickets, setTickets, setBotAvatar, setTicketConten
             console.log('Error status code:', error.response.status);
             console.log('Error response data:', error.response.data);
             if (error.response.status === 401) {
-              toast.error(`${toa('Session_Expired_Please_log_in_again')}`, { position: toast.POSITION.TOP_RIGHT });
+              customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
 
               router.push("/signin")
             }
             // Handle the error response as needed
           } else if (error.request) {
-            toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
+            customerToast({type:'error', title: `${error.request}`, content: ""})
 
           } else {
-            toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
+            customerToast({type:'error', title: `${error.message}`, content: ""})            
 
           }
           setIsLoading(false);

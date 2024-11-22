@@ -42,10 +42,7 @@ function EmailPasswordForm() {
     toast.dismiss() // Dismiss any existing toasts
     const validationerror = validateForm(formState)
     if (validationerror !== "") {
-      toast.error(validationerror, { 
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000, // Close after 3 seconds
-      })
+      customerToast({type:'error',title:`${validationerror}`, content:''})
       return false
     }
     
@@ -71,37 +68,37 @@ function EmailPasswordForm() {
         }
         if (response.status === 409) {
           setIsSaving(false)
-          toast.error("User already exists!", { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'error',title:'User already exists!', content:''})
         }
         if (response.status === 400) {
           setIsSaving(false)
-          toast.error("Invalid email!", { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'error',title:"Invalid email!", content:''})
         }
         if (response.status === 203) {
           setIsSaving(false)
-          toast.error("Invalid email!", { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'error',title:"Invalid email!", content:''})
         }
       })
       .catch((error) => {
         setIsSaving(false)
         if (error.response) {
           if (error.response.status === 409) {
-            toast.error("User already exists!", { position: toast.POSITION.TOP_RIGHT })
+            customerToast({type:'error',title:"User already exists!", content:''})
           } else {
             console.log("Error status code:", error.response.status)
             console.log("Error response data:", error.response.data)
-            toast.error(error.message, { position: toast.POSITION.TOP_RIGHT })
+            customerToast({type:'error',title:`${error.message}`, content:''})
           }
 
           // Handle the error response as needed
         } else if (error.request) {
           // The request was made but no response was received
           console.log("Error request:", error.request)
-          toast.error(error.request, { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'error',title:`${error.request}`, content:''})
         } else {
           // Something happened in setting up the request that triggered an Error
           console.log("Error message:", error.message)
-          toast.error(error.message, { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'error',title:`${error.message}`, content:''})
         }
       })
     return true

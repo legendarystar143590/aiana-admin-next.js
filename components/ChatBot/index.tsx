@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
 import axios from 'axios';
-import { toast } from "react-toastify"
 import { v4 as uuidv4 } from 'uuid';
 import Image from 'next/image';
 import { AUTH_API } from '@/components/utils/serverURL';
@@ -125,7 +124,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
         setInput("");
 
         if (!isTimeBetween(startTime, endTime)) {
-            toast.error("It's not the time to be active for this assistant!", { position: toast.POSITION.BOTTOM_RIGHT });
+            customerToast({type:'error', title: "It's not the time to be active for this assistant!", content: ""})
             setIsLoading(false);
             return;
         }
@@ -150,9 +149,9 @@ const ChatBot = ({ userIndex, botId, website }) => {
                 setInput("");
                 if(error.response && error.response.status === 403){
                     if(error.response.data === "Unregistered domain") {
-                        toast.error('Unregistered domain!', {position:toast.POSITION.BOTTOM_RIGHT})
+                        customerToast({type:'error', title: "Unregistered domain!", content: ""})
                     } else {
-                        toast.error('You need to upgrade to ask more questions to the bot', {position:toast.POSITION.BOTTOM_RIGHT})
+                        customerToast({type:'error', title: "You need to upgrade to ask more questions to the bot", content: ""})
                     }
                 }
                 if (error.response) {
@@ -162,12 +161,12 @@ const ChatBot = ({ userIndex, botId, website }) => {
                 } else if (error.request) {
                     // The request was made but no response was received
                     console.log('Error request:', error.request);
-                    toast.error(error.request, { position: toast.POSITION.BOTTOM_RIGHT });
+                    customerToast({type:'error', title: `${error.request}`, content: ""})
 
                 } else {
                     // Something happened in setting up the request that triggered an Error
                     console.log('Error message:', error.message);
-                    toast.error(error.message, { position: toast.POSITION.BOTTOM_RIGHT });
+                    customerToast({type:'error', title: `${error.message}`, content: ""})
 
                 }
                 setIsLoading(false);
@@ -203,7 +202,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
 
     const handleOkayClick = () => {
         if (email === "" || content === "") {
-            toast.error("Please provide an email and content!", { position: toast.POSITION.BOTTOM_RIGHT });
+            customerToast({type:'error', title: "Please provide an email and content!", content: ""})
             return;
         }
         // Logic to handle the form submission (e.g., send email and content to backend)
@@ -218,7 +217,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                     if (message === 'success') {
                         customerToast({type:'success',title:'Successfully Booked!', content:''})
                     } else {
-                        toast.error("Busy Network! Try again!", { position: toast.POSITION.BOTTOM_RIGHT })
+                        customerToast({type:'error', title: "Busy Network! Try again!", content: ""})
                     }
                     setEmail("")
                     setContent("")
@@ -235,13 +234,12 @@ const ChatBot = ({ userIndex, botId, website }) => {
                 } else if (error.request) {
                     // The request was made but no response was received
                     console.log('Error request:', error.request);
-                    toast.error(error.request, { position: toast.POSITION.BOTTOM_RIGHT });
+                    customerToast({type:'error', title: `${error.request}`, content: ""})
 
                 } else {
                     // Something happened in setting up the request that triggered an Error
                     console.log('Error message:', error.message);
-                    toast.error(error.message, { position: toast.POSITION.BOTTOM_RIGHT });
-
+                    customerToast({type:'error', title: `${error.message}`, content: ""})
                 }
                 setInput("");
                 setEmail("");

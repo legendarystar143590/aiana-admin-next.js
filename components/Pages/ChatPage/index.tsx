@@ -3,7 +3,6 @@ import axios from "axios"
 import { v4 as uuidv4 } from "uuid"
 import router from "next/router"
 import Image from "next/image"
-import { toast } from "react-toastify"
 import { FaCaretDown } from "react-icons/fa"
 import { useTranslations } from "next-intl"
 import { AUTH_API } from "@/components/utils/serverURL"
@@ -130,21 +129,18 @@ const ChatPage = ({
           console.log("Error status code:", error.response.status)
           console.log("Error response data:", error.response.data)
           if (error.response.status === 401) {
-            toast.error(`${toa('Session_Expired_Please_log_in_again')}`, {
-              position: toast.POSITION.TOP_RIGHT,
-            })
-
+            customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
             router.push("/signin")
           }
           // Handle the error response as needed
         } else if (error.request) {
           // The request was made but no response was received
           console.log("Error request:", error.request)
-          toast.error(error.request, { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'error', title: `${error.request}`, content: ""})
         } else {
           // Something happened in setting up the request that triggered an Error
           console.log("Error message:", error.message)
-          toast.error(error.message, { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'error', title: `${error.message}`, content: ""})
         }
         setIsLoading(false)
       })
@@ -179,7 +175,7 @@ const ChatPage = ({
 
   const handleOkayClick = () => {
     if (email === "" || content === "") {
-      toast.error(`${toa('Please_provide_an_email_and_content')}`, { position: toast.POSITION.TOP_RIGHT })
+      customerToast({type:'error', title: `${toa('Please_provide_an_email_and_content')}`, content: ""})
       return
     }
     // Logic to handle the form submission (e.g., send email and content to backend)
@@ -204,7 +200,7 @@ const ChatPage = ({
           if (message === "success") {
             customerToast({type:'success',title:`${toa('Successfully_Booked')}`, content:''})
           } else {
-            toast.error(`${toa('Busy_Network_Try_again')}`, { position: toast.POSITION.TOP_RIGHT })
+            customerToast({type:'error', title: `${toa('Busy_Network_Try_again')}`, content: ""})
           }
           setEmail("")
           setContent("")
@@ -220,21 +216,18 @@ const ChatPage = ({
           console.log("Error status code:", error.response.status)
           console.log("Error response data:", error.response.data)
           if (error.response.status === 401) {
-            toast.error(`${toa('Session_Expired_Please_log_in_again')}`, {
-              position: toast.POSITION.TOP_RIGHT,
-            })
-
+            customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
             router.push("/signin")
           }
           // Handle the error response as needed
         } else if (error.request) {
           // The request was made but no response was received
           console.log("Error request:", error.request)
-          toast.error(error.request, { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'error', title: `${error.request}`, content: ""})
         } else {
           // Something happened in setting up the request that triggered an Error
           console.log("Error message:", error.message)
-          toast.error(error.message, { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'error', title: `${error.message}`, content: ""})          
         }
         setIsLoading(false)
       })

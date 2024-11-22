@@ -2,7 +2,6 @@ import * as React from "react";
 import axios from "axios";
 import router from "next/router";
 import Image from "next/image";
-import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
 
 import { AUTH_API } from "@/components/utils/serverURL"
@@ -26,7 +25,6 @@ const KnowledgeBase = () => {
 
   // Fetch knowledge bases when component mounts
   React.useEffect(() => {
-    toast.dismiss() // Dismiss any existing toasts
     setIsLoading(true)
     const userID = localStorage.getItem('userID');
     const requestOptions = {
@@ -43,7 +41,7 @@ const KnowledgeBase = () => {
             if (response.status === 401) {
               router.push("/signin");
             }
-            toast.error(`HTTP error! Status: ${response.status}`, { position: toast.POSITION.TOP_RIGHT });
+            customerToast({type:'error', title: `HTTP error! Status: ${response.status}`, content: ""})
             return null;
           }
           setExpiryTime();
@@ -58,7 +56,7 @@ const KnowledgeBase = () => {
             console.log('Error status code:', error.response.status);
             console.log('Error response data:', error.response.data);
             if (error.response.status === 401) {
-              toast.error(`${toa('Session_Expired_Please_log_in_again')}`, { position: toast.POSITION.TOP_RIGHT });
+              customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
 
               router.push("/signin")
             }
@@ -66,12 +64,12 @@ const KnowledgeBase = () => {
           } else if (error.request) {
             // The request was made but no response was received
             console.log('Error request:', error.request);
-            toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
+            customerToast({type:'error', title: `${error.request}`, content: ""})
 
           } else {
             // Something happened in setting up the request that triggered an Error
             console.log('Error message:', error.message);
-            toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
+            customerToast({type:'error', title: `${error.message}`, content: ""})
 
           }
           setIsLoading(false);
@@ -89,7 +87,6 @@ const KnowledgeBase = () => {
     setOpenDialog(true);
   }
   const handleDeleteClick = (baseId) => {
-    toast.dismiss() // Dismiss any existing toasts
     axios
       .post(AUTH_API.DELETE_KNOWLEDGEBASE, { baseId },
         {
@@ -104,7 +101,7 @@ const KnowledgeBase = () => {
           setBases(prevBases => prevBases.filter(prev => prev.id !== baseId));
           customerToast({type:'success',title:`${toa('Successfully_deleted!')}`, content:''})
         } else {
-          toast.error(`${toa('Invalid_Request')}`, { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'error', title: `${toa('Invalid_Request')}`, content: ""})
         }
       })
       .catch((error) => {
@@ -113,24 +110,24 @@ const KnowledgeBase = () => {
           // console.log('Error status code:', error.response.status);
           // console.log('Error response data:', error.response.data);
           if (error.response.status === 401) {
-            toast.error(`${toa('Session_Expired_Please_log_in_again')}`, { position: toast.POSITION.TOP_RIGHT });
+            customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
 
             router.push("/signin")
           }
           if (error.response.status === 400) {
-            toast.error(`${toa('The_knowledge_base_is_being_used')}`, { position: toast.POSITION.TOP_RIGHT });
+            customerToast({type:'error', title: `${toa('The_knowledge_base_is_being_used')}`, content: ""})
 
           }
           // Handle the error response as needed
         } else if (error.request) {
           // The request was made but no response was received
           // console.log('Error request:', error.request);
-          toast.error(error.request, { position: toast.POSITION.TOP_RIGHT });
+          customerToast({type:'error', title: `${error.request}`, content: ""})
 
         } else {
           // Something happened in setting up the request that triggered an Error
           // console.log('Error message:', error.message);
-          toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });
+          customerToast({type:'error', title: `${error.message}`, content: ""})
 
         }
       });

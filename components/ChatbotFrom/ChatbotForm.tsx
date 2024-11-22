@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react"
 import axios from "axios"
 import { v4 as uuidv4 } from "uuid"
 import { useRouter } from "next/router"
-import { toast } from "react-toastify"
 import Image from "next/image"
 import { FaChevronDown } from "react-icons/fa"
 import { useTranslations } from "next-intl"
@@ -152,14 +151,10 @@ const ChatbotForm = ({ bot }) => {
           setIsSaving(false)
           console.log("Error creating a new bot :", error.message)
           if (error.message.includes("401")) {
-            toast.error(`${toa('Session_Expired_Please_log_in_again')}`, {
-              position: toast.POSITION.TOP_RIGHT,
-            })
+            customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
             router.push("/signin")
           } else {
-            toast.error(`${toa('An_error_occurred_while_fetching_data')}`, {
-              position: toast.POSITION.TOP_RIGHT,
-            })
+            customerToast({type:'error', title: `${toa('An_error_occurred_while_fetching_data')}`, content: ""})
           }
         })
       const session = uuidv4().toString()
@@ -251,21 +246,14 @@ const ChatbotForm = ({ bot }) => {
   };
 
   const handleSubmit = async () => {
-    toast.dismiss() // Dismiss any existing toasts
     const formData = new FormData()
     if (nameInputValue === "" || knowledgeBase === "") {
-      toast.error(`${toa('Name_and_Knowledge_Base_are_required')}`, { 
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000, // Close after 3 seconds
-      })
+      customerToast({type:'error', title: `${toa('Name_and_Knowledge_Base_are_required')}`, content: ""})
       return
     }
 
     if (!isValidName(nameInputValue)) {
-      toast.error(`${toa('Name_must_start_and_end_with_a_letter_and_contain_only_letters_and_spaces')}`, { 
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000,
-      });
+      customerToast({type:'error', title: `${toa('Name_must_start_and_end_with_a_letter_and_contain_only_letters_and_spaces')}`, content: ""})
       return
     }
     const website = {
@@ -312,10 +300,7 @@ const ChatbotForm = ({ bot }) => {
       setIsSaving(false)
       if(error.response && error.response.status === 403){
 
-        toast.error(`${ bot === "-1" ? 'You need to upgrade to create more bots' : toa('Successfully_updated')}`, { 
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 3000, // Close after 3 seconds
-        })
+        customerToast({type:'error', title: `${bot === "-1" ? 'You need to upgrade to create more bots' : toa('Successfully_updated')}`, content: ""})
       }
       if (error.response && error.response.status === 401) {
         // Redirect to the sign-in page if the response status is 401
@@ -376,9 +361,7 @@ const ChatbotForm = ({ bot }) => {
           console.log("Error status code:", error.response.status)
           console.log("Error response data:", error.response.data)
           if (error.response.status === 401) {
-            toast.error(`${toa('Session_Expired_Please_log_in_again')}`, {
-              position: toast.POSITION.TOP_RIGHT,
-            })
+            customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
 
             router.push("/signin")
           }
@@ -386,11 +369,11 @@ const ChatbotForm = ({ bot }) => {
         } else if (error.request) {
           // The request was made but no response was received
           console.log("Error request:", error.request)
-          toast.error(error.request, { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'error', title: `${error.request}`, content: ""})
         } else {
           // Something happened in setting up the request that triggered an Error
           console.log("Error message:", error.message)
-          toast.error(error.message, { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'error', title: `${error.message}`, content: ""})
         }
         setIsAnswerLoading(false)
       })
@@ -413,11 +396,11 @@ const ChatbotForm = ({ bot }) => {
 
   const handleOkayClick = () => {
     if (email === "" || content === "") {
-      toast.error(`${toa('Please_provide_an_email_and_content')}`, { position: toast.POSITION.TOP_RIGHT })
+      customerToast({type:'error', title: `${toa('Please_provide_an_email_and_content')}`, content: ""})
       return
     }
     if(!isValidEmail(email)){
-      toast.error(`${toa('Please_provide_a_valid_email')}`, { position: toast.POSITION.TOP_RIGHT })
+      customerToast({type:'error', title: `${toa('Please_provide_a_valid_email')}`, content: ""})
       return
     }
     // Logic to handle the form submission (e.g., send email and content to backend)
@@ -442,7 +425,7 @@ const ChatbotForm = ({ bot }) => {
           if (message === "success") {
             customerToast({type:'success',title:`${toa('Successfully_Booked')}`, content:''})
           } else {
-            toast.error(`${toa('Busy_Network_Try_again')}`, { position: toast.POSITION.TOP_RIGHT })
+            customerToast({type:'error', title: `${toa('Busy_Network_Try_again')}`, content: ""})
           }
           setEmail("")
           setContent("")
@@ -458,9 +441,7 @@ const ChatbotForm = ({ bot }) => {
           console.log("Error status code:", error.response.status)
           console.log("Error response data:", error.response.data)
           if (error.response.status === 401) {
-            toast.error(`${toa('Session_Expired_Please_log_in_again')}`, {
-              position: toast.POSITION.TOP_RIGHT,
-            })
+            customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
 
             router.push("/signin")
           }
@@ -468,11 +449,11 @@ const ChatbotForm = ({ bot }) => {
         } else if (error.request) {
           // The request was made but no response was received
           console.log("Error request:", error.request)
-          toast.error(error.request, { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'error', title: `${error.request}`, content: ""})
         } else {
           // Something happened in setting up the request that triggered an Error
           console.log("Error message:", error.message)
-          toast.error(error.message, { position: toast.POSITION.TOP_RIGHT })
+          customerToast({type:'error', title: `${error.message}`, content: ""})
         }
         setIsLoading(false)
       })
