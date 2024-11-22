@@ -35,7 +35,7 @@ export default function EmbedAppAlert({ open, setOpen, description, handleCopy }
   return (
     open && (
       <div
-        className="fixed z-10 inset-0 overflow-y-auto"
+        className="fixed z-10 inset-0 overflow-y-auto min-w-[485px]"
         aria-labelledby="modal-title"
         role="dialog"
         aria-modal="true"
@@ -55,7 +55,7 @@ export default function EmbedAppAlert({ open, setOpen, description, handleCopy }
             &#8203;
           </span>
           <div
-            className="inline-block bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full max-sm:mx-5 align-middle"
+            className="inline-block bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-xl sm:w-full max-sm:mx-5 align-middle"
             style={{width: "-webkit-fill-available"}}
             ref={alertRef}
           >
