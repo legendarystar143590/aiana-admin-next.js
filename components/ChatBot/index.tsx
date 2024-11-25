@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { AUTH_API } from '@/components/utils/serverURL';
 import { customerToast } from '../Toast';
 import Spinner from '../Spinner';
-import { isTimeBetween, setExpiryTime } from '../utils/common';
+import { setExpiryTime } from '../utils/common';
 
 const options: Intl.DateTimeFormatOptions = {
     weekday: 'short',
