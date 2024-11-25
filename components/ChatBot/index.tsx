@@ -123,11 +123,11 @@ const ChatBot = ({ userIndex, botId, website }) => {
         setMessages([...messages, newMessage]);
         setInput("");
 
-        if (!isTimeBetween(startTime, endTime)) {
-            customerToast({type:'error', title: "It's not the time to be active for this assistant!", content: ""})
-            setIsLoading(false);
-            return;
-        }
+        // if (!isTimeBetween(startTime, endTime)) {
+        //     customerToast({type:'error', title: "It's not the time to be active for this assistant!", content: ""})
+        //     setIsLoading(false);
+        //     return;
+        // }
         const createdAt = new Date().toLocaleDateString('en-US', options);
         // console.log("Here>>>>>>",createdAt)
         axios.post(AUTH_API.QUERY, { botId: bot.id, website, sessionId, input, userId, createdAt, lang })
