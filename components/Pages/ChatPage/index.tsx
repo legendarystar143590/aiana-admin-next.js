@@ -27,8 +27,8 @@ const options: Intl.DateTimeFormatOptions = {
 const ChatPage = ({
   userId,
   userIndex,
-  startTime,
-  endTime,
+  // startTime,
+  // endTime,
   botId,
   botName,
   color,
