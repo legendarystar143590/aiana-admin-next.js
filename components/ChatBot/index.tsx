@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { AUTH_API } from '@/components/utils/serverURL';
 import { customerToast } from '../Toast';
 import Spinner from '../Spinner';
-import { isTimeBetween, setExpiryTime } from '../utils/common';
+import { setExpiryTime } from '../utils/common';
 
 const options: Intl.DateTimeFormatOptions = {
     weekday: 'short',
@@ -35,8 +35,8 @@ const ChatBot = ({ userIndex, botId, website }) => {
     const [bot, setBot] = useState(INITIAL_BOT_OBJ);
     const [userId, setUserId] = useState("");
     const [input, setInput] = useState("");
-    const [startTime, setStartTime] = useState("");
-    const [endTime, setEndTime] = useState("");
+    // const [startTime, setStartTime] = useState("");
+    // const [endTime, setEndTime] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isBook, setIsBook] = useState(false)
     const [visibleClass, setVisibleClass] = useState("hidden");
@@ -81,8 +81,8 @@ const ChatBot = ({ userIndex, botId, website }) => {
                 .then(data => {
                     setBot({ id: data.bot.id, name: data.bot.name, avatar: data.bot.avatar === "" ? "/images/users/avatar-2.jpg" : data.bot.avatar, color: data.bot.color, index: botId })
                     setUserId(data.bot.user_id);
-                    setStartTime(data.bot.start_time);
-                    setEndTime(data.bot.end_time);
+                    // setStartTime(data.bot.start_time);
+                    // setEndTime(data.bot.end_time);
                     setIsLoading(false);
                     setExpiryTime();
                 })
@@ -123,11 +123,11 @@ const ChatBot = ({ userIndex, botId, website }) => {
         setMessages([...messages, newMessage]);
         setInput("");
 
-        if (!isTimeBetween(startTime, endTime)) {
-            customerToast({type:'error', title: "It's not the time to be active for this assistant!", content: ""})
-            setIsLoading(false);
-            return;
-        }
+        // if (!isTimeBetween(startTime, endTime)) {
+        //     customerToast({type:'error', title: "It's not the time to be active for this assistant!", content: ""})
+        //     setIsLoading(false);
+        //     return;
+        // }
         const createdAt = new Date().toLocaleDateString('en-US', options);
         // console.log("Here>>>>>>",createdAt)
         axios.post(AUTH_API.QUERY, { botId: bot.id, website, sessionId, input, userId, createdAt, lang })
