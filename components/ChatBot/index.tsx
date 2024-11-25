@@ -35,8 +35,8 @@ const ChatBot = ({ userIndex, botId, website }) => {
     const [bot, setBot] = useState(INITIAL_BOT_OBJ);
     const [userId, setUserId] = useState("");
     const [input, setInput] = useState("");
-    const [startTime, setStartTime] = useState("");
-    const [endTime, setEndTime] = useState("");
+    // const [startTime, setStartTime] = useState("");
+    // const [endTime, setEndTime] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isBook, setIsBook] = useState(false)
     const [visibleClass, setVisibleClass] = useState("hidden");
@@ -81,8 +81,8 @@ const ChatBot = ({ userIndex, botId, website }) => {
                 .then(data => {
                     setBot({ id: data.bot.id, name: data.bot.name, avatar: data.bot.avatar === "" ? "/images/users/avatar-2.jpg" : data.bot.avatar, color: data.bot.color, index: botId })
                     setUserId(data.bot.user_id);
-                    setStartTime(data.bot.start_time);
-                    setEndTime(data.bot.end_time);
+                    // setStartTime(data.bot.start_time);
+                    // setEndTime(data.bot.end_time);
                     setIsLoading(false);
                     setExpiryTime();
                 })

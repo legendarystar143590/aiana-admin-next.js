@@ -13,7 +13,7 @@ import { isValidUrl } from "@/components/Pages/KnowledgeBasePage/validation"
 import CustomSwitch from "../CustomSwitch"
 import Avatar from "../Avatar"
 import CustomAutocomplete from "../CustomAutocomplete"
-import { setExpiryTime, isTimeBetween } from "../utils/common"
+import { setExpiryTime } from "../utils/common"
 import Spinner from "../Spinner"
 import SaveChangesButton from "../Buttons/SaveChangeButton"
 import CancelButton from "../Buttons/CancelButton"
@@ -203,15 +203,15 @@ const ChatbotForm = ({ bot }) => {
     setIsSaved(false)
   }
 
-  const handleTimeFromChange = (event) => {
-    setTimeFrom(event.target.value)
-    setIsSaved(false)
-  }
+  // const handleTimeFromChange = (event) => {
+  //   setTimeFrom(event.target.value)
+  //   setIsSaved(false)
+  // }
 
-  const handleTimeUntilChange = (event) => {
-    setTimeUntil(event.target.value)
-    setIsSaved(false)
-  }
+  // const handleTimeUntilChange = (event) => {
+  //   setTimeUntil(event.target.value)
+  //   setIsSaved(false)
+  // }
 
   const handleNameChange = (event) => {
     setNameInputValue(event.target.value)
