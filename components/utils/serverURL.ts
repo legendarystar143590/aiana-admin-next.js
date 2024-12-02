@@ -1,6 +1,6 @@
 // export const SERVER_API = "https://b243-194-87-199-27.ngrok-free.app"
-// export const SERVER_API = "https://1860-88-99-89-235.ngrok-free.app"
-export const SERVER_API = "https://bck.aiana.io"
+export const SERVER_API = "https://265a-194-87-199-27.ngrok-free.app"
+// export const SERVER_API = "https://bck.aiana.io"
 
 export const SERVER_API_URL = `${SERVER_API}/api`
 
@@ -45,6 +45,7 @@ export const AUTH_API = {
   GET_WEBSITES: `${SERVER_API_URL}/get_websites`,
   CREATE_CUSTOMER:`${SERVER_API}/sub`,
   GET_UPGRADE_URL:`${SERVER_API}/create_new_url`,
+  CREATE_CHECKOUT_SESSION:`${SERVER_API}/create-checkout-session`,
   GET_BILLING_INFO:`${SERVER_API_URL}/get_billing_info`,
   SEND_VERIFICATION_LINK:`${SERVER_API_URL}/send_verification_link`,
   VERIFY_EMAIL:`${SERVER_API_URL}/email_verification`,

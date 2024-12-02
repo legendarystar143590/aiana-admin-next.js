@@ -41,7 +41,7 @@ const Website = ({ urls, setUrls, websiteRef, setIsSaved }) => {
   }
 
   const handleUrlAdd = () => {
-    if (isValidKnolwedgeUrl(urlInputValue)) {
+    if ( isValidKnolwedgeUrl(urlInputValue)) {
       const newWebsite: WebsiteObject = {
         created_at: formatMySQLDateTime(new Date()),
         id: urls.length, //

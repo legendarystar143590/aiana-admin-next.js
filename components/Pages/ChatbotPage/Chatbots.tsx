@@ -250,7 +250,7 @@ const Chatbots = () => {
                 </div>                
                 <div className="group relative w-full flex flex-row justify-between">
                   <p className="text-gray-400">Status</p>
-                  {isTimeBetween(bot.start_time, bot.end_time) && bot.active ? (
+                  {bot.active ? (
                     <div className="border border-gray-300 rounded-full flex flex-row items-center justify-center px-1 gap-2">
                       <div className="bg-green-600 border rounded-full p-1">
                         <FaCheck className="text-gray-100 size-2" />
