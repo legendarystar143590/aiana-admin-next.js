@@ -11,9 +11,10 @@ interface CardProps {
   features:string[];
   iconImage:string;
   buttonText:string;
+  priceId:string;
 }
 
-const Card: React.FC<CardProps> = ({ title, description, price, features, iconImage, buttonText }) => {
+const Card: React.FC<CardProps> = ({ title, description, price, features, iconImage, buttonText, priceId }) => {
     const router = useRouter()
     const [billingPlan, setBillingPlan] = useState("")
     const [email, setEmail] = useState("")
@@ -36,17 +37,18 @@ const Card: React.FC<CardProps> = ({ title, description, price, features, iconIm
       }
     }, [])
 
-    const handleSubscribeClick = async() => {
-      const response = await fetch((`${AUTH_API.GET_UPGRADE_URL}`),{
+    const handleSubscribeClick = async(priceId:string) => {
+      const response = await fetch((`${AUTH_API.CREATE_CHECKOUT_SESSION}`),{
         method:"POST",
         headers:{
           'Content-Type': 'application/json',
           'ngrok-skip-brower-warning': "1",
         },
-        body: JSON.stringify({email})
+        body: JSON.stringify({userEmail:email, priceId:priceId})
       });
       const data = await response.json();
-      window.open(`${data.sessionId}`, '_blank');
+      console.log(data)
+      window.open(data.session_url, '_blank');
     }
 
   return (
@@ -73,7 +75,7 @@ const Card: React.FC<CardProps> = ({ title, description, price, features, iconIm
             className={`w-full ${billingPlan !== price ? 'bg-black text-white' : 'bg-white text-black cursor-default'} text-[14px] py-2 rounded-lg`}
             onClick={()=>{
               if (billingPlan !== price) {
-                handleSubscribeClick()
+                handleSubscribeClick(priceId)
                 // router.push("/signin")
               }
             }}
