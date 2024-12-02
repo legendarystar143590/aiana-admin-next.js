@@ -1,29 +1,31 @@
-import { useState } from 'react';
+interface StripePageProps {
+  sessionId:string
+}
 
-export default function StripePage() {
-  const [sessionId, setSessionId] = useState(null);
+export default function StripePage({sessionId}:StripePageProps) {
+  // const [sessionId, setSessionId] = useState(null);
   const stripePublishableKey = process.env.STRIPE_PUBLISHABLE_KEY;
-  const userEmail = localStorage.getItem('email');
-  const handleSubscribe = async (priceId) => {
-    try {
-      const response = await fetch('/api/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ priceId, customerEmail: userEmail }), // Send email if available
-      });
+  // const userEmail = localStorage.getItem('email');
+  // const handleSubscribe = async (priceId) => {
+  //   try {
+  //     const response = await fetch('/api/create-checkout-session', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ priceId, customerEmail: userEmail }), // Send email if available
+  //     });
 
-      const data = await response.json();
-      if (data.sessionId) {
-        setSessionId(data.sessionId);
-      } else {
-        console.error('Error creating checkout session:', data.error);
-      }
-    } catch (error) {
-      console.error('Error creating checkout session:', error);
-    }
-  };
+  //     const data = await response.json();
+  //     if (data.sessionId) {
+  //       setSessionId(data.sessionId);
+  //     } else {
+  //       console.error('Error creating checkout session:', data.error);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error creating checkout session:', error);
+  //   }
+  // };
 
   return (
     <div>
