@@ -37,14 +37,14 @@ const Card: React.FC<CardProps> = ({ title, description, price, features, iconIm
       }
     }, [])
 
-    const handleSubscribeClick = async(price_id:string) => {
+    const handleSubscribeClick = async(priId:string) => {
       const response = await fetch((`${AUTH_API.CREATE_CHECKOUT_SESSION}`),{
         method:"POST",
         headers:{
           'Content-Type': 'application/json',
           'ngrok-skip-brower-warning': "1",
         },
-        body: JSON.stringify({userEmail:email, priceId:price_id})
+        body: JSON.stringify({userEmail:email, priceId:priId})
       });
       const data = await response.json();
       console.log(data)
