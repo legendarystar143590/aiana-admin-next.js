@@ -44,7 +44,7 @@ const Card: React.FC<CardProps> = ({ title, description, price, features, iconIm
           'Content-Type': 'application/json',
           'ngrok-skip-brower-warning': "1",
         },
-        body: JSON.stringify({userEmail:email, priceId:priId})
+        body: JSON.stringify({email, priceId:priId})
       });
       const data = await response.json();
       console.log(data)
