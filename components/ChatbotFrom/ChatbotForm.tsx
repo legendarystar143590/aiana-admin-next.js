@@ -13,7 +13,7 @@ import { isValidUrl } from "@/components/Pages/KnowledgeBasePage/validation"
 import CustomSwitch from "../CustomSwitch"
 import Avatar from "../Avatar"
 import CustomAutocomplete from "../CustomAutocomplete"
-import { setExpiryTime, isTimeBetween } from "../utils/common"
+import { setExpiryTime } from "../utils/common"
 import Spinner from "../Spinner"
 import SaveChangesButton from "../Buttons/SaveChangeButton"
 import CancelButton from "../Buttons/CancelButton"
@@ -203,15 +203,15 @@ const ChatbotForm = ({ bot }) => {
     setIsSaved(false)
   }
 
-  const handleTimeFromChange = (event) => {
-    setTimeFrom(event.target.value)
-    setIsSaved(false)
-  }
+  // const handleTimeFromChange = (event) => {
+  //   setTimeFrom(event.target.value)
+  //   setIsSaved(false)
+  // }
 
-  const handleTimeUntilChange = (event) => {
-    setTimeUntil(event.target.value)
-    setIsSaved(false)
-  }
+  // const handleTimeUntilChange = (event) => {
+  //   setTimeUntil(event.target.value)
+  //   setIsSaved(false)
+  // }
 
   const handleNameChange = (event) => {
     setNameInputValue(event.target.value)
@@ -322,13 +322,13 @@ const ChatbotForm = ({ bot }) => {
     setMessages([...messages, newMessage])
     setInput("")
 
-    if (!isTimeBetween(timeFrom, timeUntil)) {
-      // toast.error(`${toa('Its_not_the_time_to_be_active_for_this_assistant')}`, {
-      //   position: toast.POSITION.TOP_RIGHT,
-      // })
-      // return
-      console.log(`Time between ${timeFrom} and ${timeUntil}`)
-    }
+    // if (!isTimeBetween(timeFrom, timeUntil)) {
+    //   // toast.error(`${toa('Its_not_the_time_to_be_active_for_this_assistant')}`, {
+    //   //   position: toast.POSITION.TOP_RIGHT,
+    //   // })
+    //   // return
+    //   console.log(`Time between ${timeFrom} and ${timeUntil}`)
+    // }
     const createdAt = new Date().toLocaleDateString("en-US", options)
 
     // console.log(createdAt)
@@ -568,7 +568,7 @@ const ChatbotForm = ({ bot }) => {
               />
             </div>
             <div className="flex flex-row max-lg:flex-col w-full gap-8">
-              <div className="flex flex-col justify-between md:w-1/2 w-full">
+              {/* <div className="flex flex-col justify-between md:w-1/2 w-full">
                 <div>
                   <p className="font-bold">{t('Timing')}</p>
                 </div>
@@ -582,7 +582,7 @@ const ChatbotForm = ({ bot }) => {
                   />
                 </div>
 
-              </div>
+              </div> */}
               <div className="flex flex-col justify-between md:w-1/2 w-full relative">
                 <div className="flex flex-col">
                   <p className="font-bold mb-2 sm:mt-0 mt-4">{t('Color')}</p>

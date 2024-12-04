@@ -6,7 +6,7 @@ import Image from "next/image"
 import { FaCaretDown } from "react-icons/fa"
 import { useTranslations } from "next-intl"
 import { AUTH_API } from "@/components/utils/serverURL"
-import { isTimeBetween } from "@/components/utils/common"
+// import { isTimeBetween } from "@/components/utils/common"
 import { customerToast } from "@/components/Toast"
 import Spinner from "@/components/Spinner"
 import Avatar from "../../Avatar"
@@ -27,8 +27,8 @@ const options: Intl.DateTimeFormatOptions = {
 const ChatPage = ({
   userId,
   userIndex,
-  startTime,
-  endTime,
+  // startTime,
+  // endTime,
   botId,
   botName,
   color,
@@ -87,13 +87,13 @@ const ChatPage = ({
     setMessages([...messages, newMessage])
     setInput("")
 
-    if (!isTimeBetween(startTime, endTime)) {
-      // toast.error(`${toa('Its_not_the_time_to_be_active_for_this_assistant')}`, {
-      //   position: toast.POSITION.TOP_RIGHT,
-      // })
-      // return
-      console.log(`Time between ${startTime} and ${endTime}`)
-    }
+    // if (!isTimeBetween(startTime, endTime)) {
+    //   // toast.error(`${toa('Its_not_the_time_to_be_active_for_this_assistant')}`, {
+    //   //   position: toast.POSITION.TOP_RIGHT,
+    //   // })
+    //   // return
+    //   console.log(`Time between ${startTime} and ${endTime}`)
+    // }
     const createdAt = new Date().toLocaleDateString("en-US", options)
 
     // console.log(createdAt)
