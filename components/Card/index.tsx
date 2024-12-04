@@ -14,40 +14,42 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ title, description, price, features, iconImage, buttonText }) => {
-    const router = useRouter()
-    const [billingPlan, setBillingPlan] = useState("")
-    const [email, setEmail] = useState("")
-    useEffect(()=>{
-      const plan = localStorage.getItem("plan");
-      setEmail(localStorage.getItem("email")!)
-      console.log(plan)
-      if(plan) {
-        if(plan==='aiana_try'){
-          setBillingPlan('0')
-        } else if(plan==='aiana_essentials'){
-          setBillingPlan('29')
-        } else if(plan==='aiana_advanced'){
-          setBillingPlan('49')
-        } else {
-          setBillingPlan('')
-        }
+  const router = useRouter()
+  const [billingPlan, setBillingPlan] = useState("")
+  const [email, setEmail] = useState("")
+  useEffect(()=>{
+    const plan = localStorage.getItem("plan");
+    setEmail(localStorage.getItem("email")!)
+    console.log(plan)
+    if(plan) {
+      if(plan==='aiana_try'){
+        setBillingPlan('0')
+      } else if(plan==='aiana_essentials'){
+        setBillingPlan('29')
+      } else if(plan==='aiana_advanced'){
+        setBillingPlan('49')
       } else {
-        router.push("/signin")
+        setBillingPlan('')
       }
-    }, [])
-
-    const handleSubscribeClick = async() => {
-      const response = await fetch((`${AUTH_API.GET_UPGRADE_URL}`),{
-        method:"POST",
-        headers:{
-          'Content-Type': 'application/json',
-          'ngrok-skip-brower-warning': "1",
-        },
-        body: JSON.stringify({email})
-      });
-      const data = await response.json();
-      window.open(`${data.sessionId}`, '_blank');
+    } else {
+      router.push("/signin")
     }
+  }, [])
+
+  const handleSubscribeClick = async() => {
+    const response = await fetch((`${AUTH_API.GET_UPGRADE_URL}`),{
+      method:"POST",
+      headers:{
+        'Content-Type': 'application/json',
+        'ngrok-skip-brower-warning': "1",
+      },
+      body: JSON.stringify({email})
+    });
+    const data = await response.json();
+    // console.log(data.sessionId)
+    router.push(`${data.sessionId}`)
+    // window.open(`${data.sessionId}`, '_blank');
+  }
 
   return (
     <div className="relative rounded-xl border-gray-200 border p-5 m-4 flex flex-col gap-3 pt-[70px] h-full">
