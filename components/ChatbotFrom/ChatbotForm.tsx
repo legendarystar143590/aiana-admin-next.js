@@ -243,7 +243,7 @@ const ChatbotForm = ({ bot }) => {
   const isValidName = (name: string): boolean => {
     console.log("name checker")
     // Check if name is not empty, starts with a letter, ends with a letter, and contains only letters and spaces
-    return /^[A-Za-z][A-Za-z\s]*[A-Za-z]$/.test(name.trim());
+    return /^[A-Za-z0-9][A-Za-z0-9\s]*[A-Za-z0-9]$/.test(name);
   };
 
   const handleSubmit = async () => {
@@ -257,7 +257,7 @@ const ChatbotForm = ({ bot }) => {
       customerToast({type:'error', title: `${toa('Name_must_start_and_end_with_a_letter_and_contain_only_letters_and_spaces')}`, content: ""})
       return
     }
-    if (!isValidUrl(urlInputValue)) {
+    if (!isValidUrl(urlInputValue) && urlInputValue !== undefined) {
       customerToast({type:'error', title: 'Invalid Domain. ', content: "Please enter a valid Domain. ex:https://example.com"})
       return
     }
@@ -301,11 +301,16 @@ const ChatbotForm = ({ bot }) => {
       customerToast({type:'success',title:`${ bot === "-1" ? toa('Successfully_Created') : toa('Successfully_updated')}`, content:''})
       setRegisteredWebsite(website.domain)
     } catch (error) {
+      console.log("error", error)
       setExpiryTime();
       setIsSaving(false)
-      if(error.response && error.response.status === 403){
+      if(error.response && error.response.status === 500){
 
-        customerToast({type:'error', title: `${bot === "-1" ? 'You need to upgrade to create more bots' : toa('Successfully_updated')}`, content: ""})
+        customerToast({type:'error', title: `${bot === "-1" ? 'You need to upgrade to create more bots' : error.response.data.error}`, content: ""})
+      }
+      if(error.response && error.response.status === 400){
+        console.log(error.response.data.error)
+        customerToast({type:'error', title: `${bot === "-1" ? 'You need to upgrade to create more bots' : error.response.data.error}`, content: ""})
       }
       if (error.response && error.response.status === 401) {
         // Redirect to the sign-in page if the response status is 401
