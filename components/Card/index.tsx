@@ -48,7 +48,7 @@ const Card: React.FC<CardProps> = ({ title, description, price, features, iconIm
       });
       const data = await response.json();
       console.log(data)
-      window.open(data.session_url, '_blank');
+      window.open(data.sessionId, '_blank');
     }
 
   return (
