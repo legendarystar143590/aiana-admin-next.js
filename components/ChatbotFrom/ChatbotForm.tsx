@@ -412,11 +412,11 @@ const ChatbotForm = ({ bot }) => {
     setShowForm(false) // Hide the form after submission
     setIsBook(false)
     const createdAt = new Date().toLocaleDateString("en-US", options)
-
+    const botId = bot;
     axios
       .post(
         AUTH_API.BOOK,
-        { userIndex, sessionId, bot, email, content, website: null, createdAt },
+        {botId, userIndex, sessionId, email, content, website: null, createdAt },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`, // Example for adding Authorization header

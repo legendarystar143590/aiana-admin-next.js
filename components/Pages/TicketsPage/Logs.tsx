@@ -218,7 +218,7 @@ const Logs = ({ session,setSession, tickets, setTickets, botAvatar, ticketConten
                       {conv.response}
                     </div>
                     <Avatar
-                      src={botAvatar !== "" ? botAvatar : "/images/icon_bot_avatar.png"}
+                      src={botAvatar || "/images/icon_bot_avatar.png"}
                       name="avatar"
                       className="rounded-full size-12"
                     />
@@ -238,7 +238,7 @@ const Logs = ({ session,setSession, tickets, setTickets, botAvatar, ticketConten
                     {ticketContent}
                   </div>
                   <Avatar
-                    src={botAvatar !== "" ? botAvatar : "/images/icon_bot_avatar.png"}
+                    src={botAvatar || "/images/icon_bot_avatar.png"}
                     name="avatar"
                     className="rounded-full size-12"
                   />

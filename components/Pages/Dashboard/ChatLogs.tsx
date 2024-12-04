@@ -83,6 +83,7 @@ const ChatLogs = ({chatLog, setSession, setChatLog, setBotAvatar}) => {
   }, [chatLog])
 
   const handleRowClick = (sessionId, botAvatar) => {
+    console.log("botAvatar", botAvatar);
     setSession(sessionId);
     setBotAvatar(botAvatar);
   }

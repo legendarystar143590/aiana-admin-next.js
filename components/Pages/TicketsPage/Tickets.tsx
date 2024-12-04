@@ -80,6 +80,7 @@ const Tickets = ({setSession, tickets, setTickets, setBotAvatar, setTicketConten
   },[tickets]);
 
   const handleRowClick = (sessionId, botAvatar, content, ticketId) => {
+    console.log("botAvatar:", botAvatar);
     setSession(sessionId);
     setBotAvatar(botAvatar);
     setTicketContent(content);
@@ -123,10 +124,10 @@ const Tickets = ({setSession, tickets, setTickets, setBotAvatar, setTicketConten
           <React.Fragment key={row.id}>
             <div  
               className="flex flex-row w-full cursor-pointer border-y py-6"  
-              onClick={() => handleRowClick(row.session_id, row.bot_avatar, row.content, row.id)}  
+              onClick={() => handleRowClick(row.sessoin_id, row.bot_avatar, row.content, row.id)}  
               onKeyDown={(e) => {  
                 if (e.key === 'Enter' || e.key === ' ') {  
-                  handleRowClick(row.session_id, row.bot_avatar, row.content, row.id);  
+                  handleRowClick(row.sessoin_id, row.bot_avatar, row.content, row.id);  
                   e.preventDefault(); // Prevent scrolling when space is pressed  
                 }  
               }}  
