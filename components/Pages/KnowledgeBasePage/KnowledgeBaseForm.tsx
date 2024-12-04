@@ -287,7 +287,7 @@ const KnowledgeBaseForm = ({ baseId }) => {
         <div className="w-full">
           {value === 0 && <Document documents={documents} documentRef={documentRef} setDocuments={setDocuments} setFiles={setFiles} setIsSaved={setIsSaved} />}
           {value === 1 && <Website urls={urls} setUrls={setUrls} websiteRef={urlsRef} setIsSaved={setIsSaved}/>}
-          {value === 2 && <Text questionAnswers={questionAnswers} setQuestionAnswers={setQuestionAnswers} setIsSaved={setIsSaved}/>}
+          {value === 2 && <Text questionAnswers={questionAnswers} qaRef={qaRef} setQuestionAnswers={setQuestionAnswers} setIsSaved={setIsSaved}/>}
         </div>
       </div>
       <div className="w-full flex sm:flex-row flex-col-reverse items-center justify-end gap-5 sm:px-7 px-3 pt-5">
