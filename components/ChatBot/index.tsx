@@ -148,7 +148,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
             .catch((error) => {
                 setInput("");
                 if(error.response && error.response.status === 403){
-                    if(error.response.data === "Unregistered domain") {
+                    if(error.response.data.message === "Unregistered domain") {
                         customerToast({type:'error', title: "Unregistered domain!", content: ""})
                     } else {
                         customerToast({type:'error', title: "You need to upgrade to ask more questions to the bot", content: ""})
@@ -156,7 +156,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                 }
                 if (error.response) {
                     console.log('Error status code:', error.response.status);
-                    console.log('Error response data:', error.response.data);
+                    console.log('Error response data message:', error.response.data.message);
                     // Handle the error response as needed
                 } else if (error.request) {
                     // The request was made but no response was received

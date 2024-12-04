@@ -257,7 +257,8 @@ const ChatbotForm = ({ bot }) => {
       customerToast({type:'error', title: `${toa('Name_must_start_and_end_with_a_letter_and_contain_only_letters_and_spaces')}`, content: ""})
       return
     }
-    if (!isValidUrl(urlInputValue) && urlInputValue !== undefined) {
+    console.log("urlInputValue", urlInputValue)
+    if (!isValidUrl(urlInputValue) && urlInputValue !== undefined && urlInputValue !== "") {
       customerToast({type:'error', title: 'Invalid Domain. ', content: "Please enter a valid Domain. ex:https://example.com"})
       return
     }
