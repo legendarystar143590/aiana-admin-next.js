@@ -8,7 +8,7 @@ import { AUTH_API } from "@/components/utils/serverURL"
 import QustionAnswerComponent from "@/components/QuestionAnswer/index"
 import { customerToast } from "@/components/Toast";
 
-const Text = ({ questionAnswers, setQuestionAnswers, setIsSaved }) => {
+const Text = ({ questionAnswers, qaRef, setQuestionAnswers, setIsSaved }) => {
   const router = useRouter();
   const t = useTranslations('knowledge')
   const toa = useTranslations('toast')
@@ -31,47 +31,56 @@ const Text = ({ questionAnswers, setQuestionAnswers, setIsSaved }) => {
   }
 
   const handleDeleteQA = (id, index) => {
-    axios
-      .post(AUTH_API.DELETE_TEXT, { id },
-        {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
-            'Content-Type': 'application/json',  // Explicitly defining the Content-Type
-            'ngrok-skip-browser-warning': "1",
+    const questionsArray = qaRef.current;
+    const questionExists = questionsArray.some(question => question.id === id);
+    if(questionExists){
+      axios
+        .post(AUTH_API.DELETE_TEXT, { id },
+          {
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Example for adding Authorization header
+              'Content-Type': 'application/json',  // Explicitly defining the Content-Type
+              'ngrok-skip-browser-warning': "1",
+            }
+          })
+        .then((response) => {
+          if (response.status === 201) {
+            customerToast({type:'success',title:`${toa('Successfully_deleted!')}`, content:''})
+          } else {
+            customerToast({type:'error', title: `${toa('Invalid_Request')}`, content: ""})
           }
         })
-      .then((response) => {
-        if (response.status === 201) {
-          customerToast({type:'success',title:`${toa('Successfully_deleted!')}`, content:''})
-        } else {
-          customerToast({type:'error', title: `${toa('Invalid_Request')}`, content: ""})
-        }
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log('Error status code:', error.response.status);
-          console.log('Error response data:', error.response.data);
-          if (error.response.status === 401) {
-            customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
+        .catch((error) => {
+          if (error.response) {
+            console.log('Error status code:', error.response.status);
+            console.log('Error response data:', error.response.data);
+            if (error.response.status === 401) {
+              customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
 
-            router.push("/signin")
+              router.push("/signin")
+            }
+            // Handle the error response as needed
+          } else if (error.request) {
+            // The request was made but no response was received
+            console.log('Error request:', error.request);
+            customerToast({type:'error', title: `${error.request}`, content: ""})
+
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error message:', error.message);
+            customerToast({type:'error', title: `${error.message}`, content: ""})
+
           }
-          // Handle the error response as needed
-        } else if (error.request) {
-          // The request was made but no response was received
-          console.log('Error request:', error.request);
-          customerToast({type:'error', title: `${error.request}`, content: ""})
-
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          console.log('Error message:', error.message);
-          customerToast({type:'error', title: `${error.message}`, content: ""})
-
-        }
-      });
-    const updatedQuestionAnswers = questionAnswers.filter((_, i) => i !== index)
-    setQuestionAnswers(updatedQuestionAnswers)
-    setIsSaved(false);
+        });
+      const updatedQuestionAnswers = questionAnswers.filter((_, i) => i !== index)
+      setQuestionAnswers(updatedQuestionAnswers)
+      setIsSaved(false);
+    }
+    else {
+      const updatedQuestionAnswers = questionAnswers.filter((_, i) => i !== index)
+      setQuestionAnswers(updatedQuestionAnswers)
+      setIsSaved(false);
+    }
   }
 
   return (

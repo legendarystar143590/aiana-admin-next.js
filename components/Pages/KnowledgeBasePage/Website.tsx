@@ -127,7 +127,7 @@ const Website = ({ urls, setUrls, websiteRef, setIsSaved }) => {
   }
 
   return (
-    <div className="w-full overflow-y-auto p-10">
+    <div className="w-full overflow-y-auto px-7">
       <div className="text-left bg-blue-100 py-2 rounded-lg">
         <span className="text-[#343434] text-sm text-left px-3">
           <FaInfoCircle className="text-blue-500 size-5 inline-block mr-3" />
