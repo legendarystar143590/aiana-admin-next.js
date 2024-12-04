@@ -271,7 +271,7 @@ const Chatbots = () => {
             </div>
           </div>
         ))}
-        {/* <Script src="https://login.aiana.io/aiana.js" data-user-id="b33417f7-37c8-4ab8-b30c-5176225f6be0" data-bot-id="74c9fd11-8e0a-4c62-bf4b-2c78be389c4d"/>        */}
+        {/* <Script src="https://login.aiana.io/aiana.js" data-user-id="c6c992d5-380f-48b4-8646-367e4f841faf" data-bot-id="6ae52744-5f34-4982-8109-4c13f4814f64"/> */}
       </div>
       <AlertDialog
         title={`${t("Confirm_Delete")}`}
