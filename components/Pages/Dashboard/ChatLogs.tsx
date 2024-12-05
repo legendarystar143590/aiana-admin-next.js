@@ -96,23 +96,23 @@ const ChatLogs = ({chatLog, setSession, setChatLog, setBotAvatar}) => {
 
   return (
     <div className="w-full h-full">
-      <div className="w-full h-full">
-        <div className="h-[10%] flex items-center justify-between">
-          <h3 className="font-bold text-2xl truncate">{t('Chatlogs')}</h3>
-          <div className="flex flex-row gap-3">
-            <div className={`${isClickedSearchBar?"px-3 py-1 gap-2":"p-3"} w-auto flex flex-row border border-gray-300 rounded-full`}>
-              <input type="text" value={searchValue} onChange={(e)=>{setSearchValue(e.target.value)}} className={`${isClickedSearchBar?"block":"hidden"} rounded-xl text-base py-1`}/>
-              <button type="button" onClick={()=>setIsClickedSearchBar(!isClickedSearchBar)} aria-label="Search Button">
-                <FaSearch />
-              </button>            
-            </div>
-            <div className={`${isClickedFilterBar?"px-3 py-1 gap-2":"p-3"} w-auto flex flex-row border border-gray-300 rounded-full`}>
-              <button type="button" onClick={()=>setIsclickedFilterBar(!isClickedFilterBar)} aria-label="Filter Button">
-                <FaFilter />
-              </button>
-            </div>
+      <div className="h-[10%] flex items-center justify-between">
+        <h3 className="font-bold text-2xl truncate">{t('Chatlogs')}</h3>
+        <div className="flex flex-row gap-3">
+          <div className={`${isClickedSearchBar?"px-3 py-1 gap-2":"p-3"} w-auto flex flex-row border border-gray-300 rounded-full`}>
+            <input type="text" value={searchValue} onChange={(e)=>{setSearchValue(e.target.value)}} className={`${isClickedSearchBar?"block":"hidden"} rounded-xl text-base py-1`}/>
+            <button type="button" onClick={()=>setIsClickedSearchBar(!isClickedSearchBar)} aria-label="Search Button">
+              <FaSearch />
+            </button>            
           </div>
-        </div>      
+          <div className={`${isClickedFilterBar?"px-3 py-1 gap-2":"p-3"} w-auto flex flex-row border border-gray-300 rounded-full`}>
+            <button type="button" onClick={()=>setIsclickedFilterBar(!isClickedFilterBar)} aria-label="Filter Button">
+              <FaFilter />
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="w-full h-[90%] overflow-auto">              
         {results.length !== 0 ? (results.map((row)=>(          
           <React.Fragment key={row.id}>
             <div  
@@ -140,7 +140,7 @@ const ChatLogs = ({chatLog, setSession, setChatLog, setBotAvatar}) => {
           </React.Fragment>
         ))
         ) : 
-          <div className="flex flex-row w-full h-[90%] justify-center items-center border">
+          <div className="flex flex-row w-full justify-center items-center border">
             <div className="flex flex-col justify-center items-center text-center">
               <Image src="/images/icon_no_chat_logs.png" width={150} height={150} alt="No chat log."/>
               <p className="text-lg">No chat occured yet</p>
