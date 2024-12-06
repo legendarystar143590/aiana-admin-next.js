@@ -53,7 +53,7 @@ const ChatbotForm = ({ bot }) => {
   const [isSaving, setIsSaving] = useState(false);
   const [urlInputValue, setUrlInputValue] = useState("")
   const [isInitialMessaged, setIsInitialMessaged] = useState("")
-  const [isSuggestedMessaged, setIsSuggestedMessaged] = useState("")
+  // const [isSuggestedMessaged, setIsSuggestedMessaged] = useState("")
   const [input, setInput] = useState("")
   const [messages, setMessages] = useState([
     { id: uuidv4(), isBot: true, text: `${t('Hello_How_can_I_assist_you_today')}` },
@@ -552,7 +552,7 @@ const ChatbotForm = ({ bot }) => {
                 placeholder="e.g. Hello, this is your bot, let me know what I can help you with."              
               />
             </div>
-            <div className="flex flex-col ">
+            {/* <div className="flex flex-col ">
               <p className="font-bold mb-2">{t('Suggested_Messages')}</p>
               <textarea
                 id="suggestedmessage"
@@ -572,7 +572,7 @@ const ChatbotForm = ({ bot }) => {
                 className="w-full border border-[#D9D9D9] h-12 rounded-md"  
                 placeholder={t("Hello_this_is_your_bot_let_me_know_what_I_can_help_you_with")}           
               />
-            </div>
+            </div> */}
             <div className="flex flex-row max-lg:flex-col w-full gap-8">
               {/* <div className="flex flex-col justify-between md:w-1/2 w-full">
                 <div>
