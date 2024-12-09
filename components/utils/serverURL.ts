@@ -1,6 +1,6 @@
 // export const SERVER_API = "https://b243-194-87-199-27.ngrok-free.app"
-// export const SERVER_API = "https://1860-88-99-89-235.ngrok-free.app"
-export const SERVER_API = "https://bck.aiana.io"
+export const SERVER_API = "https://1860-88-99-89-235.ngrok-free.app"
+// export const SERVER_API = "https://bck.aiana.io"
 
 export const SERVER_API_URL = `${SERVER_API}/api`
 

@@ -52,7 +52,7 @@ const ChatbotForm = ({ bot }) => {
   const [isSaved, setIsSaved] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [urlInputValue, setUrlInputValue] = useState("")
-  const [isInitialMessaged, setIsInitialMessaged] = useState("")
+  // const [isInitialMessaged, setIsInitialMessaged] = useState("")
   // const [isSuggestedMessaged, setIsSuggestedMessaged] = useState("")
   const [input, setInput] = useState("")
   const [messages, setMessages] = useState([
@@ -143,7 +143,9 @@ const ChatbotForm = ({ bot }) => {
             setTimeUntil(data.bot_data.end_time)
             setUrlInputValue(data.website.domain)
             setRegisteredWebsite(data.website.domain) 
-            setIsBotId(data.bot_data.index)           
+            setIsBotId(data.bot_data.index)
+            // setIsInitialMessaged(data.bot_data.initial_message) 
+            // console.log("data.bot_data.initial_message", data.bot_data.initial_message)
             // setIsLoading(false);
           }
           setIsLoading(false)
@@ -275,6 +277,7 @@ const ChatbotForm = ({ bot }) => {
     formData.append("end_time", timeUntil)
     formData.append("website_domain", website.domain)
     formData.append("website_unique_id", website.uniqueId)
+    // formData.append("initial_message", isInitialMessaged)
     if (index === -1) {
       formData.append("knowledge_base", "-1")
     } else {
@@ -531,27 +534,29 @@ const ChatbotForm = ({ bot }) => {
                 </button>
               </div>              
             </div>
-            <div className="flex flex-col ">
+            {/* <div className="flex flex-col ">
               <p className="font-bold mb-2">{t('Initial_Messages')}</p>
               <textarea
                 id="initialmessage"
                 value={isInitialMessaged}
                 onChange={(e) => {
                   const sentences = e.target.value.split('\n');
+                  console.log("This is initial message", isInitialMessaged)
                   if (sentences.length <= 1) {
                     setIsInitialMessaged(e.target.value);
                   }
+                  setIsSaved(false)
                 }}
                 onKeyDown={(e) => {
-                  const sentences = isInitialMessaged.split('\n');
-                  if (e.key === 'Enter' && sentences.length >= 1) {
+                  // const sentences = isInitialMessaged.split('\n');
+                  if (e.key === 'Enter') {
                     e.preventDefault();
                   }
                 }}
                 className="w-full border border-[#D9D9D9] h-12 rounded-md"  
                 placeholder="e.g. Hello, this is your bot, let me know what I can help you with."              
               />
-            </div>
+            </div> */}
             {/* <div className="flex flex-col ">
               <p className="font-bold mb-2">{t('Suggested_Messages')}</p>
               <textarea
