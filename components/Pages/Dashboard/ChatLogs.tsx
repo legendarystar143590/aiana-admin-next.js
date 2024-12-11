@@ -140,7 +140,7 @@ const ChatLogs = ({chatLog, setSession, setChatLog, setBotAvatar}) => {
           </React.Fragment>
         ))
         ) : 
-          <div className="flex flex-row w-full justify-center items-center border">
+          <div className="flex flex-row w-full justify-center items-center border" style={{height: "-webkit-fill-available"}}>
             <div className="flex flex-col justify-center items-center text-center">
               <Image src="/images/icon_no_chat_logs.png" width={150} height={150} alt="No chat log."/>
               <p className="text-lg">No chat occured yet</p>
