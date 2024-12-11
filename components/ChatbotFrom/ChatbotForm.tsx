@@ -526,9 +526,9 @@ const ChatbotForm = ({ bot }) => {
                   onChange={handleUrlChange}
                   className="py-2 text-base rounded-md border-[#CFCFCF]" 
                   placeholder="e.g. www.aiana.com" 
-                  // readOnly
+                  readOnly={bot === "-1"}
                 />
-                <button type="button" className={`${urlInputValue === "" ? "bg-black" : "bg-green-400"} text-white px-4 py-2 rounded-md flex items-center gap-2`} onClick={handleEmbedClickButton}>
+                <button type="button" className={`${urlInputValue === "" ? "bg-black" : "bg-green-400"} text-white px-4 py-2 rounded-md flex items-center gap-2`} onClick={handleEmbedClickButton} disabled={bot === "-1"}>
                   <Image src={`/images/${urlInputValue === "" ? 'icon_link_url': 'icon_linked_url'}.png`} alt="Search" width={20} height={20} />
                   <span>Link Website</span>
                 </button>

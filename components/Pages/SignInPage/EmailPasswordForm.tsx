@@ -1,7 +1,7 @@
 import React from "react"
 import Link from "next/link"
 import router from "next/router"
-import Script from "next/script"
+// import Script from "next/script"
 
 import { loginUser } from "@/components/utils/common"
 import Spinner from "@/components/Spinner"
@@ -125,7 +125,8 @@ const EmailPasswordForm = () => {
           </div>
         </div>
       </div>
-      <Script src="https://login.aiana.io/aiana.js" data-user-id="c6c992d5-380f-48b4-8646-367e4f841faf" data-bot-id="6ae52744-5f34-4982-8109-4c13f4814f64"/>
+      {/* <Script src="https://login.aiana.io/aiana.js" data-user-id="c6c992d5-380f-48b4-8646-367e4f841faf" data-bot-id="6ae52744-5f34-4982-8109-4c13f4814f64"/> */}
+      {/* <Script src="https://login.aiana.io/aiana.js" data-user-id="c6c992d5-380f-48b4-8646-367e4f841faf" data-bot-id="fb39c0a0-1447-4f53-a7ee-d8083abf4984"/>       */}
     </div>
   )
 }
