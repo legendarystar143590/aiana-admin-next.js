@@ -312,9 +312,13 @@ const ChatbotForm = ({ bot }) => {
 
         customerToast({type:'error', title: `${bot === "-1" ? 'You need to upgrade to create more bots' : error.response.data.error}`, content: ""})
       }
-      if(error.response && error.response.status === 400){
+      if(error.response && error.response.status === 403){
         console.log(error.response.data.error)
         customerToast({type:'error', title: `${bot === "-1" ? 'You need to upgrade to create more bots' : error.response.data.error}`, content: ""})
+      }
+      if(error.response && error.response.status === 400){
+        console.log(error.response.data.error)
+        customerToast({type:'error', title: error.response.data.error, content: ""})
       }
       if (error.response && error.response.status === 401) {
         // Redirect to the sign-in page if the response status is 401
