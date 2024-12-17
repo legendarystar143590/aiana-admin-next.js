@@ -450,12 +450,12 @@ const Profile = () => {
           </div>
         </div>
         <div className="w-full flex sm:flex-row flex-col-reverse items-center justify-end gap-5 mt-3">
-        <button
-          type="button"
-          className="bg-white px-4 py-2 rounded-md bg-center bg-no-repeat max-sm:w-full text-gray-600 border border-gray-300"
-        >
-          {t('Cancel')}
-        </button>
+          <button
+            type="button"
+            className="bg-white px-4 py-2 rounded-md bg-center bg-no-repeat max-sm:w-full text-gray-600 border border-gray-300"
+          >
+            {t('Cancel')}
+          </button>
           <button
             type="button"
             className="bg-black max-sm:w-full px-4 py-2 text-white font-bold rounded-md"

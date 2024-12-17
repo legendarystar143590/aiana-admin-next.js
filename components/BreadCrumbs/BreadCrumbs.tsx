@@ -4,7 +4,9 @@ import { FaChevronRight } from 'react-icons/fa';
 
 const BreadCrumbs = () => {
     const iconObject = {  
-        "admin": "My Account",  
+        "admin": "My Account",
+        "users": "Users",
+        "user": "User",  
         "chatbot": "Chatbots",  
         "knowledge": "Knowledge Base",  
         "chatlogs": "Chatlogs",  
@@ -18,7 +20,9 @@ const BreadCrumbs = () => {
     };  
 
     const iconImageObject = {  
-        "admin": "icon_account_selected.png",  
+        "admin": "icon_account_selected.png",
+        "users": "icon_users.svg", 
+        "user": "icon_account_selected.png",
         "chatbot": "icon_chatbot_selected.png",  
         "knowledge": "icon_knowledge_selected.png",  
         "chatlogs": "icon_chatlogs_selected.png",  
@@ -65,7 +69,7 @@ const BreadCrumbs = () => {
                             </p>}
                             <button 
                                 type='button'
-                                onClick={() => router.push(`/${item}`)}
+                                onClick={() => {if(item !== "user") router.push(`/${item}`)}}
                             >
                                 {iconObject[item]}
                             </button>
