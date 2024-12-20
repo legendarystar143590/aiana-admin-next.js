@@ -382,6 +382,8 @@ const ChatbotForm = ({ bot }) => {
             customerToast({type:'error', title: `${toa('Session_Expired_Please_log_in_again')}`, content: ""})
 
             router.push("/signin")
+          } else {
+            customerToast({type:'error', title: `${error.response.data.error}`, content: ""})
           }
           // Handle the error response as needed
         } else if (error.request) {
