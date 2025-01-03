@@ -362,7 +362,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                                     box-shadow: none;
                                 }
                                 .send-button {
-                                    z-index: 5;
+                                    z-index: 15;
                                     pointer-events: none;
                                 }
                                 .send-button.active {
