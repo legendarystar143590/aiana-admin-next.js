@@ -258,8 +258,8 @@ const ChatBot = ({ userIndex, botId, website }) => {
                 <div
                     className={`flex flex-col overflow-auto rounded-2xl ${visibleClass}`}
                     style={{
-                        height: '600px',
-                        width: '400px',
+                        height: '610px',
+                        width: '410px',
                         background: `linear-gradient(to bottom, ${bot.color}, white)`,
                         border: '1px solid #ccc',
                         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',

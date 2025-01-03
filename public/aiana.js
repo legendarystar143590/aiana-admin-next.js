@@ -10,7 +10,7 @@
   iframe.id = "aiana";
   iframe.width = "410";
   iframe.height = "610";
-  iframe.frameBorder = "0";
+  iframe.frameBorder = "16";
   iframe.style = "position: fixed; bottom: 10px; right: 10px;"; // Example positioning
 
   // Add event listener to adjust iframe size based on message
@@ -18,7 +18,7 @@
     if (event.data.type === 'VISIBILITY_CHANGE') {
       if (event.data.isVisible) {
         iframe.style.width = '410px';
-        iframe.style.borderRadius = '0%';
+        iframe.style.borderRadius = '16px';
         iframe.style.height = '610px';
       } else {
         iframe.style.width = '50px';
