@@ -355,9 +355,18 @@ const ChatBot = ({ userIndex, botId, website }) => {
                                     border-radius: 4px;
                                     outline: none;
                                     box-sizing: border-box;
+                                    position: relative;
+                                    z-index: 10;
                                 }
                                 .custom-input:focus {
                                     box-shadow: none;
+                                }
+                                .send-button {
+                                    z-index: 5;
+                                    pointer-events: none;
+                                }
+                                .send-button.active {
+                                    pointer-events: auto;
                                 }
                                 `}
                             </style>
@@ -369,7 +378,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                                 onKeyDown={handleKeyDown}
                                 disabled={isLoading || isBook}
                             />
-                            <button type="button" className={`absolute bottom-1/2 translate-y-1/2 flex   rounded-full right-3 items-center ${isLoading ? "":"p-2 bg-black"}`} onClick={handleSendMessage}>
+                            <button type="button" className={`absolute bottom-1/2 translate-y-1/2 flex   rounded-full right-3 items-center send-button ${isLoading ? "":"p-2 bg-black"}`} onClick={handleSendMessage}>
                                 {isLoading ? <Spinner color="#A536FA" /> : <img src="/images/buttons/icon_send.png" alt="send" width={20} height={20} />}
                             </button>
                         </div>
