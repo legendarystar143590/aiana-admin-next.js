@@ -2,10 +2,46 @@ import { useState, useEffect, useRef } from 'react'
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import Image from 'next/image';
+import Markdown from "react-markdown"
+import remarkGfm from 'remark-gfm'
+import rehypeKatex from 'rehype-katex'
 import { AUTH_API } from '@/components/utils/serverURL';
 import { customerToast } from '../Toast';
 import Spinner from '../Spinner';
 import { setExpiryTime } from '../utils/common';
+
+interface LinkProps {
+    href?: string;
+    children?:React.ReactNode;
+}
+
+const component = {
+    a: ({href, children}: LinkProps) => {
+      // Check if URL ends with image extensions
+      const isImage = href?.match(/\.(jpg|jpeg|png|gif|webp)$/i);
+      
+      if (isImage) {
+        return (
+          <img 
+            src={href} 
+            alt={children?.toString() || 'Chat image'} 
+            className="max-w-[200px] rounded-lg my-2"
+          />
+        );
+      }
+      
+      return (
+        <a 
+          href={href} 
+          className="underline text-blue-700" 
+          target="_blank" 
+          rel="noopener noreferrer"
+        >
+          {children}
+        </a>
+      );
+    }
+  }
 
 const options: Intl.DateTimeFormatOptions = {
     weekday: 'short',
@@ -171,7 +207,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                 }
                 setIsLoading(false);
             });
-    };
+    };    
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -305,11 +341,19 @@ const ChatBot = ({ userIndex, botId, website }) => {
                                                 : "flex-row-reverse bg-gray-100 text-black border rounded-md border-gray-300"
                                                 }`}
                                         >
-                                            <div
+                                            <Markdown
+                                                className="flex-grow"
+                                                rehypePlugins={[rehypeKatex]}
+                                                remarkPlugins={[remarkGfm]}
+                                                components={component}
+                                            >
+                                                {message.text}
+                                            </Markdown>
+                                            {/* <div
                                                 className="flex-grow"
                                                 style={{ textAlign: message.isBot ? "left" : "right", overflowWrap: "break-word", wordBreak:'break-word' }}
                                                 dangerouslySetInnerHTML={{ __html: message.text }}
-                                            />
+                                            /> */}
                                         </div>
                                     </div>
                                 </div>
