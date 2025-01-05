@@ -19,34 +19,36 @@ interface LinkProps {
   children?:React.ReactNode;
 }
 
-const Messages = ({ message, avatarPreview }: OutputMessageProps) => {
-  const component = {
-    a: ({href, children}: LinkProps) => {
-      // Check if URL ends with image extensions
-      const isImage = href?.match(/\.(jpg|jpeg|png|gif|webp)$/i);
-      
-      if (isImage) {
-        return (
-          <img 
-            src={href} 
-            alt={children?.toString() || 'Chat image'} 
-            className="max-w-[200px] rounded-lg my-2"
-          />
-        );
-      }
-      
+const component = {
+  a: ({href, children}: LinkProps) => {
+    // Check if URL ends with image extensions
+    const isImage = href?.match(/\.(jpg|jpeg|png|gif|webp)$/i);
+    
+    if (isImage) {
       return (
-        <a 
-          href={href} 
-          className="underline text-blue-700" 
-          target="_blank" 
-          rel="noopener"
-        >
-          {children}
-        </a>
+        <img 
+          src={href} 
+          alt={children?.toString() || 'Chat image'} 
+          className="max-w-[200px] rounded-lg my-2"
+        />
       );
     }
+    
+    return (
+      <a 
+        href={href} 
+        className="underline text-blue-700" 
+        target="_blank" 
+        rel="noopener"
+      >
+        {children}
+      </a>
+    );
   }
+}
+
+const Messages = ({ message, avatarPreview }: OutputMessageProps) => {
+  
   return(
     <div
       key={message.id}

@@ -15,6 +15,34 @@ interface LinkProps {
     children?:React.ReactNode;
 }
 
+const component = {
+    a: ({href, children}: LinkProps) => {
+      // Check if URL ends with image extensions
+      const isImage = href?.match(/\.(jpg|jpeg|png|gif|webp)$/i);
+      
+      if (isImage) {
+        return (
+          <img 
+            src={href} 
+            alt={children?.toString() || 'Chat image'} 
+            className="max-w-[200px] rounded-lg my-2"
+          />
+        );
+      }
+      
+      return (
+        <a 
+          href={href} 
+          className="underline text-blue-700" 
+          target="_blank" 
+          rel="noopener"
+        >
+          {children}
+        </a>
+      );
+    }
+  }
+
 const options: Intl.DateTimeFormatOptions = {
     weekday: 'short',
     year: 'numeric',
@@ -179,35 +207,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                 }
                 setIsLoading(false);
             });
-    };
-
-    const component = {
-        a: ({href, children}: LinkProps) => {
-          // Check if URL ends with image extensions
-          const isImage = href?.match(/\.(jpg|jpeg|png|gif|webp)$/i);
-          
-          if (isImage) {
-            return (
-              <img 
-                src={href} 
-                alt={children?.toString() || 'Chat image'} 
-                className="max-w-[200px] rounded-lg my-2"
-              />
-            );
-          }
-          
-          return (
-            <a 
-              href={href} 
-              className="underline text-blue-700" 
-              target="_blank" 
-              rel="noopener"
-            >
-              {children}
-            </a>
-          );
-        }
-      }
+    };    
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
