@@ -10,7 +10,6 @@
   iframe.id = "aiana";
   iframe.width = "410";
   iframe.height = "610";
-  iframe.frameBorder = "16";
   iframe.style = "position: fixed; bottom: 10px; right: 10px;"; // Example positioning
 
   // Add event listener to adjust iframe size based on message
