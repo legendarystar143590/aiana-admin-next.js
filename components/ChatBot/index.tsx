@@ -172,7 +172,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
             .then((response) => {
                 if (response.status === 200) {
                     const { message, solve } = response.data;
-                    const botResponse = { id: uuidv4(), text: message.replace(/\n/g, '<br>'), isBot: true };
+                    const botResponse = { id: uuidv4(), text: message.replace(/\n|<br>/g, '<br>'), isBot: true };
                     setMessages(prevMessages => [...prevMessages, botResponse]);
                     if (!solve) {
                         setShowYesNo(true); // Show the form if solve is false
@@ -344,7 +344,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                                                 }`}
                                         >
                                             <Markdown
-                                                className="flex-grow"
+                                                className="flex-grow max-w-[250px]"
                                                 rehypePlugins={[rehypeKatex]}
                                                 remarkPlugins={[remarkGfm]}
                                                 components={component}
