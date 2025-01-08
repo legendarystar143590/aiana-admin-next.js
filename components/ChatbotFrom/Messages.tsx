@@ -82,7 +82,7 @@ const Messages = ({ message, avatarPreview }: OutputMessageProps) =>
       }`}
     >
       <Markdown
-        className="flex-grow"
+        className="flex-grow max-w-[250px]"
         rehypePlugins={[rehypeKatex]}
         remarkPlugins={[remarkGfm]}
         components={component}

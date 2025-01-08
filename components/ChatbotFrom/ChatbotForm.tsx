@@ -362,7 +362,7 @@ const ChatbotForm = ({ bot }) => {
       .then((response) => {
         if (response.status === 200) {
           const { message, solve } = response.data
-          const botResponse = { id: uuidv4(), text: message.replace(/\n/g, '<br>'), isBot: true }
+          const botResponse = { id: uuidv4(), text: message.replace(/\n/g, '\n'), isBot: true }
           // console.log("Bot response:", registered_website)
           setMessages((prevMessages) => [...prevMessages, botResponse])
           if (!solve) {
