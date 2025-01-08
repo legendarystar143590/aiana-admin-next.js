@@ -344,7 +344,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                                                 }`}
                                         >
                                             <Markdown
-                                                className="flex-grow"
+                                                className="flex-grow max-w-[250px]"
                                                 rehypePlugins={[rehypeKatex]}
                                                 remarkPlugins={[remarkGfm]}
                                                 components={component}
