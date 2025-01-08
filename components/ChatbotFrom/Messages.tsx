@@ -21,16 +21,28 @@ interface LinkProps {
 
 const component = {
   a: ({href, children}: LinkProps) => {
+    console.log(href);
+    console.log(children);
     // Check if URL ends with image extensions
     const isImage = href?.match(/\.(jpg|jpeg|png|gif|webp)$/i);
     
     if (isImage) {
       return (
-        <img 
-          src={href} 
-          alt={children?.toString() || 'Chat image'} 
-          className="max-w-[200px] rounded-lg my-2"
-        />
+        <>
+          <img 
+            src={href} 
+            alt={children?.toString() || 'Chat image'} 
+            className="max-w-[200px] rounded-lg my-2"
+          />
+          <a 
+            href={href} 
+            className="underline text-blue-700" 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            {children}
+          </a>
+        </>
       );
     }
     
