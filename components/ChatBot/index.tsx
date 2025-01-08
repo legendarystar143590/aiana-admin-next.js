@@ -33,14 +33,15 @@ const component = {
         }
         
         return (
-        <a 
-            href={href} 
-            className="underline text-blue-700" 
-            target="_blank" 
-            rel="noopener noreferrer"
-        >
-            {children}
-        </a>
+            <></>
+        // <a 
+        //     href={href} 
+        //     className="underline text-blue-700" 
+        //     target="_blank" 
+        //     rel="noopener noreferrer"
+        // >
+        //     {children}
+        // </a>
         );
     }
 }
