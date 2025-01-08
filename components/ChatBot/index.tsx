@@ -17,31 +17,33 @@ interface LinkProps {
 
 const component = {
     a: ({href, children}: LinkProps) => {
-      // Check if URL ends with image extensions
-      const isImage = href?.match(/\.(jpg|jpeg|png|gif|webp)$/i);
-      
-      if (isImage) {
+        // Check if URL ends with image extensions
+        const isImage = href?.match(/\.(jpg|jpeg|png|gif|webp)$/i);
+        console.log(href);
+        console.log(children);
+        
+        if (isImage) {
+            return (
+                <img 
+                src={href} 
+                alt={children?.toString() || 'Chat image'} 
+                className="max-w-[200px] rounded-lg my-2"
+                />
+            );
+        }
+        
         return (
-          <img 
-            src={href} 
-            alt={children?.toString() || 'Chat image'} 
-            className="max-w-[200px] rounded-lg my-2"
-          />
-        );
-      }
-      
-      return (
         <a 
-          href={href} 
-          className="underline text-blue-700" 
-          target="_blank" 
-          rel="noopener noreferrer"
+            href={href} 
+            className="underline text-blue-700" 
+            target="_blank" 
+            rel="noopener noreferrer"
         >
-          {children}
+            {children}
         </a>
-      );
+        );
     }
-  }
+}
 
 const options: Intl.DateTimeFormatOptions = {
     weekday: 'short',
@@ -197,7 +199,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                 } else if (error.request) {
                     // The request was made but no response was received
                     console.log('Error request:', error.request);
-                    customerToast({type:'error', title: `${error.request}`, content: ""})
+                    customerToast({type:'error', title: `${error.message}`, content: ""})
 
                 } else {
                     // Something happened in setting up the request that triggered an Error
