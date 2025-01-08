@@ -323,7 +323,7 @@ const ChatBot = ({ userIndex, botId, website }) => {
                                 >
                                     <div className={`flex gap-2 ${message.isBot ? '' : 'flex-row-reverse'} items-center`}>
                                         <img
-                                            src={message.isBot ? bot.avatar : "/images/logo_short_black.jpg"}
+                                            src={message.isBot ? bot.avatar : "/images/logo_short_black.png"}
                                             alt="avatar"
                                             className={`rounded-full size-12 ${!message.isBot && "hidden"}`}
                                         />
