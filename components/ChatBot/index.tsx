@@ -32,19 +32,8 @@ const component = {
             );
         }
         
-        return (
-            <></>
-        // <a 
-        //     href={href} 
-        //     className="underline text-blue-700" 
-        //     target="_blank" 
-        //     rel="noopener noreferrer"
-        // >
-        //     {children}
-        // </a>
-        );
-    }
-}
+        return null;
+    }}
 
 const options: Intl.DateTimeFormatOptions = {
     weekday: 'short',
